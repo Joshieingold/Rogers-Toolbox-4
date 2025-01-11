@@ -9,4 +9,36 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Icons\BarcodeIcon.png" />
+    <None Remove="Icons\BlitzIcon.png" />
+    <None Remove="Icons\CompareListIcon.png" />
+    <None Remove="Icons\CTRIcon.png" />
+    <None Remove="Icons\DatabaseIcon.png" />
+    <None Remove="Icons\FlexiIcon.png" />
+    <None Remove="Icons\FormatSerialsIcon.png" />
+    <None Remove="Icons\GraphIcon.png" />
+    <None Remove="Icons\LotSheetIcon.png" />
+    <None Remove="Icons\OpenExcelIcon.png" />
+    <None Remove="Icons\PurolatorIcon.png" />
+    <None Remove="Icons\SettingsIcon.png" />
+    <None Remove="Icons\WMSIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\BarcodeIcon.png" />
+    <Resource Include="Icons\BlitzIcon.png" />
+    <Resource Include="Icons\CompareListIcon.png" />
+    <Resource Include="Icons\CTRIcon.png" />
+    <Resource Include="Icons\DatabaseIcon.png" />
+    <Resource Include="Icons\FlexiIcon.png" />
+    <Resource Include="Icons\FormatSerialsIcon.png" />
+    <Resource Include="Icons\GraphIcon.png" />
+    <Resource Include="Icons\LotSheetIcon.png" />
+    <Resource Include="Icons\OpenExcelIcon.png" />
+    <Resource Include="Icons\PurolatorIcon.png" />
+    <Resource Include="Icons\SettingsIcon.png" />
+    <Resource Include="Icons\WMSIcon.png" />
+  </ItemGroup>
+
 </Project>

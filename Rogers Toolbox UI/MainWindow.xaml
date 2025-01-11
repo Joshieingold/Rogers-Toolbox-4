@@ -50,67 +50,67 @@
         <DockPanel Background="#FF1F1F1F" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 
-                <Button x:Name="OpenExcelButton" Tag="OpenExcelIcon.png" Width="48" Height="48">
+                <Button x:Name="OpenExcelButton" Tag="Icons/OpenExcelIcon.png" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="BlitzButton" Tag="BlitzIcon.png" Width="48" Height="48">
+                <Button x:Name="BlitzButton" Tag="Icons/BlitzIcon.png" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Blitz Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FlexiButton" Tag="FlexiIcon.png" Width="48" Height="48">
+                <Button x:Name="FlexiButton" Tag="Icons/FlexiIcon.png" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="FlexiPro Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="WMSButton" Tag="WMSIcon.png"  Width="48" Height="48">
+                <Button x:Name="WMSButton" Tag="Icons/WMSIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="WMS Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="CTRButton" Tag="CTRIcon.png"  Width="48" Height="48">
+                <Button x:Name="CTRButton" Tag="Icons/CTRIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="PurolatorButton" Tag="PurolatorIcon.png"  Width="48" Height="48">
+                <Button x:Name="PurolatorButton" Tag="Icons/PurolatorIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Purolator Sheets" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="BarcodeButton" Tag="BarcodeIcon.png"  Width="48" Height="48">
+                <Button x:Name="BarcodeButton" Tag="Icons/BarcodeIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Barcodes" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="LotSheetButton" Tag="LotSheetIcon.png"  Width="48" Height="48">
+                <Button x:Name="LotSheetButton" Tag="Icons/LotSheetIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Lot Sheets" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="CompareListButton" Tag="CompareListIcon.png"  Width="48" Height="48">
+                <Button x:Name="CompareListButton" Tag="Icons/CompareListIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FormatSerialsButton" Tag="FormatSerialsIcon.png"  Width="48" Height="48">
+                <Button x:Name="FormatSerialsButton" Tag="Icons/FormatSerialsIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Format Serials" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="DatabaseButton" Tag="DatabaseIcon.png"  Width="48" Height="48">
+                <Button x:Name="DatabaseButton" Tag="Icons/DatabaseIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Database" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="GraphButton" Tag="GraphIcon.png"  Width="48" Height="48">
+                <Button x:Name="GraphButton" Tag="Icons/GraphIcon.png"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="View Monthly Statistics" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="SettingsButton" Tag="SettingsIcon.png" Width="48" Height="48">
+                <Button x:Name="SettingsButton" Tag="Icons/SettingsIcon.png" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Settings" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

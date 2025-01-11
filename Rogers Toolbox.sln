@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogers Toolbox Class Library", "RogersToolbox\Rogers Toolbox Class Library.csproj", "{3CD93C98-0DEF-46E5-81AD-305A3C2BB605}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogers Toolbox UI", "Rogers Toolbox UI\Rogers Toolbox UI.csproj", "{81038314-16C1-4F98-9207-EAB862F048FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolbox Class Library", "Toolbox Class Library\Toolbox Class Library.csproj", "{A06FB8B0-2266-4480-B686-455E70855A9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3CD93C98-0DEF-46E5-81AD-305A3C2BB605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CD93C98-0DEF-46E5-81AD-305A3C2BB605}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CD93C98-0DEF-46E5-81AD-305A3C2BB605}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CD93C98-0DEF-46E5-81AD-305A3C2BB605}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81038314-16C1-4F98-9207-EAB862F048FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81038314-16C1-4F98-9207-EAB862F048FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81038314-16C1-4F98-9207-EAB862F048FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81038314-16C1-4F98-9207-EAB862F048FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06FB8B0-2266-4480-B686-455E70855A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06FB8B0-2266-4480-B686-455E70855A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06FB8B0-2266-4480-B686-455E70855A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06FB8B0-2266-4480-B686-455E70855A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
