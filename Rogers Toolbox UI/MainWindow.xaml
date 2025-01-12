@@ -55,7 +55,7 @@
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="BlitzButton" Tag="Icons/BlitzIcon.png" Width="48" Height="48">
+                <Button x:Name="BlitzButton" Tag="Icons/BlitzIcon.png" Click="Button_Click" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Blitz Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
