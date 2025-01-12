@@ -1,5 +1,6 @@
-﻿using System.Windows;
-
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Windows;
+using RogersToolbox;
 
 
 namespace Rogers_Toolbox_UI
@@ -9,10 +10,11 @@ namespace Rogers_Toolbox_UI
         public MainWindow()
         {
             InitializeComponent();
+            InitializeData();
         }
         public void InitializeData()
         {
-            
+            ActiveSerials CurrentSerials = new ActiveSerials("");
         }
     }
 }

@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Toolbox Class Library\Toolbox Class Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icons\BarcodeIcon.png" />
     <Resource Include="Icons\BlitzIcon.png" />
     <Resource Include="Icons\CompareListIcon.png" />

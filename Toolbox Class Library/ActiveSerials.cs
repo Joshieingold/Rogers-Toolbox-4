@@ -4,7 +4,7 @@ namespace RogersToolbox
 {
     public class ActiveSerials
     {
-        public List<SerialNumber> Serials { get; private set; }
+        public List<SerialNumber> Serials { get; set; }
 
         public ActiveSerials(string serialString) 
         {
