@@ -54,13 +54,22 @@ namespace RogersToolbox
 
             foreach (SerialNumber serial in serialsToProcess)
             {
-                await SimulateTyping(serial.Serial);
+                if (serial.Serial == "*")
+                {
+                    Serials.Remove(serial);
+                    break;
+                }
+                else
+                {
+                    await SimulateTyping(serial.Serial);
 
-                // Remove the serial from the original list after processing
-                Serials.Remove(serial);
+                    // Remove the serial from the original list after processing
+                    Serials.Remove(serial);
 
-                SimulateTabKey(); // Simulate pressing the Tab key or any other key as needed
-                await Task.Delay(blitzImportSpeed); // Delay between serials
+                    SimulateTabKey(); // Simulate pressing the Tab key or any other key as needed
+                    await Task.Delay(blitzImportSpeed); // Delay between serials
+                }
+                
             }
         }
 
