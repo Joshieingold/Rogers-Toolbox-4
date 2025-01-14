@@ -47,7 +47,7 @@ namespace RogersToolbox
         // Button Click Functions
         public async Task BlitzImport()
         {
-            await Task.Delay(6000); // Initial delay before starting the import
+            
 
             // Create a copy of the list to avoid modifying the collection while iterating
             var serialsToProcess = new List<SerialNumber>(Serials);

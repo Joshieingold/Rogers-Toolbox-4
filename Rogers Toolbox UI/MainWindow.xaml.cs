@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Reactive.Concurrency;
+using System.Windows;
 using RogersToolbox;
+using System;
 
 namespace Rogers_Toolbox_UI
 {
@@ -30,9 +33,19 @@ namespace Rogers_Toolbox_UI
             switch (button.Name)
             {
                 case "BlitzButton":
-                    UpdateMessage("Trying to Blitz Import :(");
-                    await CurrentSerials.BlitzImport(); // Ensure BlitzImport is awaited
-                    UpdateSerialsDisplay(); // Update the display after blitz import
+                    Stopwatch stopwatch = new Stopwatch();
+                    UpdateMessage("Starting Blitz Import, Please click target Location");
+                    await Task.Delay(6000); // Initial delay before starting the import
+                    stopwatch.Start();
+                    await CurrentSerials.BlitzImport(); 
+                    UpdateSerialsDisplay();
+                    stopwatch.Stop(); // TIME!
+
+                    TimeSpan ts = stopwatch.Elapsed;
+                    string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                    UpdateMessage($"Import Completed in {elapsedTime}");
                     break;
 
                 // Add cases for other buttons as needed
