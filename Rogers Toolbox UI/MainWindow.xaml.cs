@@ -36,7 +36,7 @@ namespace Rogers_Toolbox_UI
                 case "BlitzButton":
                     Stopwatch stopwatch = new Stopwatch();
                     UpdateMessage("Starting Blitz Import, Please click target Location");
-                    await Task.Delay(6000); // Initial delay before starting the import
+                    await Task.Delay(6000); 
                     stopwatch.Start();
                     await CurrentSerials.BlitzImport(); 
                     UpdateSerialsDisplay();
@@ -54,7 +54,6 @@ namespace Rogers_Toolbox_UI
                     UpdateSerialsDisplay();
                     break;
 
-                // Add cases for other buttons as needed
 
                 default:
                     UpdateMessage("Didn't read anything :(");
@@ -94,6 +93,19 @@ namespace Rogers_Toolbox_UI
             // Update the line number label with the new line numbers
             LineNumberLabel.Text = lineNumbers;
 
+
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) // Counts the new lines in the textbox to allow for a serial count next to the serials.
+        {
+            // Split the text of the TextBox into lines based on newline characters
+            var lines = TextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+            // Create the line number text (e.g., 1, 2, 3, ...)
+            var lineNumbers = string.Join("\n", lines.Select((line, index) => $"{index + 1}:"));
+
+            // Update the line number label with the new line numbers
+            LineNumberLabel.Text = lineNumbers;
+            InfoBox.Content = ($"{lines.Count()} Serials Loaded");
 
         }
     }

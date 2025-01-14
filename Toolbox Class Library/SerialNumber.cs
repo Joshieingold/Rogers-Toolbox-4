@@ -4,11 +4,13 @@
     {
         public string Serial { get; set; }
         public string Device { get; set; }
+        public string Location { get; set; }
 
         public SerialNumber(string serial) 
         {
             Serial = serial;
             Device = DetermineDevice(Serial);
+            Location = "Unknown";
         }
         private string DetermineDevice(string Serial)
         {
@@ -26,6 +28,10 @@
                 return "XE2SGROG1";
             else
                 return "TG4482A";
+        }
+        private void SetLocation(string NewLocation)
+        {
+            Location = NewLocation;
         }
 
     }
