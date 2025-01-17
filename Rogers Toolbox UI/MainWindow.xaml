@@ -49,8 +49,8 @@
         <!-- Navigation Bar -->
         <DockPanel Background="#FF1F1F1F" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                
-                <Button x:Name="OpenExcelButton" Tag="Icons/OpenExcelIcon.png" Width="48" Height="48">
+
+                <Button x:Name="OpenExcelButton" Tag="Icons/OpenExcelIcon.png" Width="48" Height="48" Click="Button_Click">
                     <Button.ToolTip>
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
@@ -123,7 +123,7 @@
                HorizontalAlignment="Center" Height="34" Margin="0,78,0,0" 
                VerticalAlignment="Top" Width="500" Foreground="White" 
                FontSize="15" FontFamily="Sitka Text" Background="#FF1F1F1F" 
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
 
         <!-- Scrollable Content Area -->
@@ -132,14 +132,14 @@
                 <!-- Line Numbers -->
                 <StackPanel Orientation="Vertical" Margin="10,0,10,0" Background="#FF383838">
                     <Grid>
-                        <TextBlock x:Name="LineNumberLabel" Foreground="White" Background="#FF383838" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <TextBlock x:Name="LineNumberLabel" Foreground="White" Background="#FF383838" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
                     </Grid>
                 </StackPanel>
 
                 <!-- Input TextBox -->
                 <TextBox x:Name="TextBox" Width="648" TextWrapping="Wrap" 
                          Foreground="White" Background="#FF383838" AcceptsReturn="True" 
-                          BorderBrush="{x:Null}" VerticalAlignment="Stretch"/>
+                          BorderBrush="{x:Null}" VerticalAlignment="Stretch" TextChanged="TextBox_TextChanged"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

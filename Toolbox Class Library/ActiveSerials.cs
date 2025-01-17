@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Shapes;
 using WindowsInput;
+using ClosedXML.Excel;
 namespace RogersToolbox
 {
     public class ActiveSerials
@@ -48,8 +50,6 @@ namespace RogersToolbox
         public async Task BlitzImport()
         {
             
-
-            // Create a copy of the list to avoid modifying the collection while iterating
             var serialsToProcess = new List<SerialNumber>(Serials);
 
             foreach (SerialNumber serial in serialsToProcess)
@@ -72,6 +72,49 @@ namespace RogersToolbox
                 
             }
         }
+        private string GetSerialsFromExcel(string filePath)
+        {
+            try
+            {
+                Serials = new List<SerialNumber>();
+                using (var workbook = new XLWorkbook(filePath))
+                {
+                    var worksheet = workbook.Worksheet(1); // Load the first sheet
 
+                    // Iterate through rows in the first column and get their values.
+                    foreach (var row in worksheet.RowsUsed())
+                    {
+                        var cellValue = row.Cell(1).GetValue<string>();
+                        if (!string.IsNullOrWhiteSpace(cellValue))
+                        {
+                            Serials.Add(new SerialNumber(cellValue.Trim()));
+                        }
+                    }
+                }
+                return string.Join(Environment.NewLine, Serials.Select(s => s.Serial));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Failed to load serials: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return "Error";
+            }
+        } // Gets all data form the first column of the loaded excel file/
+        public string OpenExcel()
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Open an Excel file for use",
+                Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return GetSerialsFromExcel(openFileDialog.FileName);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        } // Establishes a path to the target excel for importing serials.
     }
 }

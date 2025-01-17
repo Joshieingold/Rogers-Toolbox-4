@@ -3,6 +3,7 @@ using System.Reactive.Concurrency;
 using System.Windows;
 using RogersToolbox;
 using System;
+using System.Windows.Controls;
 
 namespace Rogers_Toolbox_UI
 {
@@ -47,6 +48,11 @@ namespace Rogers_Toolbox_UI
                     ts.Milliseconds / 10);
                     UpdateMessage($"Import Completed in {elapsedTime}");
                     break;
+                case "OpenExcelButton":
+                    ActiveSerials TempList = new ActiveSerials(CurrentSerials.OpenExcel());
+                    CurrentSerials = TempList;
+                    UpdateSerialsDisplay();
+                    break;
 
                 // Add cases for other buttons as needed
 
@@ -76,6 +82,19 @@ namespace Rogers_Toolbox_UI
             TextBox.Text = CurrentSerials.GetRemainingSerials(); // Get remaining serials from CurrentSerials
             int remainingSerials = CurrentSerials.Serials.Count; // Update remaining serials count
             InfoBox.Content = ($"{remainingSerials} Serials Loaded");
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) // Counts the new lines in the textbox to allow for a serial count next to the serials.
+        {
+            // Split the text of the TextBox into lines based on newline characters
+            var lines = TextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+            // Create the line number text (e.g., 1, 2, 3, ...)
+            var lineNumbers = string.Join("\n", lines.Select((line, index) => $"{index + 1}:"));
+
+            // Update the line number label with the new line numbers
+            LineNumberLabel.Text = lineNumbers;
+
+
         }
     }
 }
