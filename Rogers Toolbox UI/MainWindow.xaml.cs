@@ -108,5 +108,5 @@ namespace Rogers_Toolbox_UI
             InfoBox.Content = ($"{lines.Count()} Serials Loaded");
 
         }
-    }
+    }//i'm so pretty
 }
