@@ -95,18 +95,7 @@ namespace Rogers_Toolbox_UI
 
 
         }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) // Counts the new lines in the textbox to allow for a serial count next to the serials.
-        {
-            // Split the text of the TextBox into lines based on newline characters
-            var lines = TextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-            // Create the line number text (e.g., 1, 2, 3, ...)
-            var lineNumbers = string.Join("\n", lines.Select((line, index) => $"{index + 1}:"));
-
-            // Update the line number label with the new line numbers
-            LineNumberLabel.Text = lineNumbers;
-            InfoBox.Content = ($"{lines.Count()} Serials Loaded");
-
-        }
-    }//i'm so pretty
+    }
 }
+// Adventure Checklist.
+// Equipment Checklist.
