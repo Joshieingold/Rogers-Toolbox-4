@@ -11,11 +11,13 @@ namespace Rogers_Toolbox_UI
     {
         // Define CurrentSerials at the class level
         private ActiveSerials CurrentSerials;
+        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.0 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeData();
+            DataContext = this;
         }
         public void InitializeData()
         {

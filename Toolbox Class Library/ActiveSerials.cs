@@ -12,6 +12,7 @@ namespace RogersToolbox
         private InputSimulator inputSimulator = new InputSimulator();
         private int typingSpeed { get; set;}
         private int blitzImportSpeed { get; set; }
+        private bool reverseImport { get; set; }
 
         public ActiveSerials(string serialString) 
         {
@@ -99,6 +100,17 @@ namespace RogersToolbox
                 return "Error";
             }
         } // Gets all data form the first column of the loaded excel file/
+        public string ReverseSerials(string input)
+        {
+            // Split the input string by newlines
+            string[] lines = input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+            // Reverse the array of lines
+            Array.Reverse(lines);
+
+            // Join the reversed lines back into a single string with newlines
+            return string.Join(Environment.NewLine, lines);
+        }
         public string OpenExcel()
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
@@ -109,7 +121,14 @@ namespace RogersToolbox
 
             if (openFileDialog.ShowDialog() == true)
             {
-                return GetSerialsFromExcel(openFileDialog.FileName);
+                if (Toolbox_Class_Library.Properties.Settings.Default.ReverseImport == true)
+                {
+                    return ReverseSerials(GetSerialsFromExcel(openFileDialog.FileName));
+                }
+                else 
+                {
+                   return GetSerialsFromExcel(openFileDialog.FileName); 
+                }
             }
             else
             {

@@ -119,7 +119,7 @@
         </DockPanel>
 
         <!-- Info Box -->
-        <Label x:Name="InfoBox" Content="Welcome to The Rogers Toolbox v4.0" 
+        <Label x:Name="InfoBox" Content="{Binding StartupText}" 
                HorizontalAlignment="Center" Height="34" Margin="0,78,0,0" 
                VerticalAlignment="Top" Width="500" Foreground="White" 
                FontSize="15" FontFamily="Sitka Text" Background="#FF1F1F1F" 

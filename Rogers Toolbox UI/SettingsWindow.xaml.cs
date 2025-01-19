@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,15 @@ namespace Rogers_Toolbox_UI
         {
             InitializeComponent();
             this.DataContext = Toolbox_Class_Library.Properties.Settings.Default;
+        }
+        
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Save all the settings to persistent storage
+            Toolbox_Class_Library.Properties.Settings.Default.Save();
+
+            // Close the settings window (optional)
+            this.Close();
         }
     }
 }
