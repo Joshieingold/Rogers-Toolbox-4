@@ -17,13 +17,11 @@ namespace Rogers_Toolbox_UI
             InitializeComponent();
             InitializeData();
         }
-
         public void InitializeData()
         {
-            // Initialize CurrentSerials with an empty string or any default value
-            CurrentSerials = new ActiveSerials("");
-        }
-
+            
+            CurrentSerials = new ActiveSerials(""); // Initialize CurrentSerials with an empty string or any default value
+        } // Initialize Data
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as System.Windows.Controls.Button;
@@ -62,7 +60,7 @@ namespace Rogers_Toolbox_UI
                     UpdateMessage("Didn't read anything :(");
                     break;
             }
-        }
+        } // Handles what happens when a button is clicked
         private ActiveSerials GetTextboxText()
         {
             // Split the TextBox text into lines and create a new ActiveSerials instance
@@ -72,19 +70,19 @@ namespace Rogers_Toolbox_UI
             ActiveSerials tempList = new ActiveSerials(output);
 
             return tempList;
-        }
+        } // Gets the Textbox text and converts it to our current Active Serials
         private void UpdateMessage(string text)
         {
             InfoBox.Content = (text);
-        }
+        }  // Updates the Textbox that communicates to the user. 
         private void UpdateSerialsDisplay()
         {
             TextBox.Clear();
             TextBox.Text = CurrentSerials.GetRemainingSerials(); // Get remaining serials from CurrentSerials
             int remainingSerials = CurrentSerials.Serials.Count; // Update remaining serials count
             InfoBox.Content = ($"{remainingSerials} Serials Loaded");
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) // Counts the new lines in the textbox to allow for a serial count next to the serials.
+        } // Specifically Updates the Textbox to communicate with the user how many serials are currently loaded.
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) 
         {
             // Split the text of the TextBox into lines based on newline characters
             var lines = TextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -96,7 +94,7 @@ namespace Rogers_Toolbox_UI
             LineNumberLabel.Text = lineNumbers;
 
 
-        }
+        } // Detects when the input box has changed and updates the user textbox with how many there are in real time.
     }
 }
 
