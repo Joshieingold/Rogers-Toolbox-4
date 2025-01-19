@@ -110,7 +110,7 @@
                         <ToolTip Content="View Monthly Statistics" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="SettingsButton" Tag="Icons/SettingsIcon.png" Width="48" Height="48">
+                <Button x:Name="SettingsButton"  Click="Button_Click" Tag="Icons/SettingsIcon.png" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Settings" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

@@ -53,14 +53,16 @@ namespace Rogers_Toolbox_UI
                     CurrentSerials = TempList;
                     UpdateSerialsDisplay();
                     break;
-
+                case "SettingsButton":
+                    SettingsWindow settingsWindow = new SettingsWindow();
+                    settingsWindow.ShowDialog();
+                    break;
 
                 default:
                     UpdateMessage("Didn't read anything :(");
                     break;
             }
         }
-
         private ActiveSerials GetTextboxText()
         {
             // Split the TextBox text into lines and create a new ActiveSerials instance
@@ -97,5 +99,4 @@ namespace Rogers_Toolbox_UI
         }
     }
 }
-// Adventure Checklist.
-// Equipment Checklist.
+

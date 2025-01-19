@@ -22,6 +22,7 @@ namespace Rogers_Toolbox_UI
         public SettingsWindow()
         {
             InitializeComponent();
+            this.DataContext = Toolbox_Class_Library.Properties.Settings.Default;
         }
     }
 }
