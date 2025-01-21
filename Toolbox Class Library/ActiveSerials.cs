@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using WindowsInput;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing;
 namespace RogersToolbox
 {
     public class ActiveSerials
@@ -13,6 +14,7 @@ namespace RogersToolbox
         private int typingSpeed { get; set;}
         private int blitzImportSpeed { get; set; }
         private bool reverseImport { get; set; }
+        private int flexiproImportSpeed { get; set; }
 
         public ActiveSerials(string serialString) 
         {
@@ -25,6 +27,7 @@ namespace RogersToolbox
             }
             typingSpeed = Toolbox_Class_Library.Properties.Settings.Default.TypingSpeed;
             blitzImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.BlitzImportSpeed;
+            flexiproImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.FlexiProImportSpeed;
         }
         //  Helper Functions
         private async Task SimulateTyping(string text)
@@ -44,9 +47,6 @@ namespace RogersToolbox
         {
             return string.Join(Environment.NewLine, Serials.Select(s => s.Serial));
         }
-        // I love you 
-
-
         // Button Click Functions
         public async Task BlitzImport()
         {
@@ -135,5 +135,26 @@ namespace RogersToolbox
                 return string.Empty;
             }
         } // Establishes a path to the target excel for importing serials.
+        public async Task FlexiImport(ActiveSerials SerialList)
+        {
+            try 
+            {
+                string CurrentDevice = (SerialList.Serials[0]).Device;
+                int Quantity = (SerialList.Serials).Count;
+                DateTime i = DateTime.Now;
+                DateTime utcDateTime = i.ToUniversalTime();
+
+                foreach (SerialNumber Serial in SerialList.Serials)
+                {
+
+                }
+            }
+            catch
+            {
+                Console.WriteLine("There was an Error.");
+            }
+            
+
+        }
     }
 }
