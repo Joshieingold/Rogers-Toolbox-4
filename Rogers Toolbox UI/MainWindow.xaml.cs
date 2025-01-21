@@ -94,6 +94,7 @@ namespace Rogers_Toolbox_UI
 
             // Update the line number label with the new line numbers
             LineNumberLabel.Text = lineNumbers;
+            UpdateMessage($"{lines.Count()} Serials Loaded");
 
 
         } // Detects when the input box has changed and updates the user textbox with how many there are in real time.
