@@ -54,7 +54,7 @@ namespace Rogers_Toolbox_UI
                     UpdateSerialsDisplay();
                     break;
                 case "SettingsButton":
-                    SettingsWindow settingsWindow = new SettingsWindow();
+                    SettingsWindow settingsWindow = new SettingsWindow(this);
                     settingsWindow.ShowDialog();
                     break;
 
@@ -73,7 +73,7 @@ namespace Rogers_Toolbox_UI
 
             return tempList;
         } // Gets the Textbox text and converts it to our current Active Serials
-        private void UpdateMessage(string text)
+        public void UpdateMessage(string text)
         {
             InfoBox.Content = (text);
         }  // Updates the Textbox that communicates to the user. 

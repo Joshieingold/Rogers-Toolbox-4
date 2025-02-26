@@ -1,38 +1,159 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Toolbox_Class_Library.CtrUpdate;
+using Toolbox_Class_Library.Properties;
 
 namespace Rogers_Toolbox_UI
 {
-    /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
-    /// </summary>
     public partial class SettingsWindow : Window
     {
-        public SettingsWindow()
+        private MainWindow mainWindow;
+        private List<ContractorCategory> contractorCategories = new();
+
+        public SettingsWindow(MainWindow main)
         {
             InitializeComponent();
-            this.DataContext = Toolbox_Class_Library.Properties.Settings.Default;
+            this.DataContext = Settings.Default;
+            mainWindow = main;
+            LoadContractorData();
         }
-        
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Save all the settings to persistent storage
-            Toolbox_Class_Library.Properties.Settings.Default.Save();
-
-            // Close the settings window (optional)
+            Settings.Default.Save();
+            mainWindow.UpdateMessage($"Your settings have been successfully updated {Settings.Default.Username}!");
             this.Close();
         }
+
+        public List<ContractorCategory> LoadContractorData()
+        {
+            string jsonData = Settings.Default.ContractorData;
+
+            if (string.IsNullOrWhiteSpace(jsonData))
+                return new List<ContractorCategory>();
+
+            contractorCategories = JsonSerializer.Deserialize<List<ContractorCategory>>(jsonData) ?? new List<ContractorCategory>();
+
+            ContractorCategoryComboBox.ItemsSource = contractorCategories;
+            return contractorCategories;
+        }
+
+        public void SaveContractorData(List<ContractorCategory> categories)
+        {
+            string jsonData = JsonSerializer.Serialize(categories);
+            Settings.Default.ContractorData = jsonData;
+            Settings.Default.Save();
+        }
+
+        private void AddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            string categoryName = NewCategoryTextBox.Text.Trim();
+            if (string.IsNullOrEmpty(categoryName) || contractorCategories.Any(c => c.Name == categoryName)) return;
+
+            var newCategory = new ContractorCategory { Name = categoryName };
+            contractorCategories.Add(newCategory);
+            ContractorCategoryComboBox.Items.Refresh();
+            SaveContractorData(contractorCategories);
+        }
+
+        private void ContractorCategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory)
+            {
+                DevicesListBox.ItemsSource = selectedCategory.Devices;
+                CtrIDListBox.ItemsSource = selectedCategory.CtrIDs;
+            }
+        }
+
+        private void AddDevice_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory)
+            {
+                string deviceName = DeviceNameTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(deviceName) && !selectedCategory.Devices.Contains(deviceName))
+                {
+                    selectedCategory.Devices.Add(deviceName);
+                    DevicesListBox.Items.Refresh();
+                    SaveContractorData(contractorCategories);
+                }
+            }
+        }
+
+        private void AddCtrID_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory)
+            {
+                string ctrID = CtrIDTextBox.Text.Trim();  // Get CTR ID as a string
+
+                if (!string.IsNullOrEmpty(ctrID) && !selectedCategory.CtrIDs.Contains(ctrID))  // Check if it's not empty and not in the list
+                {
+                    selectedCategory.CtrIDs.Add(ctrID);  // Add as a string
+
+                    // Force UI to update
+                    CtrIDListBox.ItemsSource = null;
+                    CtrIDListBox.ItemsSource = selectedCategory.CtrIDs;
+
+                    SaveContractorData(contractorCategories);
+                }
+            }
+        }
+
+
+
+
+        private void DeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory)
+            {
+                contractorCategories.Remove(selectedCategory);
+                SaveContractorData(contractorCategories);
+
+                // Refresh UI
+                ContractorCategoryComboBox.ItemsSource = null;
+                ContractorCategoryComboBox.ItemsSource = contractorCategories;
+                DevicesListBox.ItemsSource = null;
+                CtrIDListBox.ItemsSource = null;
+            }
+        }
+        private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory &&
+                DevicesListBox.SelectedItem is string selectedDevice)
+            {
+                selectedCategory.Devices.Remove(selectedDevice);
+                DevicesListBox.ItemsSource = null;
+                DevicesListBox.ItemsSource = selectedCategory.Devices;
+                SaveContractorData(contractorCategories);
+            }
+        }
+        private void RemoveCtrID_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory &&
+                CtrIDListBox.SelectedItem is string selectedCtrID)  // Ensure it's a string
+            {
+                selectedCategory.CtrIDs.Remove(selectedCtrID);  // Remove string from the list
+                CtrIDListBox.ItemsSource = null;
+                CtrIDListBox.ItemsSource = selectedCategory.CtrIDs;  // Update UI
+                SaveContractorData(contractorCategories);  // Save changes
+            }
+        }
+
+
+
+
+
+
+    }
+
+    public class ContractorCategory
+    {
+        public string Name { get; set; }
+        public List<string> Devices { get; set; } = new();
+        public List<string> CtrIDs { get; set; } = new();
     }
 }

@@ -40,7 +40,7 @@
                         <Setter Property="Background" Value="#FF3A3A3A" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Background" Value="#FF350F0F" />
+                        <Setter Property="Background" Value="#CA3E47" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -119,15 +119,16 @@
         </DockPanel>
 
         <!-- Info Box -->
-        <Label x:Name="InfoBox" Content="{Binding StartupText}" 
-               HorizontalAlignment="Center" Height="34" Margin="0,78,0,0" 
-               VerticalAlignment="Top" Width="500" Foreground="White" 
+        <Border CornerRadius="10" Background="#FF1F1F1F" BorderThickness="2" BorderBrush="#FF1F1F1F" Padding="0" Margin="0,85,0,0" Height="27" VerticalAlignment="Top" HorizontalAlignment="Center" Width="464">
+            <Label x:Name="InfoBox" Content="{Binding StartupText}" Margin="8,-2,8,-2" Foreground="White" 
                FontSize="15" FontFamily="Sitka Text" Background="#FF1F1F1F" 
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
+        </Border>
+
 
         <!-- Scrollable Content Area -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,127,0,30" HorizontalAlignment="Center" Width="699">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,127,0,30" HorizontalAlignment="Center" Width="700">
             <StackPanel Orientation="Horizontal">
                 <!-- Line Numbers -->
                 <StackPanel Orientation="Vertical" Margin="10,0,10,0" Background="#FF383838">
@@ -139,7 +140,7 @@
                 <!-- Input TextBox -->
                 <TextBox x:Name="TextBox" Width="648" TextWrapping="Wrap" 
                          Foreground="White" Background="#FF383838" AcceptsReturn="True" 
-                          BorderBrush="{x:Null}" VerticalAlignment="Stretch" TextChanged="TextBox_TextChanged"/>
+                          BorderBrush="{x:Null}" VerticalAlignment="Stretch" TextChanged="TextBox_TextChanged" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -52,8 +52,53 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Contractor" Background="#FF1F1F1F" BorderBrush="#FF383838" Foreground="#FF565656">
-                <Grid Background="#FF383838"/>
+                <Grid Background="#FF383838">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <!-- Select or Create Contractor Category -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <TextBlock Foreground="White" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="CTR Categories:"/></TextBlock>
+                                <ComboBox x:Name="ContractorCategoryComboBox" Width="200" SelectionChanged="ContractorCategoryComboBox_SelectionChanged" DisplayMemberPath="Name" Background="#FF2E2E2E" Foreground="Black" BorderBrush="#FF0C0C0C"/>
+                                <Button Content="Delete" Click="DeleteCategory_Click" Foreground="White" Background="#FF2E2E2E" Margin="10,0,0,0" BorderBrush="Black" Width="49"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="White" Width="120" VerticalAlignment="Center"><Run Text="Add "/><Run Language="en-ca" Text="CTR "/><Run Text="Category:"/></TextBlock>
+                                <TextBox x:Name="NewCategoryTextBox" Width="150" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddCategory_Click" Margin="0,0,10,0" Width="36" Background="#FF2E2E2E" Foreground="White" BorderBrush="Black"/>
+
+                            </StackPanel>
+
+                            <!-- Devices Associated with Category -->
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="White" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Associated Devices"/></TextBlock>
+                                <ListBox x:Name="DevicesListBox" Width="250" Height="100" DisplayMemberPath="" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="White" Width="127" VerticalAlignment="Center"><Run Language="en-ca" Text="Add / Remove Device"/></TextBlock>
+                                <TextBox x:Name="DeviceNameTextBox" Width="150" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddDevice_Click" Margin="0,0,10,0" Width="36" Background="#FF2E2E2E" Foreground="White" BorderBrush="Black"/>
+                                <Button Content="Remove Device" Click="RemoveDevice_Click" Foreground="White" Background="#FF2E2E2E" BorderBrush="Black" Width="90"/>
+                            </StackPanel>
+
+                            <!-- CTR IDs Associated with Category -->
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="White" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Associated CTRs"/></TextBlock>
+                                <ListBox x:Name="CtrIDListBox" Width="250" Height="100" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="White" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Add / Remove CTR"/></TextBlock>
+                                <TextBox x:Name="CtrIDTextBox" Width="150" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddCtrID_Click" Margin="0,0,10,0" Width="36" Background="#FF2E2E2E" Foreground="White" BorderBrush="Black"/>
+                                <Button Content="Remove CTR" Click="RemoveCtrID_Click" Foreground="White" Background="#FF2E2E2E" BorderBrush="Black" Width="81"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </TabItem>
+
+
+
 
         </TabControl>
         <Button Content="Save" Margin="0,0,0,10" Click="SaveButton_Click" Background="#FF1F1F1F" Foreground="White" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="64" Height="19" VerticalAlignment="Bottom"/>
