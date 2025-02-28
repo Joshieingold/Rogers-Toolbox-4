@@ -70,7 +70,7 @@
                         <ToolTip Content="WMS Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="CTRButton" Tag="Icons/CTRIcon.png"  Width="48" Height="48">
+                <Button x:Name="CTRButton" Tag="Icons/CTRIcon.png" Click="Button_Click" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

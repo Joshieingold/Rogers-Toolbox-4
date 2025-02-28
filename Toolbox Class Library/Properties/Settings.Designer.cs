@@ -15,7 +15,7 @@ namespace Toolbox_Class_Library.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        public static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
             get {
@@ -92,6 +92,31 @@ namespace Toolbox_Class_Library.Properties {
             }
             set {
                 this["ContractorData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1" +
+            ", NF1")]
+        public string CtrOrder {
+            get {
+                return ((string)(this["CtrOrder"]));
+            }
+            set {
+                this["CtrOrder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD")]
+        public string GroupedDevices {
+            get {
+                return ((string)(this["GroupedDevices"]));
+            }
+            set {
+                this["GroupedDevices"] = value;
             }
         }
     }

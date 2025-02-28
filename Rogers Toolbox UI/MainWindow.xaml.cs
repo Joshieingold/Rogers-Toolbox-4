@@ -4,6 +4,7 @@ using System.Windows;
 using RogersToolbox;
 using System;
 using System.Windows.Controls;
+using Toolbox_Class_Library.CtrUpdate;
 
 namespace Rogers_Toolbox_UI
 {
@@ -57,6 +58,19 @@ namespace Rogers_Toolbox_UI
                     SettingsWindow settingsWindow = new SettingsWindow(this);
                     settingsWindow.ShowDialog();
                     break;
+                case "CTRButton":
+                    try
+                    {
+                        CtrUpdate ctrUpdate = new CtrUpdate();
+                        ctrUpdate.Test();
+                        UpdateMessage("Well you generated a class");
+                    }
+                    catch
+                    {
+                        UpdateMessage("Not even that worked..");
+                    }
+                    break;
+
 
                 default:
                     UpdateMessage("Didn't read anything :(");
