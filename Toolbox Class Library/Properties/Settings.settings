@@ -21,7 +21,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CtrOrder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1, NF1</Value>
+      <Value Profile="(Default)">8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1, NF1, Josh, Milan, TK, Maulik</Value>
     </Setting>
     <Setting Name="GroupedDevices" Type="System.String" Scope="User">
       <Value Profile="(Default)">CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD</Value>

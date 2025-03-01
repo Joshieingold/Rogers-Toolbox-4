@@ -62,7 +62,7 @@ namespace Rogers_Toolbox_UI
                     try
                     {
                         CtrUpdate ctrUpdate = new CtrUpdate();
-                        ctrUpdate.Test();
+                        ctrUpdate.Run();
                         UpdateMessage("Well you generated a class");
                     }
                     catch

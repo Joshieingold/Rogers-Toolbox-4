@@ -98,7 +98,7 @@ namespace Toolbox_Class_Library.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1" +
-            ", NF1")]
+            ", NF1, Josh, Milan, TK, Maulik")]
         public string CtrOrder {
             get {
                 return ((string)(this["CtrOrder"]));

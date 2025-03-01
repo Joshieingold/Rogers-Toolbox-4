@@ -73,6 +73,22 @@ namespace Toolbox_Class_Library.CtrUpdate
             return $"\n\nContractor: {this.Name}\n\n" + string.Join("\n", this.DeviceList.Select(d => $"Device Name: {d.Name}, Count: {d.Counter}"));
         }
 
+        public void FormatDeviceTitles()
+        {
+            // Probably on the safer side to make this in settings but I will build a version now.
+            foreach (Device dev in DeviceList)
+            {
+                if (dev.Name == "CGM4331COM")
+                {
+                    dev.Name = "XB7";
+                }
+            }
+        }
+        public string DevicesToPaste()
+        {
+            return string.Join("\n", this.DeviceList.Select(d => $"{d.Counter}"));
+        }
+
 
 
     }
