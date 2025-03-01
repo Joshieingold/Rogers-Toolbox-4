@@ -95,7 +95,7 @@
                         <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FormatSerialsButton" Tag="Icons/FormatSerialsIcon.png"  Width="48" Height="48">
+                <Button x:Name="FormatSerialsButton" Tag="Icons/FormatSerialsIcon.png" Click="Button_Click" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Format Serials" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

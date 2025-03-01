@@ -59,19 +59,14 @@ namespace Rogers_Toolbox_UI
                     settingsWindow.ShowDialog();
                     break;
                 case "CTRButton":
-                    try
-                    {
-                        CtrUpdate ctrUpdate = new CtrUpdate();
-                        ctrUpdate.Run();
-                        UpdateMessage("Well you generated a class");
-                    }
-                    catch
-                    {
-                        UpdateMessage("Not even that worked..");
-                    }
+
+                    CtrUpdate ctrUpdate = new CtrUpdate();
+                    ctrUpdate.Run();
                     break;
-
-
+                case "FormatSerialsButton":
+                    FormatWindow formatWindow = new FormatWindow(CurrentSerials);
+                    formatWindow.ShowDialog();
+                    break;
                 default:
                     UpdateMessage("Didn't read anything :(");
                     break;
