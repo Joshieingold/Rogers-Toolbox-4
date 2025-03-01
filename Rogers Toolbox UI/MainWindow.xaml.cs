@@ -64,9 +64,18 @@ namespace Rogers_Toolbox_UI
                     ctrUpdate.Run();
                     break;
                 case "FormatSerialsButton":
-                    FormatWindow formatWindow = new FormatWindow(CurrentSerials);
-                    formatWindow.ShowDialog();
+                    string serialsText = TextBox.Text;
+                    FormatWindow formatWindow = new FormatWindow(serialsText);
+                    formatWindow.Owner = this; // Set MainWindow as the owner
+                    formatWindow.ShowDialog(); // Show as a modal dialog
+
+                    // After closing, update TextBox if FormattedSerials is set
+                    if (!string.IsNullOrEmpty(formatWindow.FormattedSerials))
+                    {
+                        TextBox.Text = formatWindow.FormattedSerials;
+                    }
                     break;
+
                 default:
                     UpdateMessage("Didn't read anything :(");
                     break;

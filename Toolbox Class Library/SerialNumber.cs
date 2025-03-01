@@ -24,7 +24,7 @@
                 return "SCXI11BEI";
             else if (Serial.StartsWith("336"))
                 return "CGM4331COM";
-            else if (Serial.StartsWith("AS97"))
+            else if (Serial.StartsWith("AS"))
                 return "XE2SGROG1";
             else
                 return "TG4482A";

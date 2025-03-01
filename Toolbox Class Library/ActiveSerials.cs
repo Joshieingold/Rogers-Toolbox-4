@@ -47,6 +47,13 @@ namespace RogersToolbox
         {
             return string.Join(Environment.NewLine, Serials.Select(s => s.Serial));
         }
+        public string ConvertSerialsToString()
+        {
+
+            return string.Join("\n", this.Serials.Select(s => s.Serial));
+
+        }
+
         // Button Click Functions
         public async Task BlitzImport()
         {
@@ -156,5 +163,6 @@ namespace RogersToolbox
             
 
         }
+        
     }
 }
