@@ -20,6 +20,7 @@ namespace RogersToolbox
         private int flexiproImportSpeed { get; set; }
         private string flexiProCheckPixel { get; set; }
         private string wmsCheckPixel { get; set; }
+        private string user { get; set; }
         private readonly Action? serialsUpdatedCallback; // Callback for UI update
 
 
@@ -37,7 +38,7 @@ namespace RogersToolbox
             flexiproImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.FlexiProImportSpeed;
             flexiProCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.FlexiproPixel;
             wmsCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.WmsPixel;
-
+            user = Toolbox_Class_Library.Properties.Settings.Default.Username;
             this.serialsUpdatedCallback = serialsUpdatedCallback;
         }
         //  Helper Functions
@@ -96,7 +97,7 @@ namespace RogersToolbox
             string device = Serials[0].Device;
             DateTime i = DateTime.Now;
             DateTime utcDateTime = i.ToUniversalTime();
-            DatabaseConnection FlexiProConnection = new DatabaseConnection("Push");
+            DatabaseConnection FlexiProConnection = new DatabaseConnection();
             foreach (SerialNumber serial in serialsToProcess)
             {
                 bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel));
@@ -126,8 +127,8 @@ namespace RogersToolbox
                         serialsUpdatedCallback?.Invoke(); // Notify UI to update
                     }
                 }
-                FlexiProConnection.PushDeviceData(device, count, utcDateTime);
             }
+            FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
         }
         private string GetSerialsFromExcel(string filePath)
         {

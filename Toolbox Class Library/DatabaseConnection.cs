@@ -1,8 +1,10 @@
-﻿using Google.Cloud.Firestore;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Google.Cloud.Firestore;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Toolbox_Class_Library.CtrUpdate;
 using Toolbox_Class_Library.Firestore;
 
 namespace Toolbox_Class_Library
@@ -11,7 +13,7 @@ namespace Toolbox_Class_Library
     {
         private FirestoreDb _db;
 
-        public DatabaseConnection(string connectionPath)
+        public DatabaseConnection()
         {
             _db = FirestoreService.GetFirestoreDb();
         }
@@ -42,9 +44,27 @@ namespace Toolbox_Class_Library
         }
 
         // Pushes device data to Firestore (to be implemented)
-        public void PushDeviceData(string deviceName, int quantity, DateTime TimeOfTransaction)
+        public async Task PushDeviceData(string deviceName, int quantity, DateTime TimeOfTransaction, string user)
         {
-
+            // ensure time is in UTC
+            DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
+            DocumentReference docRef = _db.Collection("bom-wip").Document();
+            var data = new
+            {
+                Device = deviceName,
+                Name = user,
+                Quantity = quantity,
+                Date = Timestamp.FromDateTime(utcDateTime) // Convert DateTime to Firestore Timestamp
+            };
+            try
+            {
+                await docRef.SetAsync(data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error pushing data to Firestore: {ex.Message}");
+                throw;
+            }
         }
 
         // Checks if the Firebase Firestore connection is available

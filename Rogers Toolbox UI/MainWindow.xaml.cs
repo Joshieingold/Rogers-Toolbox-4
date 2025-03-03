@@ -22,7 +22,7 @@ namespace Rogers_Toolbox_UI
         public MainWindow()
         {
             InitializeComponent();
-            dbConnection = new DatabaseConnection("hi"); // Initialize without a parameter
+            dbConnection = new DatabaseConnection(); // Initialize without a parameter
             InitializeDataAsync(); // Call the async method
             LoadTheme();
             DataContext = this;
