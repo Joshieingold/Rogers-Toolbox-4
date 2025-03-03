@@ -4,6 +4,9 @@ using System.Windows.Shapes;
 using WindowsInput;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
+using Toolbox_Class_Library;
+using System.Drawing;
+using System.Windows.Forms;
 namespace RogersToolbox
 {
     public class ActiveSerials
@@ -11,23 +14,31 @@ namespace RogersToolbox
         // Initialization
         public List<SerialNumber> Serials { get; set; }
         private InputSimulator inputSimulator = new InputSimulator();
-        private int typingSpeed { get; set;}
+        private int typingSpeed { get; set; }
         private int blitzImportSpeed { get; set; }
         private bool reverseImport { get; set; }
         private int flexiproImportSpeed { get; set; }
+        private string flexiProCheckPixel { get; set; }
+        private string wmsCheckPixel { get; set; }
+        private readonly Action? serialsUpdatedCallback; // Callback for UI update
 
-        public ActiveSerials(string serialString) 
+
+        public ActiveSerials(string serialString, Action? serialsUpdatedCallback = null)
         {
-            Serials = new List<SerialNumber>(); 
+            Serials = new List<SerialNumber>();
             string[] betweenList = serialString.Split("\n");
 
             foreach (string rawSerial in betweenList)
             {
-                Serials.Add(new SerialNumber(rawSerial.Trim())); 
+                Serials.Add(new SerialNumber(rawSerial.Trim()));
             }
             typingSpeed = Toolbox_Class_Library.Properties.Settings.Default.TypingSpeed;
             blitzImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.BlitzImportSpeed;
             flexiproImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.FlexiProImportSpeed;
+            flexiProCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.FlexiproPixel;
+            wmsCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.WmsPixel;
+
+            this.serialsUpdatedCallback = serialsUpdatedCallback;
         }
         //  Helper Functions
         private async Task SimulateTyping(string text)
@@ -35,8 +46,8 @@ namespace RogersToolbox
 
             foreach (char c in text)
             {
-                inputSimulator.Keyboard.TextEntry(c);  
-                await Task.Delay(typingSpeed);  
+                inputSimulator.Keyboard.TextEntry(c);
+                await Task.Delay(typingSpeed);
             }
         }
         private void SimulateTabKey()
@@ -57,7 +68,6 @@ namespace RogersToolbox
         // Button Click Functions
         public async Task BlitzImport()
         {
-            
             var serialsToProcess = new List<SerialNumber>(Serials);
 
             foreach (SerialNumber serial in serialsToProcess)
@@ -70,14 +80,53 @@ namespace RogersToolbox
                 else
                 {
                     await SimulateTyping(serial.Serial);
-
-                    // Remove the serial from the original list after processing
                     Serials.Remove(serial);
+                    SimulateTabKey();
+                    await Task.Delay(blitzImportSpeed);
 
-                    SimulateTabKey(); // Simulate pressing the Tab key or any other key as needed
-                    await Task.Delay(blitzImportSpeed); // Delay between serials
+                    serialsUpdatedCallback?.Invoke(); // Notify UI to update
                 }
-                
+            }
+
+        }
+        public async Task FlexiProImport()
+        {
+            var serialsToProcess = new List<SerialNumber>(Serials);
+            int count = 0;
+            string device = Serials[0].Device;
+            DateTime i = DateTime.Now;
+            DateTime utcDateTime = i.ToUniversalTime();
+            DatabaseConnection FlexiProConnection = new DatabaseConnection("Push");
+            foreach (SerialNumber serial in serialsToProcess)
+            {
+                bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel));
+                while (isPixelGood == false)
+                {
+                    await Task.Delay(700);
+                    isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel));
+                }
+                if (isPixelGood == true)
+                {
+                    if (serial.Serial == "*")
+                    {
+                        Serials.Remove(serial);
+                        break;
+                    }
+                    else
+                    {
+                        await SimulateTyping(serial.Serial);
+                        Serials.Remove(serial);
+                        SimulateTabKey();
+                        count += 1;
+
+
+
+                        await Task.Delay(flexiproImportSpeed);
+
+                        serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                    }
+                }
+                FlexiProConnection.PushDeviceData(device, count, utcDateTime);
             }
         }
         private string GetSerialsFromExcel(string filePath)
@@ -132,9 +181,9 @@ namespace RogersToolbox
                 {
                     return ReverseSerials(GetSerialsFromExcel(openFileDialog.FileName));
                 }
-                else 
+                else
                 {
-                   return GetSerialsFromExcel(openFileDialog.FileName); 
+                    return GetSerialsFromExcel(openFileDialog.FileName);
                 }
             }
             else
@@ -142,27 +191,39 @@ namespace RogersToolbox
                 return string.Empty;
             }
         } // Establishes a path to the target excel for importing serials.
-        public async Task FlexiImport(ActiveSerials SerialList)
+
+        private bool CheckPixel(string colorWanted, string colorFound)
         {
-            try 
+            if (colorWanted == colorFound)
             {
-                string CurrentDevice = (SerialList.Serials[0]).Device;
-                int Quantity = (SerialList.Serials).Count;
-                DateTime i = DateTime.Now;
-                DateTime utcDateTime = i.ToUniversalTime();
-
-                foreach (SerialNumber Serial in SerialList.Serials)
-                {
-
-                }
+                return true; // Returns True if they match
             }
-            catch
+            else
             {
-                Console.WriteLine("There was an Error.");
+                return false;
             }
-            
+        } // Checks between the color the programmer wants and the color found at the pixel on the screen stipulated.
+        private string GetCurrentPixel(string pixelSource)
+        {
+            string[] cords = pixelSource.Split(", ");
+            int xCord = Convert.ToInt32(cords[0]);
+            int yCord = Convert.ToInt32(cords[1]);
+            System.Drawing.Point ixelCords = new System.Drawing.Point(xCord, yCord);
 
+            // Capture the screen
+            Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            using (Graphics graphics = Graphics.FromImage(screenshot))
+            {
+                graphics.CopyFromScreen(new System.Drawing.Point(0, 0), new System.Drawing.Point(0, 0), screenshot.Size);
+            }
+
+            // Get the color of the pixel at the specified coordinates
+            Color pixelColor = screenshot.GetPixel(xCord, yCord);
+
+            // Format the color as "(R, G, B)"
+            string colorFound = $"({pixelColor.R}, {pixelColor.G}, {pixelColor.B})";
+
+            return colorFound;
+        } // Finds the color of a pixel on the screen.
         }
-        
-    }
-}
+    } 

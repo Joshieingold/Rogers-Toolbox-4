@@ -57,6 +57,16 @@
                     <Grid HorizontalAlignment="Left" Width="387" Height="30" >
                         <Label Content="Blitz Import Speed:" Foreground="White"/>
                         <TextBox TextWrapping="Wrap" Text="{Binding BlitzImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                    
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                        <Label Content="FlexiPro Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                        <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                     </Grid>
                 </StackPanel>

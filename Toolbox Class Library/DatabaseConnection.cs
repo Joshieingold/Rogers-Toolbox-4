@@ -42,7 +42,7 @@ namespace Toolbox_Class_Library
         }
 
         // Pushes device data to Firestore (to be implemented)
-        public void PushDeviceData(string deviceName, int quantity)
+        public void PushDeviceData(string deviceName, int quantity, DateTime TimeOfTransaction)
         {
 
         }

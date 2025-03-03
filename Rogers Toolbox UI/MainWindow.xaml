@@ -6,8 +6,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Delete for Prod-->
-                <ResourceDictionary Source ="Themes/DarkTheme.xaml"/>
-                    
+                <ResourceDictionary Source="Themes/DarkTheme.xaml"/>
+                <ResourceDictionary Source="Themes/ClubTheme.xaml"/>
+                <ResourceDictionary Source="Themes/CoffeeTheme.xaml"/>
+                
+                <ResourceDictionary Source="Themes/NeonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/RogersTheme.xaml"/>
+                <ResourceDictionary Source="Themes/FadeTheme.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

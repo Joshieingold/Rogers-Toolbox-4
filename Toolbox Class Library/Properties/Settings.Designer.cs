@@ -131,5 +131,29 @@ namespace Toolbox_Class_Library.Properties {
                 this["Theme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FlexiproPixel {
+            get {
+                return ((string)(this["FlexiproPixel"]));
+            }
+            set {
+                this["FlexiproPixel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WmsPixel {
+            get {
+                return ((string)(this["WmsPixel"]));
+            }
+            set {
+                this["WmsPixel"] = value;
+            }
+        }
     }
 }

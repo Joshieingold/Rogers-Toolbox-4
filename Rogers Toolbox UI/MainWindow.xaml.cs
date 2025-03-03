@@ -109,16 +109,22 @@ namespace Rogers_Toolbox_UI
                 case "BlitzButton":
                     Stopwatch stopwatch = new Stopwatch();
                     UpdateMessage("Starting Blitz Import, Please click target Location");
-                    await Task.Delay(6000); 
+                    await Task.Delay(6000);
+
                     stopwatch.Start();
-                    await CurrentSerials.BlitzImport(); 
-                    UpdateSerialsDisplay();
-                    stopwatch.Stop(); // TIME!
+
+                    // Create ActiveSerials instance with a callback for updates
+                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+
+                    await CurrentSerials.BlitzImport(); // Runs and updates display while processing
+
+                    stopwatch.Stop();
 
                     TimeSpan ts = stopwatch.Elapsed;
                     string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
+
                     UpdateMessage($"Import Completed in {elapsedTime}");
                     break;
                 case "OpenExcelButton":
