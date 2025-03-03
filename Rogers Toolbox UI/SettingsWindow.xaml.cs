@@ -20,14 +20,38 @@ namespace Rogers_Toolbox_UI
             this.DataContext = Settings.Default;
             mainWindow = main;
             LoadContractorData();
+            InitializeThemeComboBox();
+        }
+
+        private void InitializeThemeComboBox()
+        {
+            // Set the ComboBox to the current theme
+            string currentTheme = Settings.Default.Theme;
+            ThemeComboBox.SelectedItem = ThemeComboBox.Items
+                .Cast<ComboBoxItem>()
+                .FirstOrDefault(item => item.Content.ToString() == currentTheme);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Save all the settings to persistent storage
             Settings.Default.Save();
+            mainWindow.ApplyTheme($"Themes/{Settings.Default.Theme}Theme.xaml");
             mainWindow.UpdateMessage($"Your settings have been successfully updated {Settings.Default.Username}!");
             this.Close();
+        }
+
+        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThemeComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedTheme = selectedItem.Content.ToString();
+                Settings.Default.Theme = selectedTheme; // Update the setting
+                Settings.Default.Save(); // Save the setting
+
+                // Apply the new theme immediately
+                mainWindow.ApplyTheme($"Themes/{selectedTheme}Theme.xaml");
+            }
         }
 
         public List<ContractorCategory> LoadContractorData()
@@ -103,9 +127,6 @@ namespace Rogers_Toolbox_UI
             }
         }
 
-
-
-
         private void DeleteCategory_Click(object sender, RoutedEventArgs e)
         {
             if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory)
@@ -120,6 +141,7 @@ namespace Rogers_Toolbox_UI
                 CtrIDListBox.ItemsSource = null;
             }
         }
+
         private void RemoveDevice_Click(object sender, RoutedEventArgs e)
         {
             if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory &&
@@ -131,6 +153,7 @@ namespace Rogers_Toolbox_UI
                 SaveContractorData(contractorCategories);
             }
         }
+
         private void RemoveCtrID_Click(object sender, RoutedEventArgs e)
         {
             if (ContractorCategoryComboBox.SelectedItem is ContractorCategory selectedCategory &&
@@ -142,12 +165,6 @@ namespace Rogers_Toolbox_UI
                 SaveContractorData(contractorCategories);  // Save changes
             }
         }
-
-
-
-
-
-
     }
 
     public class ContractorCategory

@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="Dapplo.Windows.Input" Version="1.0.28" />
+    <PackageReference Include="Google.Cloud.Firestore" Version="3.9.0" />
     <PackageReference Include="InputSimulator" Version="1.0.4" />
   </ItemGroup>
 
@@ -23,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Keys\bomwipstore-firebase-adminsdk-jhqev-acb5705838.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

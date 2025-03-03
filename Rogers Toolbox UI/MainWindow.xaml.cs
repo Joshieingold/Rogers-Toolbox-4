@@ -5,32 +5,104 @@ using RogersToolbox;
 using System;
 using System.Windows.Controls;
 using Toolbox_Class_Library.CtrUpdate;
+using Toolbox_Class_Library;
 
 namespace Rogers_Toolbox_UI
 {
+
+
     public partial class MainWindow : Window
     {
         // Define CurrentSerials at the class level
         private ActiveSerials CurrentSerials;
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.0 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
+        private bool IsOnline = true;
+        private DatabaseConnection dbConnection;
 
         public MainWindow()
         {
             InitializeComponent();
-            InitializeData();
+            dbConnection = new DatabaseConnection("hi"); // Initialize without a parameter
+            InitializeDataAsync(); // Call the async method
+            LoadTheme();
             DataContext = this;
         }
-        public void InitializeData()
+
+        private async void InitializeDataAsync()
         {
-            
-            CurrentSerials = new ActiveSerials(""); // Initialize CurrentSerials with an empty string or any default value
+            try
+            {
+                CurrentSerials = new ActiveSerials(""); // Initialize CurrentSerials with an empty string or any default value
+
+                IsOnline = await dbConnection.CheckIsOnline();
+                
+                if (!IsOnline)
+                {
+                    Console.WriteLine($"Rogers Toolbox is Offline. Sorry {Toolbox_Class_Library.Properties.Settings.Default.Username}..");
+                    this.Close();
+                }
+                else
+                {
+                    Console.WriteLine($"Rogers Toolbox is Online! Welcome {Toolbox_Class_Library.Properties.Settings.Default.Username}!");
+                }
+                // Update UI or perform other actions based on IsOnline
+                // For example, you might want to display a message or enable/disable controls
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred during initialization: {ex.Message}");
+                // Handle the error (e.g., show a message box)
+            }
         } // Initialize Data
+        private void LoadTheme()
+        {
+            string selectedTheme = Toolbox_Class_Library.Properties.Settings.Default.Theme;
+
+            // Load the appropriate theme based on the setting
+            switch (selectedTheme)
+            {
+                case "Dark":
+                    ApplyTheme("Themes/DarkTheme.xaml");
+                    break;
+                case "Rogers":
+                    ApplyTheme("Themes/RogersTheme.xaml");
+                    break;
+                case "Club":
+                    ApplyTheme("Themes/ClubTheme.xaml");
+                    break;
+                case "Coffee":
+                    ApplyTheme("Themes/CoffeeTheme.xaml");
+                    break;
+                case "Fade":
+                    ApplyTheme("Themes/FadeTheme.xaml");
+                    break;
+                case "Neon":
+                    ApplyTheme("Themes/NeonTheme.xaml");
+                    break;
+                default:
+                    ApplyTheme("Themes/DarkTheme.xaml"); // Default to Dark if not set
+                    break;
+            }
+        }
+
+        public void ApplyTheme(string themePath)
+        {
+            ResourceDictionary newTheme = new ResourceDictionary();
+            newTheme.Source = new Uri(themePath, UriKind.Relative);
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(newTheme);
+        }
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as System.Windows.Controls.Button;
 
             // Update CurrentSerials based on the TextBox input
             CurrentSerials = GetTextboxText();
+            IsOnline = await dbConnection.CheckIsOnline();
+            if (!IsOnline)
+            {
+                this.Close();
+            }
 
             switch (button.Name)
             {
