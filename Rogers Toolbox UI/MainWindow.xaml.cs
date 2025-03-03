@@ -24,16 +24,7 @@ namespace Rogers_Toolbox_UI
             InitializeComponent();
             dbConnection = new DatabaseConnection("hi"); // Initialize without a parameter
             InitializeDataAsync(); // Call the async method
-            try
-            {
-                LoadTheme();
-                Console.Write("Theme says it successfully loaded");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-                
+            LoadTheme();
             DataContext = this;
         }
 
@@ -66,7 +57,6 @@ namespace Rogers_Toolbox_UI
         private void LoadTheme()
         {
             string selectedTheme = Toolbox_Class_Library.Properties.Settings.Default.Theme;
-            Console.WriteLine($"Selected Theme: {selectedTheme}"); // Debugging line
             // Load the appropriate theme based on the setting
             switch (selectedTheme)
             {
