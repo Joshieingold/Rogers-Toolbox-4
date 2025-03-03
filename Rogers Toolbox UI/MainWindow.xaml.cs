@@ -24,7 +24,16 @@ namespace Rogers_Toolbox_UI
             InitializeComponent();
             dbConnection = new DatabaseConnection("hi"); // Initialize without a parameter
             InitializeDataAsync(); // Call the async method
-            LoadTheme();
+            try
+            {
+                LoadTheme();
+                Console.Write("Theme says it successfully loaded");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+                
             DataContext = this;
         }
 
@@ -33,7 +42,7 @@ namespace Rogers_Toolbox_UI
             try
             {
                 CurrentSerials = new ActiveSerials(""); // Initialize CurrentSerials with an empty string or any default value
-
+                
                 IsOnline = await dbConnection.CheckIsOnline();
                 
                 if (!IsOnline)
@@ -57,7 +66,7 @@ namespace Rogers_Toolbox_UI
         private void LoadTheme()
         {
             string selectedTheme = Toolbox_Class_Library.Properties.Settings.Default.Theme;
-
+            Console.WriteLine($"Selected Theme: {selectedTheme}"); // Debugging line
             // Load the appropriate theme based on the setting
             switch (selectedTheme)
             {
@@ -87,8 +96,8 @@ namespace Rogers_Toolbox_UI
 
         public void ApplyTheme(string themePath)
         {
-            ResourceDictionary newTheme = new ResourceDictionary();
-            newTheme.Source = new Uri(themePath, UriKind.Relative);
+            ResourceDictionary newTheme = (ResourceDictionary)Application.LoadComponent(new Uri(themePath, UriKind.Relative));
+     
             Application.Current.Resources.MergedDictionaries.Clear();
             Application.Current.Resources.MergedDictionaries.Add(newTheme);
         }

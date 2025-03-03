@@ -2,21 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Rogers Toolbox 4.0" Height="450" Width="800">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!-- Delete for Prod-->
-                <ResourceDictionary Source="Themes/DarkTheme.xaml"/>
-                <ResourceDictionary Source="Themes/ClubTheme.xaml"/>
-                <ResourceDictionary Source="Themes/CoffeeTheme.xaml"/>
-                
-                <ResourceDictionary Source="Themes/NeonTheme.xaml"/>
-                <ResourceDictionary Source="Themes/RogersTheme.xaml"/>
-                <ResourceDictionary Source="Themes/FadeTheme.xaml"/>
 
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid Background="{DynamicResource WindowBackgroundBrush}">
         <!-- Style for Navigation Buttons with Icons -->
         
@@ -25,67 +11,67 @@
         <DockPanel Background="{DynamicResource WindowHeaderBrush}" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                <Button x:Name="OpenExcelButton" Tag="pack://application:,,,/Icons/OpenExcelIcon.png" Style="{StaticResource NavButtonStyle}" Width="48" Height="48" Click="Button_Click">
+                <Button x:Name="OpenExcelButton" Tag="pack://application:,,,/Icons/OpenExcelIcon.png" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" Click="Button_Click">
                     <Button.ToolTip>
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="BlitzButton" Tag="pack://application:,,,/Icons/BlitzIcon.png" Click="Button_Click"  Style="{StaticResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="BlitzButton" Tag="pack://application:,,,/Icons/BlitzIcon.png" Click="Button_Click"  Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Blitz Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FlexiButton" Tag="pack://application:,,,/Icons/FlexiIcon.png"  Style="{StaticResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="FlexiButton" Tag="pack://application:,,,/Icons/FlexiIcon.png"  Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="FlexiPro Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="WMSButton" Tag="pack://application:,,,/Icons/WMSIcon.png"   Style="{StaticResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="WMSButton" Tag="pack://application:,,,/Icons/WMSIcon.png"   Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="WMS Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="CTRButton" Tag="pack://application:,,,/Icons/CTRIcon.png"  Style="{StaticResource NavButtonStyle}" Click="Button_Click" Width="48" Height="48">
+                <Button x:Name="CTRButton" Tag="pack://application:,,,/Icons/CTRIcon.png"  Style="{DynamicResource NavButtonStyle}" Click="Button_Click" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="PurolatorButton" Tag="pack://application:,,,/Icons/PurolatorIcon.png"  Style="{StaticResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="PurolatorButton" Tag="pack://application:,,,/Icons/PurolatorIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Purolator Sheets" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="BarcodeButton" Tag="pack://application:,,,/Icons/BarcodeIcon.png"  Style="{StaticResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="BarcodeButton" Tag="pack://application:,,,/Icons/BarcodeIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Barcodes" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="LotSheetButton" Tag="pack://application:,,,/Icons/LotSheetIcon.png" Style="{StaticResource NavButtonStyle}"   Width="48" Height="48">
+                <Button x:Name="LotSheetButton" Tag="pack://application:,,,/Icons/LotSheetIcon.png" Style="{DynamicResource NavButtonStyle}"   Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Print Lot Sheets" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="CompareListButton" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{StaticResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="CompareListButton" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FormatSerialsButton" Tag="pack://application:,,,/Icons/FormatSerialsIcon.png" Style="{StaticResource NavButtonStyle}"  Click="Button_Click" Width="48" Height="48">
+                <Button x:Name="FormatSerialsButton" Tag="pack://application:,,,/Icons/FormatSerialsIcon.png" Style="{DynamicResource NavButtonStyle}"  Click="Button_Click" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Format Serials" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="DatabaseButton" Tag="pack://application:,,,/Icons/DatabaseIcon.png"  Style="{StaticResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="DatabaseButton" Tag="pack://application:,,,/Icons/DatabaseIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Database" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="GraphButton" Tag="pack://application:,,,/Icons/GraphIcon.png" Style="{StaticResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="GraphButton" Tag="pack://application:,,,/Icons/GraphIcon.png" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="View Monthly Statistics" Background="Black" Foreground="White"   FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="SettingsButton"  Click="Button_Click" Tag="pack://application:,,,/Icons/SettingsIcon.png" Style="{StaticResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="SettingsButton"  Click="Button_Click" Tag="pack://application:,,,/Icons/SettingsIcon.png" Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Settings" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
