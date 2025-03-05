@@ -59,8 +59,8 @@ namespace Rogers_Toolbox_UI
                 case "Rogers":
                     ApplyTheme("Themes/RogersTheme.xaml");
                     break;
-                case "Club":
-                    ApplyTheme("Themes/ClubTheme.xaml");
+                case "Purple":
+                    ApplyTheme("Themes/PurpleTheme.xaml");
                     break;
                 case "Coffee":
                     ApplyTheme("Themes/CoffeeTheme.xaml");

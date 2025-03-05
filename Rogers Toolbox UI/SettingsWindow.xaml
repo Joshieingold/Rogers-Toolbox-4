@@ -31,7 +31,7 @@
                         <ComboBox x:Name="ThemeComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="ThemeComboBox_SelectionChanged">
                             <ComboBoxItem Content="Dark" />
                             <ComboBoxItem Content="Rogers" />
-                            <ComboBoxItem Content="Club" />
+                            <ComboBoxItem Content="Purple" />
                             <ComboBoxItem Content="Coffee" />
                             <ComboBoxItem Content="Fade" />
                             <ComboBoxItem Content="Neon" />
