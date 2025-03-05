@@ -36,3 +36,40 @@
 
     }
 }
+public async Task WmsImport()
+//         {
+//             var serialsToProcess = new List<SerialNumber>(Serials);
+//             List<string> passList = [];
+//             List<string> failList = [];
+//             foreach (SerialNumber serial in serialsToProcess)
+//             {
+//                 if (serial.Serial == "*")
+//                 {
+//                     Serials.Remove(serial);
+//                     break;
+//                 }
+//                 else
+//                 {
+//                     await SimulateTyping(serial.Serial);
+//                     Serials.Remove(serial);
+//                     SimulateTabKey();
+//                     await Task.Delay(wmsImportSpeed);
+//                     bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(wmsCheckPixel));
+//                     if (isPixelGood == false)
+//                     {
+//                         failedList.add(serial.Serial);
+//                         // Add automation for when there is a failure.
+//                     }
+//                     else
+//                     {
+//                         passedList.add(serial.Serial);
+//                     }
+
+
+//                     await Task.Delay(wmsImportSpeed / 2);
+
+//                     serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                
+//             }
+
+//         }
