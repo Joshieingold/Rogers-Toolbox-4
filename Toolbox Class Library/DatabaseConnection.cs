@@ -48,7 +48,7 @@ namespace Toolbox_Class_Library
         {
             // ensure time is in UTC
             DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
-            DocumentReference docRef = _db.Collection("bom-wip").Document();
+            DocumentReference docRef = _db.Collection("bom-wip").Document("Test");
             var data = new
             {
                 Device = deviceName,

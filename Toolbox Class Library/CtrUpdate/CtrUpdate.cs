@@ -133,7 +133,6 @@ namespace Toolbox_Class_Library.CtrUpdate
                         using (var workbookInstance = new XLWorkbook(workbookPath))
                         {
                             var sheet = workbookInstance.Worksheet(1); // Process the first sheet
-
                             Stopwatch stopwatch = new Stopwatch();
                             stopwatch.Start();
                             UpdateCTRS(sheet);

@@ -73,6 +73,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+
         [global::System.Configuration.DefaultSettingValueAttribute("700")]
         public int FlexiProImportSpeed {
             get {
@@ -134,7 +135,9 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+
         [global::System.Configuration.DefaultSettingValueAttribute("961, 1016")]
+
         public string FlexiproPixel {
             get {
                 return ((string)(this["FlexiproPixel"]));
@@ -153,6 +156,18 @@ namespace Toolbox_Class_Library.Properties {
             }
             set {
                 this["WmsPixel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PushFlexiProData {
+            get {
+                return ((bool)(this["PushFlexiProData"]));
+            }
+            set {
+                this["PushFlexiProData"] = value;
             }
         }
     }

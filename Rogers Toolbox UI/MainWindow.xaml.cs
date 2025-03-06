@@ -160,7 +160,25 @@ namespace Rogers_Toolbox_UI
                     UpdateMessage($"Import Completed in {elapsedTime}");
                     
                     break; // Done!
+                case "FlexiButton":
+                    Stopwatch flexiStopwatch = new Stopwatch();
+                    UpdateMessage("Starting FlexiPro Import, Please click target Location");
+                    await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
+                    flexiStopwatch.Start();
 
+                    // Create ActiveSerials instance with a callback for updates to the textbox.
+                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+                    await CurrentSerials.FlexiProImport(); // Runs and updates display while processing
+                    flexiStopwatch.Stop();
+
+                    // Formats the time the import took
+                    TimeSpan Flexts = flexiStopwatch.Elapsed;
+                    string FlexieElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                    Flexts.Hours, Flexts.Minutes, Flexts.Seconds,
+                    Flexts.Milliseconds / 10);
+                    UpdateMessage($"Import Completed in {FlexieElapsedTime}");
+
+                    break; // Done !!
                 case "OpenExcelButton": // Retrieves Serials from the First Column of the Excel given.
 
                     // Creates new instance of ActiveSerials and sets them

@@ -21,7 +21,7 @@
                         <ToolTip Content="Blitz Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="FlexiButton" Tag="pack://application:,,,/Icons/FlexiIcon.png"  Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="FlexiButton" Tag="pack://application:,,,/Icons/FlexiIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="FlexiPro Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
