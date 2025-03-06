@@ -207,3 +207,4 @@ namespace Rogers_Toolbox_UI
 
 // To Do:
 // 1. Make settings allow user to choose the column of the imported excel.
+// 2. I want there to be an easy way for users to send each other serials across toolboxs.

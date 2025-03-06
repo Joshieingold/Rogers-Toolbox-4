@@ -66,7 +66,7 @@
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
                         <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding WmsPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                     </Grid>
                 </StackPanel>
