@@ -15,7 +15,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FlexiProImportSpeed" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="ContractorData" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -30,10 +30,13 @@
       <Value Profile="(Default)">Rogers</Value>
     </Setting>
     <Setting Name="FlexiproPixel" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">787, 1027</Value>
     </Setting>
     <Setting Name="WmsPixel" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PushFlexiProData" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
