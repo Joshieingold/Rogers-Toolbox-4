@@ -23,6 +23,11 @@ namespace Rogers_Toolbox_UI
             InitializeDataAsync(); // Call the async methods.
             LoadTheme(); // Changes the application theme on start-up
             DataContext = this;
+
+            // Refresh to default settings.
+            // Toolbox_Class_Library.Properties.Settings.Default.Reset();
+            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
+
         }
 
         // Initialization Helper Functions

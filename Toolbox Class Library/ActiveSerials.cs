@@ -243,7 +243,7 @@ namespace RogersToolbox
                     await SimulateTyping(serial.Serial);
                     Serials.Remove(serial);
                     SimulateTabKey();
-                    await Task.Delay(wmsImportSpeed);
+                    await Task.Delay(4);
                     bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(wmsCheckPixel));
                     if (isPixelGood == false)
                     {
@@ -255,7 +255,7 @@ namespace RogersToolbox
                         passList.Add(serial.Serial);
                     }
 
-                    await Task.Delay(wmsImportSpeed / 2);
+                    await Task.Delay(4 / 2);
                     serialsUpdatedCallback?.Invoke(); // Notify UI to update
                 }
             }
