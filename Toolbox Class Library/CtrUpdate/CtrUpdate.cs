@@ -18,6 +18,9 @@ namespace Toolbox_Class_Library.CtrUpdate
         {
             // Deserialize contractor data from JSON
             string jsonData = Settings.Default.ContractorData;
+            Console.WriteLine("\n");
+            Console.WriteLine(jsonData);
+            Console.WriteLine("\n");
             List<ContractorCategory> categories = string.IsNullOrWhiteSpace(jsonData)
                 ? new List<ContractorCategory>()
                 : JsonSerializer.Deserialize<List<ContractorCategory>>(jsonData) ?? new List<ContractorCategory>();
@@ -130,15 +133,15 @@ namespace Toolbox_Class_Library.CtrUpdate
                         using (var workbookInstance = new XLWorkbook(workbookPath))
                         {
                             var sheet = workbookInstance.Worksheet(1); // Process the first sheet
-                        Stopwatch stopwatch = new Stopwatch();
-                        stopwatch.Start();
-                        UpdateCTRS(sheet);
-                        stopwatch.Stop();
-                        TimeSpan ts = stopwatch.Elapsed;
-                        string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds / 10);
-                        Console.WriteLine($"Contractors were updated in {elapsedTime}");
+                            Stopwatch stopwatch = new Stopwatch();
+                            stopwatch.Start();
+                            UpdateCTRS(sheet);
+                            stopwatch.Stop();
+                            TimeSpan ts = stopwatch.Elapsed;
+                            string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                            ts.Hours, ts.Minutes, ts.Seconds,
+                            ts.Milliseconds / 10);
+                            Console.WriteLine($"Ctr update completed in: {elapsedTime}");
                     }
                     }
                     catch (Exception ex)

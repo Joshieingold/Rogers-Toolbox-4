@@ -15,25 +15,25 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FlexiProImportSpeed" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">700</Value>
     </Setting>
     <Setting Name="ContractorData" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">[{"Name":"Default","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","MR36HW","S5A134A","CM8200A","CODA5810"],"CtrIDs":["8017","8037","8038","8041","8047","8080","8093","8052","8067","8090","8091","8134","NB1","NF1"]},{"Name":"Frontier","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS"],"CtrIDs":["8975","8994"]},{"Name":"FrontierCoda","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","CODA5810"],"CtrIDs":["8997"]}]</Value>
     </Setting>
     <Setting Name="CtrOrder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1, NF1</Value>
+      <Value Profile="(Default)">8017, 8037, 8038, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8091, 8134, 8975, 8994, 8997, NB1, NF1</Value>
     </Setting>
     <Setting Name="GroupedDevices" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD</Value>
+      <Value Profile="(Default)">CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD, XS010XQ+XS010XB+XS020XONT+XS505M</Value>
     </Setting>
     <Setting Name="Theme" Type="System.String" Scope="User">
       <Value Profile="(Default)">Rogers</Value>
     </Setting>
     <Setting Name="FlexiproPixel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">787, 1027</Value>
+      <Value Profile="(Default)">961, 1016</Value>
     </Setting>
     <Setting Name="WmsPixel" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">30, 149</Value>
     </Setting>
     <Setting Name="PushFlexiProData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

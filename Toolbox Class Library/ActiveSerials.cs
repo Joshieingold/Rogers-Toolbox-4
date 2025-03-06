@@ -233,6 +233,75 @@ namespace RogersToolbox
             {
                 return string.Empty;
             }
-        } // Establishes a path to the target excel for importing serials.
+        } // Establishes a path to the target excel for importing serials
+
+        private bool CheckPixel(string colorWanted, string colorFound)
+        {
+            if (colorWanted == colorFound)
+            {
+                return true; // Returns True if they match
+            }
+            else
+            {
+                return false;
+            }
+        } // Checks between the color the programmer wants and the color found at the pixel on the screen stipulated.
+        private string GetCurrentPixel(string pixelSource)
+        {
+            string[] cords = pixelSource.Split(", ");
+            int xCord = Convert.ToInt32(cords[0]);
+            int yCord = Convert.ToInt32(cords[1]);
+            System.Drawing.Point ixelCords = new System.Drawing.Point(xCord, yCord);
+
+            // Capture the screen
+            Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            using (Graphics graphics = Graphics.FromImage(screenshot))
+            {
+                graphics.CopyFromScreen(new System.Drawing.Point(0, 0), new System.Drawing.Point(0, 0), screenshot.Size);
+            }
+
+            // Get the color of the pixel at the specified coordinates
+            Color pixelColor = screenshot.GetPixel(xCord, yCord);
+
+            // Format the color as "(R, G, B)"
+            string colorFound = $"({pixelColor.R}, {pixelColor.G}, {pixelColor.B})";
+
+            return colorFound;
+        } // Finds the color of a pixel on the screen.
+        public async Task WmsImport()
+        {
+            var serialsToProcess = new List<SerialNumber>(Serials);
+            List<string> passList = [];
+            List<string> failList = [];
+            foreach (SerialNumber serial in serialsToProcess)
+            {
+                if (serial.Serial == "*")
+                {
+                    Serials.Remove(serial);
+                    break;
+                }
+                else
+                {
+                    await SimulateTyping(serial.Serial);
+                    Serials.Remove(serial);
+                    SimulateTabKey();
+                    await Task.Delay(4);
+                    bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(wmsCheckPixel));
+                    if (isPixelGood == false)
+                    {
+                        failList.Add(serial.Serial);
+                        // Add automation for when there is a failure.
+                    }
+                    else
+                    {
+                        passList.Add(serial.Serial);
+                    }
+
+                    await Task.Delay(4 / 2);
+                    serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                }
+            }
+        }
     }
-} 
+}
+
