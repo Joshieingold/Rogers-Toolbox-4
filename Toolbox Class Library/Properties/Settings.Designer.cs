@@ -12,7 +12,7 @@ namespace Toolbox_Class_Library.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -73,7 +73,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
         public int FlexiProImportSpeed {
             get {
                 return ((int)(this["FlexiProImportSpeed"]));
@@ -85,7 +85,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"[{""Name"":""Default"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""MR36HW"",""S5A134A"",""CM8200A"",""CODA5810""],""CtrIDs"":[""8017"",""8037"",""8038"",""8041"",""8047"",""8080"",""8093"",""8052"",""8067"",""8090"",""8091"",""8134"",""NB1"",""NF1""]},{""Name"":""Frontier"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS""],""CtrIDs"":[""8975"",""8994""]},{""Name"":""FrontierCoda"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""CODA5810""],""CtrIDs"":[""8997""]}]")]
         public string ContractorData {
             get {
                 return ((string)(this["ContractorData"]));
@@ -97,8 +97,8 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8017, 8037, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8134, 8975, 8994, 8997, NB1" +
-            ", NF1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8017, 8037, 8038, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8091, 8134, 8975, 899" +
+            "4, 8997, NB1, NF1")]
         public string CtrOrder {
             get {
                 return ((string)(this["CtrOrder"]));
@@ -110,7 +110,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD, XS010XQ+XS010XB+XS020XONT+XS505M")]
         public string GroupedDevices {
             get {
                 return ((string)(this["GroupedDevices"]));
@@ -134,7 +134,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("961, 1016")]
         public string FlexiproPixel {
             get {
                 return ((string)(this["FlexiproPixel"]));
@@ -146,7 +146,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 149")]
         public string WmsPixel {
             get {
                 return ((string)(this["WmsPixel"]));

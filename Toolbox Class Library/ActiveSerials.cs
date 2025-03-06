@@ -226,5 +226,39 @@ namespace RogersToolbox
 
             return colorFound;
         } // Finds the color of a pixel on the screen.
+        public async Task WmsImport()
+        {
+            var serialsToProcess = new List<SerialNumber>(Serials);
+            List<string> passList = [];
+            List<string> failList = [];
+            foreach (SerialNumber serial in serialsToProcess)
+            {
+                if (serial.Serial == "*")
+                {
+                    Serials.Remove(serial);
+                    break;
+                }
+                else
+                {
+                    await SimulateTyping(serial.Serial);
+                    Serials.Remove(serial);
+                    SimulateTabKey();
+                    await Task.Delay(4);
+                    bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(wmsCheckPixel));
+                    if (isPixelGood == false)
+                    {
+                        failList.Add(serial.Serial);
+                        // Add automation for when there is a failure.
+                    }
+                    else
+                    {
+                        passList.Add(serial.Serial);
+                    }
+
+                    await Task.Delay(4 / 2);
+                    serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                }
+            }
         }
-    } 
+    }
+}
