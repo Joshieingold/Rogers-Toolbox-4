@@ -44,5 +44,8 @@
     <Setting Name="WmsImportSpeed" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="BartenderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\BTAutomation\\barcodes.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

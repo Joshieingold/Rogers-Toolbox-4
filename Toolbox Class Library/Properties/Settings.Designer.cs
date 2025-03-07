@@ -191,5 +191,17 @@ namespace Toolbox_Class_Library.Properties {
                 this["WmsImportSpeed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\BTAutomation\\\\barcodes.txt")]
+        public string BartenderPath {
+            get {
+                return ((string)(this["BartenderPath"]));
+            }
+            set {
+                this["BartenderPath"] = value;
+            }
+        }
     }
 }

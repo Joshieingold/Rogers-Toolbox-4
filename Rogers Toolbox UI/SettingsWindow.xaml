@@ -27,6 +27,10 @@
                         <TextBox Text="{Binding Username}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                        <Label Content="Bartender Path:" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBox Text="{Binding BartenderPath}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
                         <Label Content="Theme:" VerticalAlignment="Center" Foreground="White"/>
                         <ComboBox x:Name="ThemeComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="ThemeComboBox_SelectionChanged">
                             <ComboBoxItem Content="Dark" />
