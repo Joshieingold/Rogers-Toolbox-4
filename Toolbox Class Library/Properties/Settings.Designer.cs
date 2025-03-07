@@ -12,7 +12,7 @@ namespace Toolbox_Class_Library.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -73,7 +73,6 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-
         [global::System.Configuration.DefaultSettingValueAttribute("700")]
         public int FlexiProImportSpeed {
             get {
@@ -135,9 +134,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-
         [global::System.Configuration.DefaultSettingValueAttribute("961, 1016")]
-
         public string FlexiproPixel {
             get {
                 return ((string)(this["FlexiproPixel"]));
@@ -168,6 +165,30 @@ namespace Toolbox_Class_Library.Properties {
             }
             set {
                 this["PushFlexiProData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl + X")]
+        public string WmsFailAutomation {
+            get {
+                return ((string)(this["WmsFailAutomation"]));
+            }
+            set {
+                this["WmsFailAutomation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WmsImportSpeed {
+            get {
+                return ((int)(this["WmsImportSpeed"]));
+            }
+            set {
+                this["WmsImportSpeed"] = value;
             }
         }
     }

@@ -7,6 +7,7 @@ using DocumentFormat.OpenXml.Drawing;
 using Toolbox_Class_Library;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Printing;
 namespace RogersToolbox
 {
     public class ActiveSerials
@@ -18,8 +19,10 @@ namespace RogersToolbox
         private int blitzImportSpeed { get; set; }
         private bool reverseImport { get; set; }
         private int flexiproImportSpeed { get; set; }
+        private int wmsImportSpeed { get; set; }
         private string flexiProCheckPixel { get; set; }
         private string wmsCheckPixel { get; set; }
+        private string wmsFailString { get; set; }
         private string user { get; set; }
         private bool pushFlexiProData { get; set; }
         private readonly Action? serialsUpdatedCallback; // Callback for UI update
@@ -41,7 +44,9 @@ namespace RogersToolbox
             flexiProCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.FlexiproPixel;
             wmsCheckPixel = Toolbox_Class_Library.Properties.Settings.Default.WmsPixel;
             user = Toolbox_Class_Library.Properties.Settings.Default.Username;
-            pushFlexiProData = Toolbox_Class_Library.Properties.Settings.Default.PushFlexiProData;
+            wmsFailString = Toolbox_Class_Library.Properties.Settings.Default.WmsFailAutomation;
+            wmsImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.WmsImportSpeed;
+
             this.serialsUpdatedCallback = serialsUpdatedCallback;
         }
         //  Helper Functions
@@ -174,11 +179,11 @@ namespace RogersToolbox
             DatabaseConnection FlexiProConnection = new DatabaseConnection();
             foreach (SerialNumber serial in serialsToProcess)
             {
-                bool isPixelGood = CheckPixel("(240, 240, 240)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
                 while (isPixelGood == false)
                 {
                     await Task.Delay(700);
-                    isPixelGood = CheckPixel("(240, 240, 240)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                    isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
                 }
                 if (isPixelGood == true)
                 {
@@ -234,45 +239,12 @@ namespace RogersToolbox
                 return string.Empty;
             }
         } // Establishes a path to the target excel for importing serials
-
-        private bool CheckPixel(string colorWanted, string colorFound)
-        {
-            if (colorWanted == colorFound)
-            {
-                return true; // Returns True if they match
-            }
-            else
-            {
-                return false;
-            }
-        } // Checks between the color the programmer wants and the color found at the pixel on the screen stipulated.
-        private string GetCurrentPixel(string pixelSource)
-        {
-            string[] cords = pixelSource.Split(", ");
-            int xCord = Convert.ToInt32(cords[0]);
-            int yCord = Convert.ToInt32(cords[1]);
-            System.Drawing.Point ixelCords = new System.Drawing.Point(xCord, yCord);
-
-            // Capture the screen
-            Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            using (Graphics graphics = Graphics.FromImage(screenshot))
-            {
-                graphics.CopyFromScreen(new System.Drawing.Point(0, 0), new System.Drawing.Point(0, 0), screenshot.Size);
-            }
-
-            // Get the color of the pixel at the specified coordinates
-            Color pixelColor = screenshot.GetPixel(xCord, yCord);
-
-            // Format the color as "(R, G, B)"
-            string colorFound = $"({pixelColor.R}, {pixelColor.G}, {pixelColor.B})";
-
-            return colorFound;
-        } // Finds the color of a pixel on the screen.
         public async Task WmsImport()
         {
             var serialsToProcess = new List<SerialNumber>(Serials);
             List<string> passList = [];
             List<string> failList = [];
+            string[] failAutomationSplit = wmsFailString.Split(" + ");
             foreach (SerialNumber serial in serialsToProcess)
             {
                 if (serial.Serial == "*")
@@ -284,13 +256,14 @@ namespace RogersToolbox
                 {
                     await SimulateTyping(serial.Serial);
                     Serials.Remove(serial);
+                    await Task.Delay(200);
                     SimulateTabKey();
-                    await Task.Delay(4);
-                    bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(wmsCheckPixel));
+                    await Task.Delay(1000);
+                    bool isPixelGood = CheckPixel("(0, 0, 0)", GetCurrentPixel(wmsCheckPixel));
                     if (isPixelGood == false)
                     {
                         failList.Add(serial.Serial);
-                        // Add automation for when there is a failure.
+                        WmsFailAutomation(failAutomationSplit);
                     }
                     else
                     {
@@ -300,7 +273,26 @@ namespace RogersToolbox
                     await Task.Delay(4 / 2);
                     serialsUpdatedCallback?.Invoke(); // Notify UI to update
                 }
+                await Task.Delay(wmsImportSpeed);
             }
+            // Create new Failed and passed list window with the aforementioned data.
+        }
+        private void WmsFailAutomation(string[] failSplit)
+        {
+            var sim = new InputSimulator();
+            if (failSplit[1] == "X")
+            {
+                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_X);
+            }
+            else if (failSplit[1] == "A")
+            {
+                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
+            }
+            else
+            {
+                Console.Write("Unhandled Key");
+            }
+            
         }
     }
 }

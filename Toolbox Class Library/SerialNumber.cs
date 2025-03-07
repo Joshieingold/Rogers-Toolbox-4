@@ -26,6 +26,8 @@
                 return "CGM4331COM";
             else if (Serial.StartsWith("AS"))
                 return "XE2SGROG1";
+            else if (Serial.StartsWith("B60"))
+                return "CODA5810";
             else
                 return "TG4482A";
         }

@@ -21,6 +21,7 @@ namespace Rogers_Toolbox_UI
             mainWindow = main;
             LoadContractorData();
             InitializeThemeComboBox();
+            InitializeWmsFailSettingComboBox();
         }
 
         private void InitializeThemeComboBox()
@@ -32,6 +33,14 @@ namespace Rogers_Toolbox_UI
                 .FirstOrDefault(item => item.Content.ToString() == currentTheme);
         }
 
+        private void InitializeWmsFailSettingComboBox()
+        {
+            // Set the ComboBox to the current theme
+            string currentAutomation = Settings.Default.WmsFailAutomation;
+            WmsFailSettingComboBox.SelectedItem = WmsFailSettingComboBox.Items
+                .Cast<ComboBoxItem>()
+                .FirstOrDefault(item => item.Content.ToString() == currentAutomation);
+        }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Save all the settings to persistent storage
@@ -51,6 +60,15 @@ namespace Rogers_Toolbox_UI
 
                 // Apply the new theme immediately
                 mainWindow.ApplyTheme($"Themes/{selectedTheme}Theme.xaml");
+            }
+        }
+        private void WmsFailAutomationSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WmsFailSettingComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedFailAutomation = selectedItem.Content.ToString();
+                Settings.Default.WmsFailAutomation = selectedFailAutomation;
+                Settings.Default.Save();
             }
         }
 
