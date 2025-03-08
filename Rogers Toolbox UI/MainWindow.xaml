@@ -4,17 +4,10 @@
         Title="Rogers Toolbox 4.0" Height="450" Width="800">
 
     <Grid Background="{DynamicResource WindowBackgroundBrush}">
-        <!-- Style for Navigation Buttons with Icons -->
-        
-
         <!-- Navigation Bar -->
         <DockPanel Background="{DynamicResource WindowHeaderBrush}" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
-                    <Button.ToolTip>
-                        <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
-                    </Button.ToolTip>
-                </Button>
+                
                 <Button x:Name="OpenExcelButton" Tag="pack://application:,,,/Icons/OpenExcelIcon.png" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" Click="Button_Click">
                     <Button.ToolTip>
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
@@ -40,7 +33,12 @@
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-               
+                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
+                    <Button.ToolTip>
+                        <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
+                    </Button.ToolTip>
+                </Button>
+
                 <Button x:Name="CompareListButton" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />

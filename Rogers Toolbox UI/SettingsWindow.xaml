@@ -15,27 +15,27 @@
     </Window.Resources>
 
 
-    <Grid Background="#FF2E2E2E" Margin="0,0,0,-6">
+    <Grid Background="{DynamicResource WindowBackgroundBrush}" Margin="0,0,0,-6">
 
-        <Label Content="Settings" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36" FontFamily="Arial Rounded MT Bold" Foreground="White" Height="57" VerticalAlignment="Top" Background="#FF1F1F1F"/>
-        <TabControl Margin="10,78,10,36" BorderBrush="#FF2E2E2E" Background="#FF2E2E2E">
-            <TabItem Header="General" Background="#FF1F1F1F" BorderBrush="#FF383838" Foreground="#FF565656">
-                <StackPanel Background="#FF383838" Height="224" Margin="10,10,10,10" >
+        <Label Content="Settings" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36" FontFamily="Arial Rounded MT Bold" Foreground="{DynamicResource AltTextColor}" Height="57" VerticalAlignment="Top" Background="{DynamicResource WindowHeaderBrush}"/>
+        <TabControl Margin="10,78,10,36" BorderBrush="{DynamicResource ContentBrush}" Background="{DynamicResource ContentBrush}">
+            <TabItem Header="General" Background="{DynamicResource WindowHeaderBrush}" BorderBrush="{DynamicResource BorderBrush}" Foreground="{DynamicResource AltTextColor}">
+                <StackPanel Background="{DynamicResource ContentBrush}" Height="224" Margin="10,10,10,10" >
 
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="User Name:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox Text="{Binding Username}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        <Label Content="User Name:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                        <TextBox Text="{Binding Username}" Width="150" Margin="118,4,119,4" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="#FF0C0C0C"/>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Bartender Path:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox Text="{Binding BartenderPath}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        <Label Content="Bartender Path:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                        <TextBox Text="{Binding BartenderPath}" Width="150" Margin="118,4,119,4" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="#FF0C0C0C"/>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Excel Import Column:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox Text="{Binding ExcelColumn}" Margin="128,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        <Label Content="Excel Import Column:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                        <TextBox Text="{Binding ExcelColumn}" Margin="128,4,119,4" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="#FF0C0C0C"/>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Theme:" VerticalAlignment="Center" Foreground="White"/>
+                        <Label Content="Theme:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                         <ComboBox x:Name="ThemeComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="ThemeComboBox_SelectionChanged">
                             <ComboBoxItem Content="Dark" />
                             <ComboBoxItem Content="Rogers" />
@@ -46,7 +46,7 @@
                         </ComboBox>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Reverse Serials:" VerticalAlignment="Center" Foreground="White"/>
+                        <Label Content="Reverse Serials:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="118,0,0,8">
                             <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding ReverseImport}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
                         </StackPanel>
@@ -59,44 +59,44 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <StackPanel Background="#FF383838" Height="250" Margin="10,10,10,10" >
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="Send Flexipro Data:" VerticalAlignment="Center" Foreground="White"/>
+                            <Label Content="Send Flexipro Data:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="118,0,0,8">
                                 <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding PushFlexiProData}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
                             </StackPanel>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="Typing Speed:" VerticalAlignment="Center" Foreground="White"/>
+                            <Label Content="Typing Speed:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding TypingSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                            <Label Content="Blitz Import Speed:" Foreground="White"/>
+                            <Label Content="Blitz Import Speed:" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding BlitzImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                            <Label Content="WMS Import Speed:" Foreground="White"/>
+                            <Label Content="WMS Import Speed:" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding WmsImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                            <Label Content="FlexiPro Import Speed:" Foreground="White"/>
+                            <Label Content="FlexiPro Import Speed:" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding FlexiProImportSpeed}" Margin="139,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="FlexiPro Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                            <Label Content="FlexiPro Pixel:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                            <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <TextBox TextWrapping="Wrap" Text="{Binding WmsPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
                         </Grid>
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="WMS Fail Action: " VerticalAlignment="Center" Foreground="White"/>
+                            <Label Content="WMS Fail Action: " VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <ComboBox x:Name="WmsFailSettingComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="WmsFailAutomationSetting_SelectionChanged">
                                 <ComboBoxItem Content="Ctrl + X" />
                                 <ComboBoxItem Content="Ctrl + A" />
