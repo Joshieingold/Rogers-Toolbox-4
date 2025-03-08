@@ -16,42 +16,40 @@ namespace Toolbox_Class_Library
         {
             serialsToPrint = serials;
             bartenderPath = Toolbox_Class_Library.Properties.Settings.Default.BartenderPath;
-            string device = (serials.Serials[0]).Device;
+            targetDevice = serials.Serials[0].Device;
         }
+
         private string[] ConvertSerialsToArray(ActiveSerials serials)
         {
             string stringSerials = serials.ConvertSerialsToString();
             return stringSerials.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
         }
+
         private void PurolatorPrint(ActiveSerials serials, int formatBy, string device)
         {
-            
             string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray(serialsToPrint), device);
             File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
-            
 
             string batchFile = device == "IPTVARXI6HD" || device == "IPTVTCXI6HD" || device == "SCXI11BEI"
-                    ?
-                  // Use Xi6 if the device is a cablebox.
-                    @"@echo off
-               set ""target_printer=55EXP_Purolator""
-               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
-                    :
-                  // Use CODA file if the device is not a cablebox.  
-                    @"@echo off
-               set ""target_printer=55EXP_Purolator""
-               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\CODA.btw /p /x";
+                ? $@"@echo off
+                    set ""target_printer=55EXP_Purolator""
+                    powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''55EXP_Purolator'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                    ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
+                : $@"@echo off
+                    set ""target_printer=55EXP_Purolator""
+                    powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''55EXP_Purolator'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                    ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\CODA.btw /p /x";
+
             try
             {
                 ExecuteBatchScript(batchFile);
             }
             catch
             {
-                Console.Write("Print Failed");
+                Console.WriteLine("Print Failed");
             }
         }
+
         private int FindFormatByDevice(string device)
         {
             return (device == "IPTVARXI6HD" || device == "IPTVTCXI6HD" || device == "SCXI11BEI") ? 10 : 8;
@@ -61,10 +59,8 @@ namespace Toolbox_Class_Library
         {
             string tempFilePath = "temp_cmd.bat";
 
-            // Write script content to a temporary file
             File.WriteAllText(tempFilePath, scriptContent);
 
-            // Execute the batch file
             Process process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -80,15 +76,11 @@ namespace Toolbox_Class_Library
             process.Start();
             process.WaitForExit();
 
-            // Clean up temporary file
             File.Delete(tempFilePath);
-
-
-        } // executes a cmd script given to it.
+        }
 
         public string FormatSheet(int numSplit, string[] serials, string device)
         {
-            
             if (serials == null || serials.Length == 0)
             {
                 return "No serials available.";
@@ -99,59 +91,47 @@ namespace Toolbox_Class_Library
 
             for (int i = 0; i < totalStrings; i += numSplit)
             {
-                // Split into chunks and reverse each chunk
                 List<string> chunk = serials.Skip(i).Take(numSplit).ToList();
                 chunk.Reverse();
 
-                // Example placeholder for device determination
                 formattedList.AppendLine(device);
-
-                // Append the reversed chunk to the formatted list
                 formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
             }
 
             return formattedList.ToString();
         }
-        
 
-        // Final Processes
         private void DefaultPurolatorPrintButton()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
             PurolatorPrint(serialsToPrint, formatNumber, targetDevice);
         }
+
         private void CustomPurolatorPrintButton()
         {
-            int formatNumber = // Recieve from input.
-            string device = // recieve from input.
-            PurolatorPrint(serialsToPrint, formatNumber);
+            int formatNumber = 7389; // Receive from input.
+            string device = "temp"; // Receive from input.
+            PurolatorPrint(serialsToPrint, formatNumber, device);
         }
+
         public void CreateLotSheet()
         {
             try
             {
-
-                // Read serials from TextBox
-
                 string[] serialString = ConvertSerialsToArray(serialsToPrint);
-
-                // Write serials to the lot sheet in Notepad
                 File.WriteAllText(bartenderPath, serialString + Environment.NewLine);
 
-                // Check printer availability
                 if (!IsPrinterAvailable("55EXP_2"))
                 {
                     Console.WriteLine("Printer '55EXP_2' is unavailable. Lot sheet creation aborted.");
                     return;
                 }
 
-                // Create batch script
                 string cmdScript = @"@echo off
-                              set ""target_printer=55EXP_2""
-                              powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-                              ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\NewPrintertest.btw /p /x";
+                    set ""target_printer=55EXP_2""
+                    powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''55EXP_2'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                    ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\NewPrintertest.btw /p /x";
 
-                // Execute the batch script
                 try
                 {
                     ExecuteBatchScript(cmdScript);
@@ -163,35 +143,28 @@ namespace Toolbox_Class_Library
             }
             catch (Exception ex)
             {
-                Console.Write($"An unexpected error occurred: {ex.Message}");
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
+        }
 
-        } // prints all serials to a lot sheet.
         public void CreateBarcodes()
         {
             try
             {
-
-                // Read serials from TextBox
                 string[] serialString = ConvertSerialsToArray(serialsToPrint);
-
-                // Write serials to the barcode file in Notepad
                 File.WriteAllText(bartenderPath, serialString + Environment.NewLine);
 
-                // Check printer availability
                 if (!IsPrinterAvailable("55EXP_Barcode"))
                 {
                     Console.WriteLine("Printer '55EXP_Barcode' is unavailable. Barcode creation aborted.");
                     return;
                 }
 
-                // Create batch script
                 string cmdScript = @"@echo off
-                              set ""target_printer=55EXP_Barcode""
-                              powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-                              ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\singlebar.btw /p /x";
+                    set ""target_printer=55EXP_Barcode""
+                    powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''55EXP_Barcode'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                    ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\singlebar.btw /p /x";
 
-                // Execute the batch script
                 try
                 {
                     ExecuteBatchScript(cmdScript);
@@ -205,7 +178,8 @@ namespace Toolbox_Class_Library
             {
                 Console.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
-        } // prints all serials to the barcode printer.
+        }
+
         private bool IsPrinterAvailable(string printerName)
         {
             try
@@ -218,10 +192,8 @@ namespace Toolbox_Class_Library
             }
             catch
             {
-                // Log or handle any issues while querying the printer
                 return false;
             }
         }
     }
-
 }
