@@ -23,14 +23,14 @@ namespace Toolbox_Class_Library
             string stringSerials = serials.ConvertSerialsToString();
             return stringSerials.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
         }
-        private void PurolatorPrint(ActiveSerials serials, int formatBy)
+        private void PurolatorPrint(ActiveSerials serials, int formatBy, string device)
         {
             
-            string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray(serialsToPrint));
+            string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray(serialsToPrint), device);
             File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
             
 
-            string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
+            string batchFile = device == "IPTVARXI6HD" || device == "IPTVTCXI6HD" || device == "SCXI11BEI"
                     ?
                   // Use Xi6 if the device is a cablebox.
                     @"@echo off
@@ -86,9 +86,9 @@ namespace Toolbox_Class_Library
 
         } // executes a cmd script given to it.
 
-        public string FormatSheet(int numSplit, string[] serials)
+        public string FormatSheet(int numSplit, string[] serials, string device)
         {
-
+            
             if (serials == null || serials.Length == 0)
             {
                 return "No serials available.";
@@ -104,7 +104,7 @@ namespace Toolbox_Class_Library
                 chunk.Reverse();
 
                 // Example placeholder for device determination
-                formattedList.AppendLine(targetDevice);
+                formattedList.AppendLine(device);
 
                 // Append the reversed chunk to the formatted list
                 formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
@@ -118,11 +118,12 @@ namespace Toolbox_Class_Library
         private void DefaultPurolatorPrintButton()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
-            PurolatorPrint(serialsToPrint, formatNumber);
+            PurolatorPrint(serialsToPrint, formatNumber, targetDevice);
         }
         private void CustomPurolatorPrintButton()
         {
-            int formatNumber = FindFormatByDevice(targetDevice);
+            int formatNumber = // Recieve from input.
+            string device = // recieve from input.
             PurolatorPrint(serialsToPrint, formatNumber);
         }
         public void CreateLotSheet()
