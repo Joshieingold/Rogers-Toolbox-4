@@ -24,6 +24,7 @@ namespace RogersToolbox
         private string wmsCheckPixel { get; set; }
         private string wmsFailString { get; set; }
         private string user { get; set; }
+        private int excelColumn { get; set; }
         private bool pushFlexiProData { get; set; }
         private readonly Action? serialsUpdatedCallback; // Callback for UI update
 
@@ -46,6 +47,7 @@ namespace RogersToolbox
             user = Toolbox_Class_Library.Properties.Settings.Default.Username;
             wmsFailString = Toolbox_Class_Library.Properties.Settings.Default.WmsFailAutomation;
             wmsImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.WmsImportSpeed;
+            excelColumn = Toolbox_Class_Library.Properties.Settings.Default.ExcelColumn;
 
             this.serialsUpdatedCallback = serialsUpdatedCallback;
         }
@@ -129,7 +131,7 @@ namespace RogersToolbox
                     // Iterate through rows in the first column and get their values.
                     foreach (var row in worksheet.RowsUsed())
                     {
-                        var cellValue = row.Cell(1).GetValue<string>();
+                        var cellValue = row.Cell(excelColumn).GetValue<string>();
                         if (!string.IsNullOrWhiteSpace(cellValue))
                         {
                             Serials.Add(new SerialNumber(cellValue.Trim()));

@@ -10,7 +10,7 @@
         <!-- Navigation Bar -->
         <DockPanel Background="{DynamicResource WindowHeaderBrush}" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="PrintButton_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
+                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
                     <Button.ToolTip>
                         <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
@@ -40,21 +40,7 @@
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="PurolatorButton" Tag="pack://application:,,,/Icons/PurolatorIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
-                    <Button.ToolTip>
-                        <ToolTip Content="Print Purolator Sheets" Background="Black" Foreground="White" FontSize="12" />
-                    </Button.ToolTip>
-                </Button>
-                <Button x:Name="BarcodeButton" Tag="pack://application:,,,/Icons/BarcodeIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
-                    <Button.ToolTip>
-                        <ToolTip Content="Print Barcodes" Background="Black" Foreground="White" FontSize="12" />
-                    </Button.ToolTip>
-                </Button>
-                <Button x:Name="LotSheetButton" Tag="pack://application:,,,/Icons/LotSheetIcon.png" Style="{DynamicResource NavButtonStyle}"   Width="48" Height="48">
-                    <Button.ToolTip>
-                        <ToolTip Content="Print Lot Sheets" Background="Black" Foreground="White" FontSize="12" />
-                    </Button.ToolTip>
-                </Button>
+               
                 <Button x:Name="CompareListButton" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />

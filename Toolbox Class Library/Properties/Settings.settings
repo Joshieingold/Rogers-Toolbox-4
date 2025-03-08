@@ -47,5 +47,8 @@
     <Setting Name="BartenderPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\BTAutomation\\barcodes.txt</Value>
     </Setting>
+    <Setting Name="ExcelColumn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

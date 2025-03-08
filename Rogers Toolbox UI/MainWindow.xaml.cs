@@ -57,39 +57,6 @@ namespace Rogers_Toolbox_UI
                 Console.WriteLine($"An error occurred during initialization: {ex.Message}");
             }
         } // Initialize Async Data.
-        
-
-        private void PrintButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"Printing using {lastSelectedPrinter}...");
-        }
-
-        // Open menu on right-click (or long-press for touchscreen)
-        private void ShowPrintMenu(object sender, MouseButtonEventArgs e)
-        {
-            Button btn = sender as Button;
-            ContextMenu menu = new ContextMenu();
-
-            string[] printers = { "Purolator", "Custom Purolator", "Barcodes", "Lot Sheets" };
-
-            foreach (string printer in printers)
-            {
-                MenuItem item = new MenuItem { Header = printer };
-                item.Click += (s, args) => SetPrinter(printer);
-                menu.Items.Add(item);
-            }
-
-            btn.ContextMenu = menu;
-            menu.IsOpen = true;
-        }
-
-        // Set the new default printer
-        private void SetPrinter(string printer)
-        {
-            lastSelectedPrinter = printer;
-            PrintButton.Content = $"{printer}"; // Update button text
-        }
-
         private void LoadTheme() // Load the appropriate theme based on the setting
         {
             string selectedTheme = Toolbox_Class_Library.Properties.Settings.Default.Theme; 
@@ -161,7 +128,48 @@ namespace Rogers_Toolbox_UI
 
             return tempList;
         }
-        
+        private void ShowPrintMenu(object sender, MouseButtonEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContextMenu menu = new ContextMenu();
+
+            string[] printers = { "Purolator", "Barcodes", "Lot Sheets", "Custom Purolator" };
+
+            foreach (string printer in printers)
+            {
+                MenuItem item = new MenuItem { Header = printer };
+                item.Click += (s, args) => SetPrinter(printer);
+                menu.Items.Add(item);
+            }
+
+            btn.ContextMenu = menu;
+            menu.IsOpen = true;
+        }// Open menu on right-click (or long-press for touchscreen)
+        private void SetPrinter(string printer)
+        {
+            lastSelectedPrinter = printer;
+            if (printer == "Purolator")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/PurolatorIcon.png";
+            }
+            else if (printer == "Barcodes")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/BarcodeIcon.png";
+            }
+            else if (printer == "Lot Sheets")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/LotSheetIcon.png";
+            }
+            else if (printer == "Custom Purolator")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/PurolatorIcon.png";
+            }
+            else
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/PrinterIcon.png";
+            }
+        }// Set the new default printer
+
         // Main Functionality
         private async void Button_Click(object sender, RoutedEventArgs e) // Handles Actions based on Button Clicked
         {
@@ -249,7 +257,9 @@ namespace Rogers_Toolbox_UI
                     }
 
                     break;
-
+                case "PrintButton": // Opens the Print Menu
+                    MessageBox.Show($"Printing using {lastSelectedPrinter}...");
+                    break;
                 default: // Just in case :)
                     UpdateMessage("Didn't read anything :(");
                     break;
@@ -261,5 +271,5 @@ namespace Rogers_Toolbox_UI
 }
 
 // To Do:
-// 1. Make settings allow user to choose the column of the imported excel.
+
 // 2. I want there to be an easy way for users to send each other serials across toolboxs.

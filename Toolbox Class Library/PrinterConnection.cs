@@ -1,12 +1,8 @@
-﻿using DocumentFormat.OpenXml.ExtendedProperties;
-using RogersToolbox;
-using System;
-using System.Collections.Generic;
+﻿using RogersToolbox;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Toolbox_Class_Library.CtrUpdate;
+using System.IO;
+
 
 namespace Toolbox_Class_Library
 {
@@ -31,7 +27,7 @@ namespace Toolbox_Class_Library
         {
             
             string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray(serialsToPrint));
-            File.WriteAllText(bartenderNotepad, puroSheet + Environment.NewLine);
+            File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
 
 
             string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"

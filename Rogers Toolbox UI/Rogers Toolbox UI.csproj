@@ -22,6 +22,7 @@
     <None Remove="Icons\GraphIcon.png" />
     <None Remove="Icons\LotSheetIcon.png" />
     <None Remove="Icons\OpenExcelIcon.png" />
+    <None Remove="Icons\PrintIcon.png" />
     <None Remove="Icons\PurolatorIcon.png" />
     <None Remove="Icons\SettingsIcon.png" />
     <None Remove="Icons\WMSIcon.png" />
@@ -42,6 +43,7 @@
     <Resource Include="Icons\GraphIcon.png" />
     <Resource Include="Icons\LotSheetIcon.png" />
     <Resource Include="Icons\OpenExcelIcon.png" />
+    <Resource Include="Icons\PrintIcon.png" />
     <Resource Include="Icons\PurolatorIcon.png" />
     <Resource Include="Icons\SettingsIcon.png" />
     <Resource Include="Icons\WMSIcon.png" />
