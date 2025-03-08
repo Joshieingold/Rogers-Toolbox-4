@@ -6,15 +6,19 @@ using System;
 using System.Windows.Controls;
 using Toolbox_Class_Library.CtrUpdate;
 using Toolbox_Class_Library;
+using System.Windows.Input;
 
 namespace Rogers_Toolbox_UI
 {
     public partial class MainWindow : Window
     {
         private ActiveSerials CurrentSerials; // Initialize our current serials class 
+        private DatabaseConnection dbConnection; // Handles connections between the service and the database
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.0 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
-        private DatabaseConnection dbConnection; // Handles connections between the service and the database
+        private string lastSelectedPrinter = "Purolator"; // Default printer
+
+
 
         public MainWindow()
         {
@@ -23,7 +27,7 @@ namespace Rogers_Toolbox_UI
             InitializeDataAsync(); // Call the async methods.
             LoadTheme(); // Changes the application theme on start-up
             DataContext = this;
-
+            
             // Refresh to default settings.
             // Toolbox_Class_Library.Properties.Settings.Default.Reset();
             // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
@@ -53,6 +57,39 @@ namespace Rogers_Toolbox_UI
                 Console.WriteLine($"An error occurred during initialization: {ex.Message}");
             }
         } // Initialize Async Data.
+        
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Printing using {lastSelectedPrinter}...");
+        }
+
+        // Open menu on right-click (or long-press for touchscreen)
+        private void ShowPrintMenu(object sender, MouseButtonEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContextMenu menu = new ContextMenu();
+
+            string[] printers = { "Purolator", "Custom Purolator", "Barcodes", "Lot Sheets" };
+
+            foreach (string printer in printers)
+            {
+                MenuItem item = new MenuItem { Header = printer };
+                item.Click += (s, args) => SetPrinter(printer);
+                menu.Items.Add(item);
+            }
+
+            btn.ContextMenu = menu;
+            menu.IsOpen = true;
+        }
+
+        // Set the new default printer
+        private void SetPrinter(string printer)
+        {
+            lastSelectedPrinter = printer;
+            PrintButton.Content = $"{printer}"; // Update button text
+        }
+
         private void LoadTheme() // Load the appropriate theme based on the setting
         {
             string selectedTheme = Toolbox_Class_Library.Properties.Settings.Default.Theme; 

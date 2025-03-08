@@ -52,52 +52,54 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Import" Background="#FF1F1F1F" BorderBrush="#FF383838" Foreground="#FF565656">
-                <StackPanel Background="#FF383838" Height="250" Margin="10,10,10,10" >
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Send Flexipro Data:" VerticalAlignment="Center" Foreground="White"/>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="118,0,0,8">
-                            <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding PushFlexiProData}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
-                        </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Background="#FF383838" Height="250" Margin="10,10,10,10" >
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                            <Label Content="Send Flexipro Data:" VerticalAlignment="Center" Foreground="White"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="118,0,0,8">
+                                <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding PushFlexiProData}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
+                            </StackPanel>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="Typing Speed:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding TypingSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                            <Label Content="Typing Speed:" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding TypingSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                        <Label Content="Blitz Import Speed:" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding BlitzImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" Width="387" Height="30" >
+                            <Label Content="Blitz Import Speed:" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding BlitzImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                        <Label Content="WMS Import Speed:" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding WmsImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" Width="387" Height="30" >
+                            <Label Content="WMS Import Speed:" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding WmsImportSpeed}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Width="387" Height="30" >
-                        <Label Content="FlexiPro Import Speed:" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding FlexiProImportSpeed}" Margin="139,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" Width="387" Height="30" >
+                            <Label Content="FlexiPro Import Speed:" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding FlexiProImportSpeed}" Margin="139,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="FlexiPro Pixel:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                            <Label Content="FlexiPro Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding FlexiproPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding WmsPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                            <Label Content="WMS Pixel:" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding WmsPixel}" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="White" BorderBrush="#FF0C0C0C"/>
 
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                        <Label Content="WMS Fail Action: " VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="WmsFailSettingComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="WmsFailAutomationSetting_SelectionChanged">
-                            <ComboBoxItem Content="Ctrl + X" />
-                            <ComboBoxItem Content="Ctrl + A" />
-                        </ComboBox>
-                    </Grid>
-                </StackPanel>
+                        </Grid>
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                            <Label Content="WMS Fail Action: " VerticalAlignment="Center" Foreground="White"/>
+                            <ComboBox x:Name="WmsFailSettingComboBox" Width="150" Margin="118,4,119,4" Background="#FF2E2E2E" Foreground="black" BorderBrush="#FF0C0C0C" SelectionChanged="WmsFailAutomationSetting_SelectionChanged">
+                                <ComboBoxItem Content="Ctrl + X" />
+                                <ComboBoxItem Content="Ctrl + A" />
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="Contractor" Background="#FF1F1F1F" BorderBrush="#FF383838" Foreground="#FF565656">
                 <Grid Background="#FF383838">

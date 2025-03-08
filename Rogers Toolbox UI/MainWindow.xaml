@@ -10,7 +10,11 @@
         <!-- Navigation Bar -->
         <DockPanel Background="{DynamicResource WindowHeaderBrush}" Height="61" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-
+                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="PrintButton_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
+                    <Button.ToolTip>
+                        <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
+                    </Button.ToolTip>
+                </Button>
                 <Button x:Name="OpenExcelButton" Tag="pack://application:,,,/Icons/OpenExcelIcon.png" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" Click="Button_Click">
                     <Button.ToolTip>
                         <ToolTip Content="Import From Excel" Background="Black" Foreground="White" FontSize="12" />
