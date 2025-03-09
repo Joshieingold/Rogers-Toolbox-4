@@ -40,10 +40,10 @@
                                     Value="Right" />
                             <Setter TargetName="ToggleBorder"
                                     Property="BorderBrush"
-                                    Value="#5B72C2" />
+                                    Value="{DynamicResource BorderBrush}" />
                             <Setter TargetName="ToggleBorder"
                                     Property="Background"
-                                    Value="#5B72C2" />
+                                    Value="{DynamicResource WindowHeaderBrush}" />
                             <Setter TargetName="ToggleEllipse"
                                     Property="Fill"
                                     Value="White" />
@@ -54,7 +54,7 @@
                                     Value="1.5" />
                             <Setter TargetName="ToggleBorder"
                                     Property="BorderBrush"
-                                    Value="Black"/>
+                                    Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -63,4 +63,155 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     </Style>
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+        <!-- Makes dropdown items white -->
+        <Setter Property="Background" Value="{DynamicResource WindowHeaderBrush}" />
+        <Setter Property="Padding" Value="5,2" />
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+                <!-- Ensures selected item remains white -->
+                <Setter Property="Background" Value="{DynamicResource BorderBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource BorderBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type ComboBox}" x:Key="CustomComboBox">
+        <Setter Property="Foreground" Value="{DynamicResource AltTextColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowHeaderBrush}" />
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="MinWidth" Value="50"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <!-- Toggle Button for Drop-down -->
+                        <ToggleButton
+                        Name="ToggleButton"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Style="{DynamicResource ComboBoxToggleButton}"
+                        Grid.Column="2"
+                        Focusable="false"
+                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                        ClickMode="Press">
+                        </ToggleButton>
+
+                        <!-- Display Selected Item -->
+                        <ContentPresenter
+                        Name="ContentSite"
+                        IsHitTestVisible="False"
+                        Content="{TemplateBinding SelectionBoxItem}"
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                        Margin="10,3,30,3"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+
+                        <!-- Editable Text Box -->
+                        <TextBox x:Name="PART_EditableTextBox"
+                        Style="{x:Null}"
+                        Background="Transparent"
+                        Foreground="White"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="3,3,23,3"
+                        Focusable="True"                               
+                        Visibility="Hidden"
+                        IsReadOnly="{TemplateBinding IsReadOnly}"/>
+
+                            <!-- Drop-down Popup -->
+                        <Popup
+                        Name="Popup"
+                        Placement="Bottom"
+                        IsOpen="{TemplateBinding IsDropDownOpen}"
+                        AllowsTransparency="True"
+                        Focusable="False"
+                        PopupAnimation="Slide">
+                            <Grid
+                          Name="DropDown"
+                          SnapsToDevicePixels="True"               
+                          MinWidth="{TemplateBinding ActualWidth}"
+                          MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border
+                                x:Name="DropDownBorder"
+                                Background="{DynamicResource WindowHeaderBrush}"
+                                BorderThickness="2"
+                                BorderBrush="{DynamicResource BorderBrush}"/>
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+
+                    <!-- Triggers -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </Trigger>
+                        <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true">
+                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                            <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="true">
+                            <Setter Property="IsTabStop" Value="false"/>
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{DynamicResource WindowHeaderBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                            <ContentPresenter x:Name="Content" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContentBrush}"/>
+                            <!-- Selected Background Color -->
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                            <!-- Selected Text Color -->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
