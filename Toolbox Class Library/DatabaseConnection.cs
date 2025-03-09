@@ -18,24 +18,8 @@ namespace Toolbox_Class_Library
             _db = FirestoreService.GetFirestoreDb();
         }
 
-        // Asynchronously checks if the application can connect to Firestore
-        private async Task InitializeConnection()
-        {
-            bool isOnline = await CheckIsOnline();
-
-        }
-
-        // Pushes CTR data to Firestore (to be implemented)
-        public void PushCTRData(string ctrName, string devices)
-        {
-
-        }
-
-        // Pulls CTR data from Firestore (to be implemented)
-        public void PullCTRData()
-        {
-
-        }
+        // Helper Functions:
+        
         private int DetermineMonth(string monthString)
         {
             int month = 0;
@@ -79,8 +63,22 @@ namespace Toolbox_Class_Library
                     break;
             }
             return month;
+        } // Pulls device data based on month
+
+        // Main Functions:
+
+        // Pushes CTR data to Firestore (to be implemented)
+        public void PushCTRData(string ctrName, string devices)
+        {
+
         }
-        // Pulls device data based on month
+
+        // Pulls CTR data from Firestore (to be implemented)
+        public void PullCTRData()
+        {
+
+        }
+
         public async Task<Dictionary<string, int>> PullGoalsData(string monthString)
         {
             int month = DetermineMonth(monthString);
@@ -111,6 +109,11 @@ namespace Toolbox_Class_Library
                 deviceGoals["PodsRequired"] = 1;
             }
 
+            Console.WriteLine("Device Goals: ");
+            foreach (var goal in deviceGoals)
+            {
+                Console.WriteLine($"{goal.Key}: {goal.Value}");
+            }
             return deviceGoals;
         }
 
@@ -183,26 +186,4 @@ namespace Toolbox_Class_Library
             }
         }
     }
-    public static class DeviceGoals // Class that stores the data from the database.
-    {
-        public static int XB8Required { get; set; }
-        public static int XB7fcRequired { get; set; }
-        public static int XB7FCRequired { get; set; }
-        public static int Xi6tRequired { get; set; }
-        public static int Xi6ARequired { get; set; }
-        public static int XiOneRequired { get; set; }
-        public static int PodsRequired { get; set; }
-
-        public static int XB8Actual { get; set; } = 1;
-        public static int XB7fcActual { get; set; } = 1;
-        public static int XB7FCActual { get; set; } = 1;
-        public static int Xi6tActual { get; set; } = 1;
-        public static int Xi6AActual { get; set; } = 1;
-        public static int XiOneActual { get; set; } = 1;
-        public static int PodsActual { get; set; } = 1;
-    }
-
-
-
-
 }

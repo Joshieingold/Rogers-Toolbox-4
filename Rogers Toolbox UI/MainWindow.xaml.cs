@@ -276,6 +276,13 @@ namespace Rogers_Toolbox_UI
                 case "PrintButton": // Opens the Print Menu
                     MessageBox.Show($"Printing using {lastSelectedPrinter}...");
                     break;
+                case "DatabaseButton":
+                    // Opens the Stats Window
+                    DatabaseConnection databaseConnection = new DatabaseConnection();
+                    await databaseConnection.PullGoalsData("February");
+                    StatsWindow statsWindow = new StatsWindow();
+                    statsWindow.Show();
+                    break;
                 default: // Just in case :)
                     UpdateMessage("Didn't read anything :(");
                     break;
