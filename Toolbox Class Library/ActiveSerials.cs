@@ -25,6 +25,8 @@ namespace RogersToolbox
         private string wmsFailString { get; set; }
         private string user { get; set; }
         private int excelColumn { get; set; }
+        public List<string> passList { get; set; }
+        public List<string> failList { get; set; }
         private bool pushFlexiProData { get; set; }
         private readonly Action? serialsUpdatedCallback; // Callback for UI update
 
@@ -33,6 +35,8 @@ namespace RogersToolbox
         {
             Serials = new List<SerialNumber>();
             string[] betweenList = serialString.Split("\n");
+            passList = [];
+            failList = [];
 
             foreach (string rawSerial in betweenList)
             {
@@ -244,8 +248,6 @@ namespace RogersToolbox
         public async Task WmsImport()
         {
             var serialsToProcess = new List<SerialNumber>(Serials);
-            List<string> passList = [];
-            List<string> failList = [];
             string[] failAutomationSplit = wmsFailString.Split(" + ");
             foreach (SerialNumber serial in serialsToProcess)
             {
@@ -278,6 +280,7 @@ namespace RogersToolbox
                 await Task.Delay(wmsImportSpeed);
             }
             // Create new Failed and passed list window with the aforementioned data.
+            
         }
         private void WmsFailAutomation(string[] failSplit)
         {

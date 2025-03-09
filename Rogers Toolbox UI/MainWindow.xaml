@@ -23,7 +23,7 @@
                         <ToolTip Content="FlexiPro Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="WMSButton" Tag="pack://application:,,,/Icons/WMSIcon.png"   Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
+                <Button x:Name="WMSButton" Tag="pack://application:,,,/Icons/WMSIcon.png"  Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="WMS Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

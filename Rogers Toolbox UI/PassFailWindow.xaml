@@ -1,0 +1,38 @@
+﻿<Window x:Class="Rogers_Toolbox_UI.PassFailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rogers_Toolbox_UI"
+        mc:Ignorable="d"
+        Title="Pass Fail Results" Height="363" Width="491">
+    <Grid Background="{DynamicResource WindowBackgroundBrush}">
+        <!-- Centering the two ListBoxes side by side -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <!-- Passed ListBox -->
+            <Grid Width="200">
+                <ListBox x:Name="PassedListBox" SelectionChanged="PassedListBox_SelectionChanged" 
+                         Height="239" Background="{DynamicResource ContentBrush}" Foreground="{DynamicResource TextBrush}" BorderBrush="{DynamicResource BorderBrush}"/>
+                <TextBlock VerticalAlignment="Top" Foreground="{DynamicResource AltTextColor}" Background="{DynamicResource WindowHeaderBrush}" Height="22" TextAlignment="Center">
+                    <Run FontSize="16" Text="Passed"/>
+                </TextBlock>
+                <Button Content="Copy All" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" HorizontalAlignment="Center" Margin="0,261,0,0"
+                        Click="CopyPassedButton_Click" Width="200"/>
+            </Grid>
+
+            <!-- Spacer -->
+            <Grid Width="20"/>
+
+            <!-- Failed ListBox -->
+            <Grid Width="200" Height="283">
+                <ListBox x:Name="FailedListBox" SelectionChanged="FailedListBox_SelectionChanged" 
+                         Height="239" Background="{DynamicResource ContentBrush}" Foreground="{DynamicResource TextBrush}" BorderBrush="{DynamicResource BorderBrush}"/>
+                <TextBlock VerticalAlignment="Top" Foreground="{DynamicResource AltTextColor}" Background="{DynamicResource WindowHeaderBrush}" Height="22" TextAlignment="Center">
+                    <Run FontSize="16" Text="Failed"/>
+                </TextBlock>
+                <Button Content="Copy All" Margin="0,261,0,0"
+                        Click="CopyFailedButton_Click" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

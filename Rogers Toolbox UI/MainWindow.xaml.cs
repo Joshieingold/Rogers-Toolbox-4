@@ -16,7 +16,7 @@ namespace Rogers_Toolbox_UI
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.0 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
-        private string lastSelectedPrinter = "Purolator"; // Default printer
+        private string lastSelectedPrinter = "Custom Purolator"; // Default printer
 
 
 
@@ -162,7 +162,7 @@ namespace Rogers_Toolbox_UI
             }
             else if (printer == "Custom Purolator")
             {
-                PrintButton.Tag = "pack://application:,,,/Icons/PurolatorIcon.png";
+                PrintButton.Tag = "pack://application:,,,/Icons/PrintIcon.png";
             }
             else
             {
@@ -224,6 +224,25 @@ namespace Rogers_Toolbox_UI
                     UpdateMessage($"Import Completed in {FlexieElapsedTime}");
 
                     break; // Done !!
+                case "WMSButton":
+                    Stopwatch wmsStopwatch = new Stopwatch();
+                    UpdateMessage("Starting WMS Import, Please click target Location");
+                    await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
+                    wmsStopwatch.Start();
+                    // Create ActiveSerials instance with a callback for updates to the textbox.
+                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+                    await CurrentSerials.WmsImport(); // Runs and updates display while processing
+                    wmsStopwatch.Stop();
+                    // Formats the time the import took
+                    TimeSpan WmsTS = wmsStopwatch.Elapsed;
+                    string WmsElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                    WmsTS.Hours, WmsTS.Minutes, WmsTS.Seconds,
+                    WmsTS.Milliseconds / 10);
+                    UpdateMessage($"Import Completed in {WmsElapsedTime}");
+                    PassFailWindow passFailWindow = new PassFailWindow(CurrentSerials.passList, CurrentSerials.failList);
+                    passFailWindow.Show();
+
+                    break; // Done !!
                 case "OpenExcelButton": // Retrieves Serials from the First Column of the Excel given.
 
                     // Creates new instance of ActiveSerials and sets them
@@ -231,19 +250,16 @@ namespace Rogers_Toolbox_UI
                     CurrentSerials = TempList;
                     UpdateSerialsDisplay(); // Updates display with the currently loaded serials.
                     break; // Done!
-
                 case "SettingsButton": // Creates a new instance of settings window with "this" as reference.
 
                     SettingsWindow settingsWindow = new SettingsWindow(this);
                     settingsWindow.ShowDialog();
                     break; // Done!
-
                 case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
 
                     CtrUpdate ctrUpdate = new CtrUpdate();
                     ctrUpdate.Run();
                     break;
-
                 case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
                     string serialsText = TextBox.Text;
                     FormatWindow formatWindow = new FormatWindow(serialsText);
