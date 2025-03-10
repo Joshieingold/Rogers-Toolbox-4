@@ -45,7 +45,7 @@ namespace Rogers_Toolbox_UI
                 if (!IsOnline)
                 {
                     Console.WriteLine($"Rogers Toolbox is Offline. Sorry {Toolbox_Class_Library.Properties.Settings.Default.Username}..");
-                    this.Close();
+                    // COMMENTED OUT TO CODE OFFLINE BUT PUT THIS BACK IN this.Close();
                 }
                 else
                 {
@@ -180,7 +180,8 @@ namespace Rogers_Toolbox_UI
             IsOnline = await dbConnection.CheckIsOnline();
             if (!IsOnline)
             {
-                this.Close();
+                Console.Write("Remember to uncomment ther online check code");
+                // this.Close();
             }
             // Finds Button that was clicked and preforms the appropriate action.
             switch (button.Name)
