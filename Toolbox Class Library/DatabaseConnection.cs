@@ -1,6 +1,8 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿
 using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
 using System;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -78,7 +80,54 @@ namespace Toolbox_Class_Library
         {
 
         }
+        public async Task<Dictionary<string, int>> PullDeviceData(string monthString)
+        {
+            int monthInt = DetermineMonth(monthString);
+            int year = DateTime.Now.Year;
+            int month = DetermineMonth(monthString);
+            if (DetermineMonth(monthString) == 12) 
+            {
+                year = 2024;
+            }
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            DateTime startDateUtc = startDate.ToUniversalTime();
+            DateTime endDateUtc = endDate.ToUniversalTime();
+            
+            Query query = _db.Collection("bom-wip")
+                    .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
+                    .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
 
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+
+            Dictionary<string, int> actuals = new Dictionary<string, int> // Creates a dictionary to sum up the data.
+                {
+                    { "CGM4981COM", 0 },
+                    { "CGM4331COM", 0 },
+                    { "TG4482A", 0 },
+                    { "IPTVTCXI6HD", 0 },
+                    { "IPTVARXI6HD", 0 },
+                    { "SCXI11BEI", 0 },
+                    { "XE2SGROG1", 0 }
+                };
+
+            foreach (var document in snapshot.Documents) // sums all data into the dictionary.
+            {
+                var data = document.ToDictionary();
+                string device = data["Device"]?.ToString();
+                if (int.TryParse(data["Quantity"]?.ToString(), out int quantity) && actuals.ContainsKey(device))
+                {
+                    actuals[device] += quantity;
+                }
+            }
+            Console.WriteLine("Device Actuals: ");
+            foreach (var actual in actuals)
+            {
+                Console.WriteLine($"{actual.Key}: {actual.Value}");
+            }
+            return actuals;
+
+        }
         public async Task<Dictionary<string, int>> PullGoalsData(string monthString)
         {
             int month = DetermineMonth(monthString);
@@ -123,7 +172,7 @@ namespace Toolbox_Class_Library
         {
             // ensure time is in UTC
             DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
-            DocumentReference docRef = _db.Collection("bom-wip").Document("Test");
+            DocumentReference docRef = _db.Collection("bom-wip").Document();
             var data = new
             {
                 Device = deviceName,

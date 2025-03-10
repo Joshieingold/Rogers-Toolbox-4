@@ -45,7 +45,7 @@
                                         <ComboBoxItem Content="November" Tag="11"/>
                                         <ComboBoxItem Content="December" Tag="12"/>
                                     </ComboBox>
-                                    <Button Content="Update" Width="165" Height="30" Margin="5"  Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource WindowHeaderBrush}"/>
+                                    <Button Content="Update" Click="FetchDataByMonth_Click" Width="165" Height="30" Margin="5"  Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource WindowHeaderBrush}"/>
                                 </StackPanel>
                             </Border>
                             <StackPanel VerticalAlignment="Center" Width="257">

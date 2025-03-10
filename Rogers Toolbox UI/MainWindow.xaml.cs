@@ -280,6 +280,7 @@ namespace Rogers_Toolbox_UI
                     // Opens the Stats Window
                     DatabaseConnection databaseConnection = new DatabaseConnection();
                     await databaseConnection.PullGoalsData("February");
+                    await databaseConnection.PullDeviceData("February");
                     StatsWindow statsWindow = new StatsWindow();
                     statsWindow.Show();
                     break;
