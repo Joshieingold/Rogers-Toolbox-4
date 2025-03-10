@@ -51,12 +51,12 @@ namespace Rogers_Toolbox_UI
         {
             InitializeComponent();
             int monthInt = DateTime.Now.Month;
-            
             month = GetMonthFromInt(monthInt);
             monthSelector.Text = month;
             InitializeDataAsync();
         }
-
+        // GOALS TAB:
+        // Helper Functions
         private string GetMonthFromInt(int monthNum)
         {
             switch (monthNum)
@@ -121,7 +121,7 @@ namespace Rogers_Toolbox_UI
                     return 1;
             }
         }
- 
+        // Initialize Data
         private async void InitializeDataAsync()
         {
             try
@@ -176,7 +176,15 @@ namespace Rogers_Toolbox_UI
             XIONEChart.Series = CreateChart(XiOneRequired, XiOneActual);
             PODSChart.Series = CreateChart(PodsRequired, PodsActual);
         }
+        private void FetchDataByMonth_Click(object sender, RoutedEventArgs e)
+        {
+            month = monthSelector.Text;
 
+            InitializeDataAsync();
+
+        }
+
+        // Calculations
         public SeriesCollection CreateChart(int goal, int completed)
         {
             double overflow = Math.Max(0, completed - goal);
@@ -212,13 +220,7 @@ namespace Rogers_Toolbox_UI
                 }
             };
         }
-        private void FetchDataByMonth_Click(object sender, RoutedEventArgs e)
-        {
-            month = monthSelector.Text;
-            
-            InitializeDataAsync();
-            
-        }
+
         private void UpdateRequiredPerDay(int selectedMonth) // Updates required per day data.
         {
             int year = DateTime.Now.Year;
@@ -270,8 +272,7 @@ namespace Rogers_Toolbox_UI
             RequiredPerDayLabel.Content = $"Daily Required: {RequiredPerDay}";
             DailyAverageLabel.Content = $"Average Daily Completed: {DailyAverage}";
         }
-
-        // FUNCTIONS FOR DATA COLLECTION // 
+ 
         static int GetWeekdaysInMonth(int year, int month)
         {
             int weekdays = 0;
@@ -303,5 +304,6 @@ namespace Rogers_Toolbox_UI
 
             return weekdays;
         }
+        // GOALS TAB
     }
 }
