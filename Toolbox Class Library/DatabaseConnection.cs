@@ -1,4 +1,5 @@
 ﻿
+
 using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1;
 using System;
@@ -120,11 +121,7 @@ namespace Toolbox_Class_Library
                     actuals[device] += quantity;
                 }
             }
-            Console.WriteLine("Device Actuals: ");
-            foreach (var actual in actuals)
-            {
-                Console.WriteLine($"{actual.Key}: {actual.Value}");
-            }
+
             return actuals;
 
         }
@@ -158,13 +155,62 @@ namespace Toolbox_Class_Library
                 deviceGoals["PodsRequired"] = 1;
             }
 
-            Console.WriteLine("Device Goals: ");
-            foreach (var goal in deviceGoals)
-            {
-                Console.WriteLine($"{goal.Key}: {goal.Value}");
-            }
             return deviceGoals;
         }
+
+        public async Task<(List<DataRecord>, Dictionary<string, int>, Dictionary<string, int>)> PullDatabaseData(DateTime StartDate, DateTime EndDate)
+        {
+            DateTime startDateUtc = StartDate.ToUniversalTime();
+            DateTime endDateUtc = EndDate.ToUniversalTime();
+
+            Query query = _db.Collection("bom-wip")
+                .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
+                .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
+
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+            TimeZoneInfo astTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+
+            List<DataRecord> records = new List<DataRecord>();
+            Dictionary<string, int> deviceTotals = new Dictionary<string, int>();
+            Dictionary<string, int> userTotals = new Dictionary<string, int>();
+
+            foreach (var document in snapshot.Documents)
+            {
+                var data = document.ToDictionary();
+
+                // Extract & Convert Date
+                DateTime dateValue = DateTime.MinValue;
+                if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                {
+                    dateValue = timestamp.ToDateTime();
+                    dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, astTimeZone);
+                }
+
+                // Extract Fields
+                string device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown";
+                string name = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown";
+                int quantity = data.ContainsKey("Quantity") && int.TryParse(data["Quantity"]?.ToString(), out int qty) ? qty : 0;
+
+                // Add to List
+                var record = new DataRecord { Device = device, Name = name, Quantity = quantity, Date = dateValue };
+                records.Add(record);
+
+                // Aggregate Totals
+                if (deviceTotals.ContainsKey(device))
+                    deviceTotals[device] += quantity;
+                else
+                    deviceTotals[device] = quantity;
+
+                if (userTotals.ContainsKey(name))
+                    userTotals[name] += quantity;
+                else
+                    userTotals[name] = quantity;
+            }
+
+            return (records, deviceTotals, userTotals);
+        }
+
+
 
 
         // Pushes device data to Firestore (to be implemented)
@@ -234,5 +280,12 @@ namespace Toolbox_Class_Library
                 return false;
             }
         }
+    }
+    public class DataRecord
+    {
+        public string Device { get; set; }     // Name of the device
+        public string Name { get; set; }       // Name of the user
+        public int Quantity { get; set; }      // Quantity completed
+        public DateTime Date { get; set; }     // Date of completion
     }
 }

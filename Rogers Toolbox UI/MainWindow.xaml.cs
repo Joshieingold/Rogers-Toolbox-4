@@ -20,6 +20,7 @@ namespace Rogers_Toolbox_UI
 
 
 
+
         public MainWindow()
         {
             InitializeComponent(); // Initialize Data
@@ -94,6 +95,7 @@ namespace Rogers_Toolbox_UI
         }
 
         // UI Helper Functions
+
         public void UpdateMessage(string text) // Updates the Textbox that communicates to the user. 
         {
             InfoBox.Content = (text);
@@ -259,7 +261,9 @@ namespace Rogers_Toolbox_UI
                 case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
 
                     CtrUpdate ctrUpdate = new CtrUpdate();
-                    ctrUpdate.Run();
+                    await ctrUpdate.Run(); // Ensure this is awaited
+
+                    UpdateMessage("CTR Update Completed!");
                     break;
                 case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
                     string serialsText = TextBox.Text;
@@ -277,11 +281,9 @@ namespace Rogers_Toolbox_UI
                 case "PrintButton": // Opens the Print Menu
                     MessageBox.Show($"Printing using {lastSelectedPrinter}...");
                     break;
-                case "DatabaseButton":
+                case "GraphButton":
                     // Opens the Stats Window
                     DatabaseConnection databaseConnection = new DatabaseConnection();
-                    await databaseConnection.PullGoalsData("February");
-                    await databaseConnection.PullDeviceData("February");
                     StatsWindow statsWindow = new StatsWindow();
                     statsWindow.Show();
                     break;

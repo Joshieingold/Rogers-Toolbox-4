@@ -213,5 +213,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="DatePicker">
+        <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="5"/>
 
+    </Style>
+
+    <!-- DataGrid Style -->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="RowBackground" Value="{DynamicResource ContentBrush}"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource WindowBackgroundBrush}"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+    </Style>
+
+    <!-- DataGrid Column Header Style -->
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource WindowHeaderBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AltTextColor}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
 </ResourceDictionary>

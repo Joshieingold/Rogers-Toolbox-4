@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Windows;
 using Toolbox_Class_Library.Properties;
+using WindowsInput;
 
 
 namespace Toolbox_Class_Library.CtrUpdate
@@ -13,14 +14,14 @@ namespace Toolbox_Class_Library.CtrUpdate
     public class CtrUpdate
     {
         public List<CTR> AllCtrs { get; set; } = new();
+        public bool runCTRAutomation { get; set; } = Settings.Default.CTRAutomation;
+        public int CtrImportSpeed { get; set; } = Settings.Default.CTRImportSpeed;
 
         public CtrUpdate()
         {
-            // Deserialize contractor data from JSON
+
             string jsonData = Settings.Default.ContractorData;
-            Console.WriteLine("\n");
-            Console.WriteLine(jsonData);
-            Console.WriteLine("\n");
+            
             List<ContractorCategory> categories = string.IsNullOrWhiteSpace(jsonData)
                 ? new List<ContractorCategory>()
                 : JsonSerializer.Deserialize<List<ContractorCategory>>(jsonData) ?? new List<ContractorCategory>();
@@ -179,19 +180,49 @@ namespace Toolbox_Class_Library.CtrUpdate
                     }
 
                 }
-            } 
-        
-        
-        public void Run()
+            }
+        private async Task RunAutomation()
+        {
+            await Task.Delay(7000); // Initial delay if needed
+
+            // Process each CTR one by one
+            foreach (CTR ctr in AllCtrs)
+            {
+
+                // Set the clipboard text
+                System.Windows.Clipboard.SetText(ctr.ToString());
+
+                // Simulate key presses
+                await Task.Delay(3000); // Wait for clipboard operation to complete
+                var sim = new InputSimulator();
+                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_V);
+                await Task.Delay(3000); // Wait for paste operation to complete
+                sim.Keyboard.ModifiedKeyStroke(
+                    new[] { WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.MENU },
+                    WindowsInput.Native.VirtualKeyCode.NEXT);
+
+                sim.Keyboard.ModifiedKeyStroke(
+                    WindowsInput.Native.VirtualKeyCode.CONTROL,
+                    WindowsInput.Native.VirtualKeyCode.LEFT);
+
+                await Task.Delay(CtrImportSpeed); // Wait for the specified import speed
+            }
+        }
+
+        public async Task Run()
         {
             // Should how an Empty set of CTRS
-            Test();
+            //Test();
             // Gets the user to combine x excels and creates a single file.
             CombineExcels();
             // Gets the user to select the file they want to analyze and analyzes it.
             ProcessCTRUpdate();
             // Should show a filled out set of CTRS
-            Test();
+            //Test();
+            if (runCTRAutomation)
+            {
+               await RunAutomation();
+            }
 
         }
     }

@@ -305,5 +305,36 @@ namespace Rogers_Toolbox_UI
             return weekdays;
         }
         // GOALS TAB
+        private async void fetchDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (startDatePicker.SelectedDate == null || endDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Please select both start and end dates.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DateTime startDate = startDatePicker.SelectedDate.Value;
+            DateTime endDate = endDatePicker.SelectedDate.Value;
+
+            try
+            {
+                var (records, deviceTotals, userTotals) = await db.PullDatabaseData(startDate, endDate);
+
+                // 1️⃣ Bind the Full Data to DataGrid
+                dataGrid.ItemsSource = records;
+
+                // 2️⃣ Display Device Totals
+                deviceSumLabel.Text = string.Join("\n", deviceTotals.Select(kv => $"{kv.Key}: {kv.Value}"));
+
+                // 3️⃣ Display User Totals
+                personTotalLabel.Text = string.Join("\n", userTotals.Select(kv => $"{kv.Key}: {kv.Value}"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching data: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
     }
 }

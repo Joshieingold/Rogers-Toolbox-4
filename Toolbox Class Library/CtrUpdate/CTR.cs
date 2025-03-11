@@ -70,7 +70,7 @@ namespace Toolbox_Class_Library.CtrUpdate
         }
         public override string ToString()
         {
-            return $"\n\nContractor: {this.Name}\n\n" + string.Join("\n", this.DeviceList.Select(d => $"Device Name: {d.Name}, Count: {d.Counter}"));
+            return (string.Join("\n", this.DeviceList.Select(d => d.Counter)));
         }
 
         public void FormatDeviceTitles()

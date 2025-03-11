@@ -10,11 +10,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
-                <!--<ResourceDictionary Source="/Themes/CoffeeTheme.xaml"/> --> 
+                <!--<ResourceDictionary Source="/Themes/CoffeeTheme.xaml"/> -->
             </ResourceDictionary.MergedDictionaries>
-            
+
         </ResourceDictionary>
-        
+
     </Window.Resources>
 
 
@@ -112,14 +112,21 @@
                 <Grid Background="{DynamicResource ContentBrush}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <StackPanel Orientation="Vertical" Margin="10">
+                            <Grid HorizontalAlignment="Left" Width="197" Height="30">
+                                <Label Content="Enable CTR Automation:" Margin="0" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150,0,0,8">
+                                    <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding CTRAutomation}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
+                                </StackPanel>
+
+                            </Grid>
                             <!-- Select or Create Contractor Category -->
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="548">
                                 <TextBlock Foreground="{DynamicResource TextBrush}" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="CTR Categories:"/></TextBlock>
                                 <ComboBox x:Name="ContractorCategoryComboBox" Style="{DynamicResource CustomComboBox}" Width="200" SelectionChanged="ContractorCategoryComboBox_SelectionChanged" DisplayMemberPath="Name" />
                                 <Button Content="Delete" Click="DeleteCategory_Click" Foreground="{DynamicResource AltTextColor}" Background="{DynamicResource WindowHeaderBrush}" Margin="10,0,0,0" BorderBrush="{DynamicResource BorderBrush}" Width="49"/>
                             </StackPanel>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Width="552">
                                 <TextBlock Foreground="{DynamicResource TextBrush}" Width="120" VerticalAlignment="Center"><Run Text="Add "/><Run Language="en-ca" Text="CTR "/><Run Text="Category:"/></TextBlock>
                                 <TextBox x:Name="NewCategoryTextBox" Width="150" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Margin="0,0,10,0"/>
                                 <Button Content="Add" Click="AddCategory_Click" Margin="0,0,10,0" Width="36" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
