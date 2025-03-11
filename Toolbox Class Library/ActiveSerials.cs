@@ -150,6 +150,23 @@ namespace RogersToolbox
                 return "Error";
             }
         } // Gets all data form the first column of the loaded excel file/
+        private void WmsFailAutomation(string[] failSplit)
+        {
+            var sim = new InputSimulator();
+            if (failSplit[1] == "X")
+            {
+                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_X);
+            }
+            else if (failSplit[1] == "A")
+            {
+                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
+            }
+            else
+            {
+                Console.Write("Unhandled Key");
+            }
+
+        }
 
         // Button Click Functions
         public async Task BlitzImport()
@@ -282,23 +299,7 @@ namespace RogersToolbox
             // Create new Failed and passed list window with the aforementioned data.
             
         }
-        private void WmsFailAutomation(string[] failSplit)
-        {
-            var sim = new InputSimulator();
-            if (failSplit[1] == "X")
-            {
-                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_X);
-            }
-            else if (failSplit[1] == "A")
-            {
-                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
-            }
-            else
-            {
-                Console.Write("Unhandled Key");
-            }
-            
-        }
+
     }
 }
 

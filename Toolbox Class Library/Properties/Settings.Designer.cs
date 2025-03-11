@@ -215,5 +215,29 @@ namespace Toolbox_Class_Library.Properties {
                 this["ExcelColumn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CTRAutomation {
+            get {
+                return ((bool)(this["CTRAutomation"]));
+            }
+            set {
+                this["CTRAutomation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int CTRImportSpeed {
+            get {
+                return ((int)(this["CTRImportSpeed"]));
+            }
+            set {
+                this["CTRImportSpeed"] = value;
+            }
+        }
     }
 }
