@@ -185,113 +185,117 @@ namespace Rogers_Toolbox_UI
                 Console.Write("Remember to uncomment ther online check code");
                 // this.Close();
             }
-            // Finds Button that was clicked and preforms the appropriate action.
-            switch (button.Name)
+            else
             {
-                case "BlitzButton":
-                    // Initialization
-                    Stopwatch stopwatch = new Stopwatch();
-                    UpdateMessage("Starting Blitz Import, Please click target Location");
-                    await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
-                    stopwatch.Start();
-
-                    // Create ActiveSerials instance with a callback for updates to the textbox.
-                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
-                    await CurrentSerials.BlitzImport(); // Runs and updates display while processing
-                    stopwatch.Stop();
-
-                    // Formats the time the import took
-                    TimeSpan ts = stopwatch.Elapsed;
-                    string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                    UpdateMessage($"Import Completed in {elapsedTime}");
-                    
-                    break; // Done!
-                case "FlexiButton":
-                    Stopwatch flexiStopwatch = new Stopwatch();
-                    UpdateMessage("Starting FlexiPro Import, Please click target Location");
-                    await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
-                    flexiStopwatch.Start();
-
-                    // Create ActiveSerials instance with a callback for updates to the textbox.
-                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
-                    await CurrentSerials.FlexiProImport(); // Runs and updates display while processing
-                    flexiStopwatch.Stop();
-
-                    // Formats the time the import took
-                    TimeSpan Flexts = flexiStopwatch.Elapsed;
-                    string FlexieElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
-                    Flexts.Hours, Flexts.Minutes, Flexts.Seconds,
-                    Flexts.Milliseconds / 10);
-                    UpdateMessage($"Import Completed in {FlexieElapsedTime}");
-
-                    break; // Done !!
-                case "WMSButton":
-                    Stopwatch wmsStopwatch = new Stopwatch();
-                    UpdateMessage("Starting WMS Import, Please click target Location");
-                    await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
-                    wmsStopwatch.Start();
-                    // Create ActiveSerials instance with a callback for updates to the textbox.
-                    CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
-                    await CurrentSerials.WmsImport(); // Runs and updates display while processing
-                    wmsStopwatch.Stop();
-                    // Formats the time the import took
-                    TimeSpan WmsTS = wmsStopwatch.Elapsed;
-                    string WmsElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
-                    WmsTS.Hours, WmsTS.Minutes, WmsTS.Seconds,
-                    WmsTS.Milliseconds / 10);
-                    UpdateMessage($"Import Completed in {WmsElapsedTime}");
-                    PassFailWindow passFailWindow = new PassFailWindow(CurrentSerials.passList, CurrentSerials.failList);
-                    passFailWindow.Show();
-
-                    break; // Done !!
-                case "OpenExcelButton": // Retrieves Serials from the First Column of the Excel given.
-
-                    // Creates new instance of ActiveSerials and sets them
-                    ActiveSerials TempList = new ActiveSerials(CurrentSerials.OpenExcel());
-                    CurrentSerials = TempList;
-                    UpdateSerialsDisplay(); // Updates display with the currently loaded serials.
-                    break; // Done!
-                case "SettingsButton": // Creates a new instance of settings window with "this" as reference.
-
-                    SettingsWindow settingsWindow = new SettingsWindow(this);
-                    settingsWindow.ShowDialog();
-                    break; // Done!
-                case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
-
-                    CtrUpdate ctrUpdate = new CtrUpdate();
-                    await ctrUpdate.Run(); // Ensure this is awaited
-
-                    UpdateMessage("CTR Update Completed!");
-                    break;
-                case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
-                    string serialsText = TextBox.Text;
-                    FormatWindow formatWindow = new FormatWindow(serialsText);
-                    formatWindow.Owner = this; // Set MainWindow as the owner
-                    formatWindow.ShowDialog(); // Show as a modal dialog
-
-                    // After closing, update TextBox if FormattedSerials is set
-                    if (!string.IsNullOrEmpty(formatWindow.FormattedSerials))
-                    {
-                        TextBox.Text = formatWindow.FormattedSerials;
-                    }
-
-                    break;
-                case "PrintButton": // Opens the Print Menu
-                    MessageBox.Show($"Printing using {lastSelectedPrinter}...");
-                    break;
-                case "GraphButton":
-                    // Opens the Stats Window
-                    DatabaseConnection databaseConnection = new DatabaseConnection();
-                    StatsWindow statsWindow = new StatsWindow();
-                    statsWindow.Show();
-                    break;
-                default: // Just in case :)
-                    UpdateMessage("Didn't read anything :(");
-                    break;
-                    
+                Console.Write("Remember to uncomment ther online check code");
             }
+                // Finds Button that was clicked and preforms the appropriate action.
+                switch (button.Name)
+                {
+                    case "BlitzButton":
+                        // Initialization
+                        Stopwatch stopwatch = new Stopwatch();
+                        UpdateMessage("Starting Blitz Import, Please click target Location");
+                        await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
+                        stopwatch.Start();
+
+                        // Create ActiveSerials instance with a callback for updates to the textbox.
+                        CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+                        await CurrentSerials.BlitzImport(); // Runs and updates display while processing
+                        stopwatch.Stop();
+
+                        // Formats the time the import took
+                        TimeSpan ts = stopwatch.Elapsed;
+                        string elapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                        ts.Hours, ts.Minutes, ts.Seconds,
+                        ts.Milliseconds / 10);
+                        UpdateMessage($"Import Completed in {elapsedTime}");
+
+                        break; // Done!
+                    case "FlexiButton":
+                        Stopwatch flexiStopwatch = new Stopwatch();
+                        UpdateMessage("Starting FlexiPro Import, Please click target Location");
+                        await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
+                        flexiStopwatch.Start();
+
+                        // Create ActiveSerials instance with a callback for updates to the textbox.
+                        CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+                        await CurrentSerials.FlexiProImport(); // Runs and updates display while processing
+                        flexiStopwatch.Stop();
+
+                        // Formats the time the import took
+                        TimeSpan Flexts = flexiStopwatch.Elapsed;
+                        string FlexieElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                        Flexts.Hours, Flexts.Minutes, Flexts.Seconds,
+                        Flexts.Milliseconds / 10);
+                        UpdateMessage($"Import Completed in {FlexieElapsedTime}");
+
+                        break; // Done !!
+                    case "WMSButton":
+                        Stopwatch wmsStopwatch = new Stopwatch();
+                        UpdateMessage("Starting WMS Import, Please click target Location");
+                        await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
+                        wmsStopwatch.Start();
+                        // Create ActiveSerials instance with a callback for updates to the textbox.
+                        CurrentSerials = new ActiveSerials(TextBox.Text, UpdateSerialsDisplay);
+                        await CurrentSerials.WmsImport(); // Runs and updates display while processing
+                        wmsStopwatch.Stop();
+                        // Formats the time the import took
+                        TimeSpan WmsTS = wmsStopwatch.Elapsed;
+                        string WmsElapsedTime = String.Format("{0:00}h : {1:00}m : {2:00}s : {3:00} ms",
+                        WmsTS.Hours, WmsTS.Minutes, WmsTS.Seconds,
+                        WmsTS.Milliseconds / 10);
+                        UpdateMessage($"Import Completed in {WmsElapsedTime}");
+                        PassFailWindow passFailWindow = new PassFailWindow(CurrentSerials.passList, CurrentSerials.failList);
+                        passFailWindow.Show();
+
+                        break; // Done !!
+                    case "OpenExcelButton": // Retrieves Serials from the First Column of the Excel given.
+
+                        // Creates new instance of ActiveSerials and sets them
+                        ActiveSerials TempList = new ActiveSerials(CurrentSerials.OpenExcel());
+                        CurrentSerials = TempList;
+                        UpdateSerialsDisplay(); // Updates display with the currently loaded serials.
+                        break; // Done!
+                    case "SettingsButton": // Creates a new instance of settings window with "this" as reference.
+
+                        SettingsWindow settingsWindow = new SettingsWindow(this);
+                        settingsWindow.ShowDialog();
+                        break; // Done!
+                    case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
+
+                        CtrUpdate ctrUpdate = new CtrUpdate();
+                        await ctrUpdate.Run(); // Ensure this is awaited
+
+                        UpdateMessage("CTR Update Completed!");
+                        break;
+                    case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
+                        string serialsText = TextBox.Text;
+                        FormatWindow formatWindow = new FormatWindow(serialsText);
+                        formatWindow.Owner = this; // Set MainWindow as the owner
+                        formatWindow.ShowDialog(); // Show as a modal dialog
+
+                        // After closing, update TextBox if FormattedSerials is set
+                        if (!string.IsNullOrEmpty(formatWindow.FormattedSerials))
+                        {
+                            TextBox.Text = formatWindow.FormattedSerials;
+                        }
+
+                        break;
+                    case "PrintButton": // Opens the Print Menu
+                        MessageBox.Show($"Printing using {lastSelectedPrinter}...");
+                        break;
+                    case "GraphButton":
+                        // Opens the Stats Window
+                        DatabaseConnection databaseConnection = new DatabaseConnection();
+                        StatsWindow statsWindow = new StatsWindow();
+                        statsWindow.Show();
+                        break;
+                    default: // Just in case :)
+                        UpdateMessage("Didn't read anything :(");
+                        break;
+
+                }
         } // Handles what happens when a button is clicked
 
     }
