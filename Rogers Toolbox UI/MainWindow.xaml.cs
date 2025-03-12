@@ -264,7 +264,7 @@ namespace Rogers_Toolbox_UI
                         break; // Done!
                     case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
 
-                        CtrUpdate ctrUpdate = new CtrUpdate();
+                        CtrUpdate ctrUpdate = new CtrUpdate();                     
                         await ctrUpdate.Run(); // Ensure this is awaited
 
                         UpdateMessage("CTR Update Completed!");
@@ -283,7 +283,17 @@ namespace Rogers_Toolbox_UI
 
                         break;
                     case "PrintButton": // Opens the Print Menu
-                        MessageBox.Show($"Printing using {lastSelectedPrinter}...");
+                        PrinterConnection printer = new PrinterConnection(CurrentSerials);
+                    if (lastSelectedPrinter == "Purolator")
+                    {
+                        printer.DefaultPrintPurolator();
+                    }
+                    else if (lastSelectedPrinter == "Barcodes")
+                        printer.PrintBarcodes();
+                    else if (lastSelectedPrinter == "Lot Sheets")
+                    {
+                        printer.PrintLotSheets();
+                    }
                         break;
                     case "GraphButton":
                         // Opens the Stats Window
