@@ -116,7 +116,6 @@ namespace Toolbox_Class_Library
 
             return formattedList.ToString();
         }
-        // Barcodes 
 
 
 
@@ -194,5 +193,6 @@ namespace Toolbox_Class_Library
                 }
             }
         }
+
     }
 }
