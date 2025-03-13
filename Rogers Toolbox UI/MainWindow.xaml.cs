@@ -182,12 +182,12 @@ namespace Rogers_Toolbox_UI
             IsOnline = await dbConnection.CheckIsOnline();
             if (!IsOnline)
             {
-                Console.Write("Remember to uncomment ther online check code");
+                Console.Write("\nRemember to uncomment the online check code\n");
                 // this.Close();
             }
             else
             {
-                Console.Write("Remember to uncomment ther online check code");
+                Console.Write("\nRemember to uncomment the online check code\n");
             }
                 // Finds Button that was clicked and preforms the appropriate action.
                 switch (button.Name)
