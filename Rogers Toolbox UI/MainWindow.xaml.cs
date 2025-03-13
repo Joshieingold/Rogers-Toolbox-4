@@ -265,8 +265,15 @@ namespace Rogers_Toolbox_UI
                     case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
 
                         CtrUpdate ctrUpdate = new CtrUpdate();                     
-                        await ctrUpdate.Run(); // Ensure this is awaited
-
+                        ctrUpdate.InitializeData(); // Ensure this is awaited
+                        await Task.Delay(7000); // Initial delay if needed
+                        string[] ctrList = (Toolbox_Class_Library.Properties.Settings.Default.CtrOrder).Split(", ");
+                        foreach (string ctr in ctrList)
+                        {
+                        UpdateMessage($"Updating CTR {ctr}");
+                        await ctrUpdate.RunAutomation(ctr);
+                        
+                        }
                         UpdateMessage("CTR Update Completed!");
                         break;
                     case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.

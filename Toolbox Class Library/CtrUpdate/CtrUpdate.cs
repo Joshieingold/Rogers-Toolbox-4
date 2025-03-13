@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
 using System.Windows;
 using Toolbox_Class_Library.Properties;
@@ -181,35 +182,45 @@ namespace Toolbox_Class_Library.CtrUpdate
 
                 }
             }
-        private async Task RunAutomation()
+        public async Task RunAutomation(string ThisCtr)
         {
-            await Task.Delay(7000); // Initial delay if needed
 
-            // Process each CTR one by one
-            foreach (CTR ctr in AllCtrs)
+            var ctr = AllCtrs.FirstOrDefault(c => c.Name == ThisCtr);
+            if (ctr != null)
             {
+                if (runCTRAutomation)
+                {
+                    Console.WriteLine($"\nProcessing {ThisCtr}");
+                    System.Windows.Clipboard.SetText(ctr.ToString());
 
-                // Set the clipboard text
-                System.Windows.Clipboard.SetText(ctr.ToString());
+                    // Simulate key presses
+                    await Task.Delay(3000); // Wait for clipboard operation to complete
+                    var sim = new InputSimulator();
+                    sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_V);
+                    await Task.Delay(3000); // Wait for paste operation to complete
+                    sim.Keyboard.ModifiedKeyStroke(
+                        new[] { WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.MENU },
+                        WindowsInput.Native.VirtualKeyCode.NEXT);
 
-                // Simulate key presses
-                await Task.Delay(3000); // Wait for clipboard operation to complete
-                var sim = new InputSimulator();
-                sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_V);
-                await Task.Delay(3000); // Wait for paste operation to complete
-                sim.Keyboard.ModifiedKeyStroke(
-                    new[] { WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.MENU },
-                    WindowsInput.Native.VirtualKeyCode.NEXT);
+                    sim.Keyboard.ModifiedKeyStroke(
+                        WindowsInput.Native.VirtualKeyCode.CONTROL,
+                        WindowsInput.Native.VirtualKeyCode.LEFT);
 
-                sim.Keyboard.ModifiedKeyStroke(
-                    WindowsInput.Native.VirtualKeyCode.CONTROL,
-                    WindowsInput.Native.VirtualKeyCode.LEFT);
-
-                await Task.Delay(CtrImportSpeed); // Wait for the specified import speed
+                    await Task.Delay(CtrImportSpeed); // Wait for the specified import speed
+                }
+                else
+                {
+                    Console.WriteLine($"\n{ThisCtr} could not be processed as the automation is disabled.");
+                }
             }
+            else
+            {
+                Console.WriteLine($"\n{ThisCtr} not found in the list.");
+            }
+
         }
 
-        public async Task Run()
+        public void InitializeData()
         {
             // Should how an Empty set of CTRS
             //Test();
@@ -219,10 +230,7 @@ namespace Toolbox_Class_Library.CtrUpdate
             ProcessCTRUpdate();
             // Should show a filled out set of CTRS
             //Test();
-            if (runCTRAutomation)
-            {
-               await RunAutomation();
-            }
+     
 
         }
     }
