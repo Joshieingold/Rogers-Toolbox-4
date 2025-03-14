@@ -39,9 +39,9 @@
                     </Button.ToolTip>
                 </Button>
 
-                <Button x:Name="CompareListButton" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
+                <Button x:Name="CompareListButton" Click="Button_Click" Tag="pack://application:,,,/Icons/CompareListIcon.png"  Style="{DynamicResource NavButtonStyle}"  Width="48" Height="48">
                     <Button.ToolTip>
-                        <ToolTip Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />
+                        <ToolTip  Content="Compare Lists" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
                 <Button x:Name="FormatSerialsButton" Tag="pack://application:,,,/Icons/FormatSerialsIcon.png" Style="{DynamicResource NavButtonStyle}"  Click="Button_Click" Width="48" Height="48">

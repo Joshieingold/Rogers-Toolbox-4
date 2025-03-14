@@ -310,7 +310,11 @@ namespace Rogers_Toolbox_UI
                         StatsWindow statsWindow = new StatsWindow();
                         statsWindow.Show();
                         break;
-                    default: // Just in case :)
+                    case "CompareListButton":
+                        CompareLists compareLists = new CompareLists();
+                        compareLists.Show();
+                        break;
+                default: // Just in case :)
                         UpdateMessage("Didn't read anything :(");
                         break;
 
