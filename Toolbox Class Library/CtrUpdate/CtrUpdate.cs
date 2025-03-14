@@ -207,11 +207,14 @@ namespace Toolbox_Class_Library.CtrUpdate
                         WindowsInput.Native.VirtualKeyCode.LEFT);
 
                     await Task.Delay(CtrImportSpeed); // Wait for the specified import speed
+
                 }
                 else
                 {
-                    Console.WriteLine($"\n{ThisCtr} could not be processed as the automation is disabled.");
+                    Console.WriteLine($"\n{ThisCtr} automation is disabled.");
                 }
+                DatabaseConnection databaseConnection_CTR = new DatabaseConnection();
+                await databaseConnection_CTR.PushCTRData(ctr.Name, ctr.DeviceList);
             }
             else
             {
