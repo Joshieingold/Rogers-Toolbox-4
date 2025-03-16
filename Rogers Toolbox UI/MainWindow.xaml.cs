@@ -292,17 +292,45 @@ namespace Rogers_Toolbox_UI
 
                         break;
                     case "PrintButton": // Opens the Print Menu
-                        PrinterConnection printer = new PrinterConnection(CurrentSerials);
-                    if (lastSelectedPrinter == "Purolator")
-                    {
-                        printer.DefaultPrintPurolator();
-                    }
-                    else if (lastSelectedPrinter == "Barcodes")
-                        printer.PrintBarcodes();
-                    else if (lastSelectedPrinter == "Lot Sheets")
-                    {
-                        printer.PrintLotSheets();
-                    }
+                            PrinterConnection printer = new PrinterConnection(CurrentSerials);
+                        if (lastSelectedPrinter == "Purolator")
+                        {
+                            printer.DefaultPrintPurolator();
+                        }
+                        else if (lastSelectedPrinter == "Barcodes")
+                            printer.PrintBarcodes();
+                        else if (lastSelectedPrinter == "Lot Sheets")
+                        {
+                            printer.PrintLotSheets();
+                        }
+                        else if (lastSelectedPrinter == "Custom Purolator")
+                        {
+                            CustomPrintWindow window = new CustomPrintWindow();
+                            bool? result = window.ShowDialog();
+
+                            if (result == true)
+                            {
+                                int formatBy = window.FormatBy;
+                                string selectedDevice = window.SelectedDevice;
+
+                                // Create a new PrinterConnection instance with the selected settings
+                                PrinterConnection printerConnection = new PrinterConnection(CurrentSerials);
+
+                                // Set target device using reflection to access private field
+                                typeof(PrinterConnection)
+                                    .GetField("targetDevice", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                                    ?.SetValue(printerConnection, selectedDevice);
+
+                                try
+                                {
+                                    printerConnection.CustomPrintPurolator(formatBy, selectedDevice); // Run the print job
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show($"Error during printing: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                            }
+                        }
                         break;
                     case "GraphButton":
                         // Opens the Stats Window

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using System.IO;
+
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using System.IO.Packaging;
 using DocumentFormat.OpenXml.ExtendedProperties;
@@ -59,24 +60,24 @@ namespace Toolbox_Class_Library
 
 
         } // executes a cmd script given to it.
-        
+
         // Purolator
         private void PurolatorPrint(int formatBy)
         {
-            
+
             string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray());
             File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
 
 
             string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
                     ?
-                  // Use Xi6 if the device is a cablebox.
+                    // Use Xi6 if the device is a cablebox.
                     @"@echo off
                set ""target_printer=55EXP_Purolator""
                powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
                ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
                     :
-                  // Use CODA file if the device is not a cablebox.  
+                    // Use CODA file if the device is not a cablebox.  
                     @"@echo off
                set ""target_printer=55EXP_Purolator""
                powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
@@ -120,10 +121,11 @@ namespace Toolbox_Class_Library
 
 
         // Public Processes
+
         public void DefaultPrintPurolator()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
-            if (serialsToPrint.Serials == null || (serialsToPrint.Serials).Count  <= 0)
+            if (serialsToPrint.Serials == null || (serialsToPrint.Serials).Count <= 0)
             {
                 Console.WriteLine("\nNo Serials to print.");
             }
@@ -139,7 +141,7 @@ namespace Toolbox_Class_Library
                     Console.Write($"\n{ex}");
                 }
             }
-                
+
         }
         public void PrintBarcodes()
         {
@@ -191,6 +193,26 @@ namespace Toolbox_Class_Library
                 {
                     Console.WriteLine("\nThere was an unexpected error.");
                 }
+            }
+        }
+        public void CustomPrintPurolator(int formatBy, string targetDevice)
+        {
+            if (serialsToPrint.Serials == null || serialsToPrint.Serials.Count <= 0)
+            {
+                Console.WriteLine("\nNo Serials to print.");
+                return;
+            }
+
+            this.targetDevice = targetDevice;
+
+            try
+            {
+                PurolatorPrint(formatBy);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nThere was an unexpected error.");
+                Console.WriteLine($"\n{ex.Message}");
             }
         }
 
