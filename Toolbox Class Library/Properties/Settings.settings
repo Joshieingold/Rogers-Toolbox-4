@@ -9,7 +9,7 @@
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Josh</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ReverseImport" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -18,10 +18,10 @@
       <Value Profile="(Default)">700</Value>
     </Setting>
     <Setting Name="ContractorData" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[{"Name":"Default","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","MR36HW","S5A134A","CM8200A","CODA5810"],"CtrIDs":["8017","8037","8038","8041","8047","8080","8093","8052","8067","8090","8091","8134","NB1","NF1"]},{"Name":"Frontier","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS"],"CtrIDs":["8975","8994"]},{"Name":"FrontierCoda","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","CODA5810"],"CtrIDs":["8997"]}]</Value>
+      <Value Profile="(Default)">[{"Name":"Default","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","MR36HW","S5A134A","CM8200A","CODA5810"],"CtrIDs":["8052","8067","8090","8091","8134","NB1","NF1"]}]</Value>
     </Setting>
     <Setting Name="CtrOrder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8017, 8037, 8038, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8091, 8134, 8975, 8994, 8997, NB1, NF1</Value>
+      <Value Profile="(Default)">8052, 8067, 8090, 8091, 8134, NB1, NF1</Value>
     </Setting>
     <Setting Name="GroupedDevices" Type="System.String" Scope="User">
       <Value Profile="(Default)">CGM4331COM+TG4482A, IPTVTCXI6HD+IPTVARXI6HD, XS010XQ+XS010XB+XS020XONT+XS505M</Value>

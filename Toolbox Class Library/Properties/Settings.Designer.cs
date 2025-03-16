@@ -49,7 +49,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Josh")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -85,7 +85,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"[{""Name"":""Default"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""MR36HW"",""S5A134A"",""CM8200A"",""CODA5810""],""CtrIDs"":[""8017"",""8037"",""8038"",""8041"",""8047"",""8080"",""8093"",""8052"",""8067"",""8090"",""8091"",""8134"",""NB1"",""NF1""]},{""Name"":""Frontier"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS""],""CtrIDs"":[""8975"",""8994""]},{""Name"":""FrontierCoda"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""CODA5810""],""CtrIDs"":[""8997""]}]")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"[{""Name"":""Default"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""MR36HW"",""S5A134A"",""CM8200A"",""CODA5810""],""CtrIDs"":[""8052"",""8067"",""8090"",""8091"",""8134"",""NB1"",""NF1""]}]")]
         public string ContractorData {
             get {
                 return ((string)(this["ContractorData"]));
@@ -97,8 +97,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8017, 8037, 8038, 8041, 8047, 8080, 8093, 8052, 8067, 8090, 8091, 8134, 8975, 899" +
-            "4, 8997, NB1, NF1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8052, 8067, 8090, 8091, 8134, NB1, NF1")]
         public string CtrOrder {
             get {
                 return ((string)(this["CtrOrder"]));

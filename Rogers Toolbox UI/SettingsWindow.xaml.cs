@@ -22,6 +22,7 @@ namespace Rogers_Toolbox_UI
             LoadContractorData();
             InitializeThemeComboBox();
             InitializeWmsFailSettingComboBox();
+            Console.WriteLine(Settings.Default.ContractorData);
         }
 
         private void InitializeThemeComboBox()
