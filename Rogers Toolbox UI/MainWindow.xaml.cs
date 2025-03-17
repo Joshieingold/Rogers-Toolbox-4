@@ -26,6 +26,8 @@ namespace Rogers_Toolbox_UI
             InitializeComponent(); // Initialize Data
             dbConnection = new DatabaseConnection(); // Creates fresh connection to database
             InitializeDataAsync(); // Call the async methods.
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
             LoadTheme(); // Changes the application theme on start-up
             DataContext = this;
             

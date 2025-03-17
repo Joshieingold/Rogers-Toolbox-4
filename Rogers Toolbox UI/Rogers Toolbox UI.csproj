@@ -33,9 +33,10 @@
     <None Remove="Icons\PurolatorIcon.png" />
     <None Remove="Icons\SettingsIcon.png" />
     <None Remove="Icons\WMSIcon.png" />
-  </ItemGroup>
 
-  <ItemGroup>
+    <Content Include="Keys\bomwipstore-firebase-adminsdk-jhqev-acb5705838.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Logo.ico" />
   </ItemGroup>
 
