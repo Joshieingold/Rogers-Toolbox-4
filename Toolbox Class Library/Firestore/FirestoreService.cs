@@ -24,7 +24,8 @@ namespace Toolbox_Class_Library.Firestore
                         try
                         {
                             // Set the path to your service account key
-                            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Keys", "bomwipstore-firebase-adminsdk-jhqev-acb5705838.json");
+                            string filePath = Path.Combine(AppContext.BaseDirectory, "Keys", "bomwipstore-firebase-adminsdk-jhqev-acb5705838.json");
+
                             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filePath);
 
                             // Create FirestoreDb instance

@@ -51,20 +51,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icons\BarcodeIcon.png" />
-    <Resource Include="Icons\BlitzIcon.png" />
-    <Resource Include="Icons\CompareListIcon.png" />
-    <Resource Include="Icons\CTRIcon.png" />
-    <Resource Include="Icons\DatabaseIcon.png" />
-    <Resource Include="Icons\FlexiIcon.png" />
-    <Resource Include="Icons\FormatSerialsIcon.png" />
-    <Resource Include="Icons\GraphIcon.png" />
-    <Resource Include="Icons\LotSheetIcon.png" />
-    <Resource Include="Icons\OpenExcelIcon.png" />
-    <Resource Include="Icons\PrintIcon.png" />
-    <Resource Include="Icons\PurolatorIcon.png" />
-    <Resource Include="Icons\SettingsIcon.png" />
-    <Resource Include="Icons\WMSIcon.png" />
+    <Resource Include="Icons\BarcodeIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\BlitzIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\CompareListIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\CTRIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\DatabaseIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\FlexiIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\FormatSerialsIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\GraphIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\LotSheetIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\OpenExcelIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\PrintIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\PurolatorIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SettingsIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\WMSIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
