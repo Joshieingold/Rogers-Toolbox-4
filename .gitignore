@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Toolbox Class Library/Keys
+/Rogers Toolbox UI/Keys
