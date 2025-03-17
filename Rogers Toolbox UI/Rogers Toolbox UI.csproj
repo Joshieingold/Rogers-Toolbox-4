@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/Joshieingold/Rogers-Toolbox-4</PackageProjectUrl>
     <Copyright>Joshua Lynch - 2025</Copyright>
     <Description>An all in one application designed to automate specific tasks for warehouse work.</Description>
-    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <ApplicationIcon>rogers-logo (1) (1).ico</ApplicationIcon>
     <PackageIcon>Rogers-Emblem.png</PackageIcon>
   </PropertyGroup>
 
@@ -37,7 +37,7 @@
     <Content Include="Keys\bomwipstore-firebase-adminsdk-jhqev-acb5705838.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Logo.ico" />
+    <Content Include="rogers-logo (1) (1).ico" />
   </ItemGroup>
 
   <ItemGroup>
