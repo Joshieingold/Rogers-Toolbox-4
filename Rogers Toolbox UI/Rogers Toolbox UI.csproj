@@ -41,13 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\Rogers-Emblem.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Toolbox Class Library\Toolbox Class Library.csproj" />
   </ItemGroup>
 

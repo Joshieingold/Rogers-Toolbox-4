@@ -94,7 +94,7 @@ namespace Toolbox_Class_Library
 
             try
             {
-                await docRef.SetAsync(data);
+               await docRef.SetAsync(data);
             }
             catch (Exception ex)
             {
@@ -103,13 +103,6 @@ namespace Toolbox_Class_Library
             }
         }
 
-
-
-        // Pulls CTR data from Firestore (to be implemented)
-        public void PullCTRData()
-        {
-
-        }
         public async Task<Dictionary<string, int>> PullDeviceData(string monthString)
         {
             int monthInt = DetermineMonth(monthString);

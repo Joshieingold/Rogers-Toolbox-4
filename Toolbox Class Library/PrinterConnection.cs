@@ -125,24 +125,55 @@ namespace Toolbox_Class_Library
         public void DefaultPrintPurolator()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
-            if (serialsToPrint.Serials == null || (serialsToPrint.Serials).Count <= 0)
+            if (serialsToPrint.Serials == null || serialsToPrint.Serials.Count <= 0)
             {
                 Console.WriteLine("\nNo Serials to print.");
-            }
-            else
-            {
-                try
-                {
-                    PurolatorPrint(formatNumber);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("\nThere was an unexpected error.");
-                    Console.Write($"\n{ex}");
-                }
+                return;
             }
 
+            try
+            {
+                string[] serials = ConvertSerialsToArray();
+                int totalChunks = (int)Math.Ceiling((double)serials.Length / formatNumber);
+
+                for (int i = 0; i < totalChunks; i++)
+                {
+                    // Create a chunk of size `formatNumber`
+                    var chunk = serials
+                        .Skip(i * formatNumber)
+                        .Take(formatNumber)
+                        .ToList();
+
+                    if (chunk.Count > 0)
+                    {
+                        StringBuilder formattedList = new StringBuilder();
+
+                        // ✅ Add device name at the top of the sheet
+                        formattedList.AppendLine(targetDevice);
+                        formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
+
+                        // Write to Bartender file
+                        File.WriteAllText(bartenderPath, formattedList.ToString() + Environment.NewLine);
+
+                        // ✅ Use Xi6 batch script for all default printing cases
+                        string batchFile = @"@echo off
+                            set ""target_printer=55EXP_Purolator""
+                            powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                            ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x";
+
+                        ExecuteBatchScript(batchFile);
+
+                        Console.WriteLine($"Printed batch {i + 1}/{totalChunks}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nThere was an unexpected error.");
+                Console.WriteLine($"\n{ex.Message}");
+            }
         }
+
         public void PrintBarcodes()
         {
             string[] serials = ConvertSerialsToArray();
@@ -207,7 +238,41 @@ namespace Toolbox_Class_Library
 
             try
             {
-                PurolatorPrint(formatBy);
+                string[] serials = ConvertSerialsToArray();
+                int totalChunks = (int)Math.Ceiling((double)serials.Length / formatBy);
+
+                for (int i = 0; i < totalChunks; i++)
+                {
+                    // Create a chunk of size `formatBy`
+                    var chunk = serials
+                        .Skip(i * formatBy)
+                        .Take(formatBy)
+                        .ToList();
+
+                    if (chunk.Count > 0)
+                    {
+                        StringBuilder formattedList = new StringBuilder();
+
+                        // Add device name at the top of the list
+                        formattedList.AppendLine(targetDevice);
+
+                        // Append the serials in the chunk
+                        formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
+
+                        // Write to Bartender file
+                        File.WriteAllText(bartenderPath, formattedList.ToString() + Environment.NewLine);
+
+                        // Execute the batch file for each chunk
+                        string batchFile = @"@echo off
+                        set ""target_printer=55EXP_Purolator""
+                        powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                        ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x";
+
+                        ExecuteBatchScript(batchFile);
+
+                        Console.WriteLine($"Printed batch {i + 1}/{totalChunks}");
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -215,6 +280,7 @@ namespace Toolbox_Class_Library
                 Console.WriteLine($"\n{ex.Message}");
             }
         }
+
 
     }
 }

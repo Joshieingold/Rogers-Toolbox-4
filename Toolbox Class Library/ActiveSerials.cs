@@ -52,7 +52,7 @@ namespace RogersToolbox
             wmsFailString = Toolbox_Class_Library.Properties.Settings.Default.WmsFailAutomation;
             wmsImportSpeed = Toolbox_Class_Library.Properties.Settings.Default.WmsImportSpeed;
             excelColumn = Toolbox_Class_Library.Properties.Settings.Default.ExcelColumn;
-
+            pushFlexiProData = Toolbox_Class_Library.Properties.Settings.Default.PushFlexiProData;
             this.serialsUpdatedCallback = serialsUpdatedCallback;
         }
         //  Helper Functions
@@ -234,6 +234,7 @@ namespace RogersToolbox
             }
             if (pushFlexiProData)
             {
+                Console.WriteLine($"Date: {utcDateTime}\nDevice: {device}\nCount: {count}\nUser: {user}");
                 await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
             }
             
