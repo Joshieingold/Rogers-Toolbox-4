@@ -25,7 +25,7 @@ namespace Toolbox_Class_Library.Firestore
                             
 
                             // Set the path to your service account key
-                            string filePath = Path.Combine(AppContext.BaseDirectory, "Keys", "bomwipstore-firebase-adminsdk-jhqev-acb5705838.json");
+                            string filePath = Path.Combine(AppContext.BaseDirectory, "Keys", "Calgary-Key.json");
 
 
                             if (!File.Exists(filePath))
@@ -59,7 +59,7 @@ namespace Toolbox_Class_Library.Firestore
                             }
 
                             // Create FirestoreDb instance
-                            string projectId = "bomwipstore";
+                            string projectId = "Calgary-Rogers-Database";
                             _firestoreDb = FirestoreDb.Create(projectId);
 
                         }
