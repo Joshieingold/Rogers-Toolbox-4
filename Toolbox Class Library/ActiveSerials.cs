@@ -205,7 +205,7 @@ namespace RogersToolbox
                 bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
                 while (isPixelGood == false)
                 {
-                    await Task.Delay(700);
+                    await Task.Delay(flexiproImportSpeed);
                     isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
                 }
                 if (isPixelGood == true)
