@@ -15,10 +15,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FlexiProImportSpeed" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">700</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="ContractorData" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[{"Name":"Default","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","MR36HW","S5A134A","CM8200A","CODA5810"],"CtrIDs":["8052","8067","8090","8091","8134","NB1","NF1"]}]</Value>
+      <Value Profile="(Default)">[{"Name":"Default","Devices":["CGM4981COM","CGM4331COM","TG4482A","IPTVTCXI6HD","IPTVARXI6HD","SCXI11BEI","XE2SGROG1","XS010XQ","SCHB1AEW","SCHC2AEW","SCHC3AE0","SCXI11BEI-ENTOS","MR36HW","S5A134A","CM8200A","CODA5810","WNXB11ABR", "WNXL11BWL"],"CtrIDs":["8052","8067","8090","8091","8134","NB1","NF1"]}]</Value>
     </Setting>
     <Setting Name="CtrOrder" Type="System.String" Scope="User">
       <Value Profile="(Default)">8052, 8067, 8090, 8091, 8134, NB1, NF1</Value>
@@ -33,7 +33,7 @@
       <Value Profile="(Default)">961, 1016</Value>
     </Setting>
     <Setting Name="WmsPixel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">30, 149</Value>
+      <Value Profile="(Default)">30, 151</Value>
     </Setting>
     <Setting Name="PushFlexiProData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

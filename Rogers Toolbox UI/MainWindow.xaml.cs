@@ -14,7 +14,7 @@ namespace Rogers_Toolbox_UI
     {
         private ActiveSerials CurrentSerials; // Initialize our current serials class 
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
-        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.0 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
+        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.1 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
 

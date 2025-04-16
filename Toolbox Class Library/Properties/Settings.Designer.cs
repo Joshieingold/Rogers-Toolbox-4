@@ -73,7 +73,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
         public int FlexiProImportSpeed {
             get {
                 return ((int)(this["FlexiProImportSpeed"]));
@@ -85,7 +85,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"[{""Name"":""Default"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""MR36HW"",""S5A134A"",""CM8200A"",""CODA5810""],""CtrIDs"":[""8052"",""8067"",""8090"",""8091"",""8134"",""NB1"",""NF1""]}]")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"[{""Name"":""Default"",""Devices"":[""CGM4981COM"",""CGM4331COM"",""TG4482A"",""IPTVTCXI6HD"",""IPTVARXI6HD"",""SCXI11BEI"",""XE2SGROG1"",""XS010XQ"",""SCHB1AEW"",""SCHC2AEW"",""SCHC3AE0"",""SCXI11BEI-ENTOS"",""MR36HW"",""S5A134A"",""CM8200A"",""CODA5810"",""WNXB11ABR"", ""WNXL11BWL""],""CtrIDs"":[""8052"",""8067"",""8090"",""8091"",""8134"",""NB1"",""NF1""]}]")]
         public string ContractorData {
             get {
                 return ((string)(this["ContractorData"]));
@@ -145,7 +145,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30, 149")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 151")]
         public string WmsPixel {
             get {
                 return ((string)(this["WmsPixel"]));

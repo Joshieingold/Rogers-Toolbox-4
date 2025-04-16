@@ -20,7 +20,7 @@ namespace Toolbox_Class_Library
         {
             serialsToPrint = serials;
             bartenderPath = Toolbox_Class_Library.Properties.Settings.Default.BartenderPath;
-            string device = (serials.Serials[0]).Device;
+            targetDevice = (serials.Serials[0]).Device;
         }
         // Helper Functions
         private string[] ConvertSerialsToArray()
@@ -131,6 +131,11 @@ namespace Toolbox_Class_Library
                 return;
             }
 
+            // ✅ Choose correct Bartender file based on device
+            string bartenderFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
+                ? "XI6.btw"
+                : "CODA.btw";
+
             try
             {
                 string[] serials = ConvertSerialsToArray();
@@ -138,7 +143,6 @@ namespace Toolbox_Class_Library
 
                 for (int i = 0; i < totalChunks; i++)
                 {
-                    // Create a chunk of size `formatNumber`
                     var chunk = serials
                         .Skip(i * formatNumber)
                         .Take(formatNumber)
@@ -148,18 +152,15 @@ namespace Toolbox_Class_Library
                     {
                         StringBuilder formattedList = new StringBuilder();
 
-                        // ✅ Add device name at the top of the sheet
                         formattedList.AppendLine(targetDevice);
                         formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
 
-                        // Write to Bartender file
                         File.WriteAllText(bartenderPath, formattedList.ToString() + Environment.NewLine);
 
-                        // ✅ Use Xi6 batch script for all default printing cases
-                        string batchFile = @"@echo off
-                            set ""target_printer=55EXP_Purolator""
-                            powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-                            ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x";
+                        string batchFile = $@"@echo off
+                                                set ""target_printer=55EXP_Purolator""
+                                                powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+                                                ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\{bartenderFile} /p /x";
 
                         ExecuteBatchScript(batchFile);
 
@@ -173,6 +174,7 @@ namespace Toolbox_Class_Library
                 Console.WriteLine($"\n{ex.Message}");
             }
         }
+
 
         public void PrintBarcodes()
         {
