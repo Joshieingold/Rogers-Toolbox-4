@@ -223,6 +223,7 @@ namespace RogersToolbox
                     {
                         await SimulateTyping(serial.Serial);
                         Serials.Remove(serial);
+                        await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
                         SimulateTabKey();
                         count += 1;
                         await Task.Delay(flexiproImportSpeed);
