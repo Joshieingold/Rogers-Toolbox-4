@@ -46,6 +46,7 @@
                             <ComboBoxItem Content="Coffee" />
                             <ComboBoxItem Content="Fade" />
                             <ComboBoxItem Content="Neon" />
+                            <ComboBoxItem Content="Ice"/>
                         </ComboBox>
                     </Grid>
                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">

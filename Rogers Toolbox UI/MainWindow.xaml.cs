@@ -81,6 +81,9 @@ namespace Rogers_Toolbox_UI
                 case "Neon":
                     ApplyTheme("Themes/NeonTheme.xaml");
                     break;
+                case "Ice":
+                    ApplyTheme("Themes/IceTheme.xaml");
+                    break;
                 default:
                     ApplyTheme("Themes/DarkTheme.xaml"); 
                     break;

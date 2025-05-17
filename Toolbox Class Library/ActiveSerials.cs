@@ -8,6 +8,7 @@ using Toolbox_Class_Library;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Printing;
+using System.Linq.Expressions;
 namespace RogersToolbox
 {
     public class ActiveSerials
@@ -200,38 +201,57 @@ namespace RogersToolbox
             DateTime i = DateTime.Now;
             DateTime utcDateTime = i.ToUniversalTime();
             DatabaseConnection FlexiProConnection = new DatabaseConnection();
-            foreach (SerialNumber serial in serialsToProcess)
+            foreach (SerialNumber copySerial in serialsToProcess)
             {
-                bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
-                while (isPixelGood == false)
+                try
                 {
-                    await Task.Delay(flexiproImportSpeed);
-                    isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
-                }
-                if (isPixelGood == true)
-                {
-                    if (serial.Serial == "*")
+
+                    bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                    while (isPixelGood == false)
                     {
-                        Serials.Remove(serial);
+                        await Task.Delay(flexiproImportSpeed);
+                        isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                    }
+                    if (isPixelGood == true)
+                    {
+                        if (copySerial.Serial == "*")
+                        {
+                            Serials.Remove(copySerial);
+                            break;
+                        }
+                        else if (copySerial.Serial == "")
+                        {
+                            Console.WriteLine("This doesnt count");
+                        }
+                        else
+                        {
+                            await SimulateTyping(copySerial.Serial);
+                            Serials.Remove(copySerial);
+                            await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
+                            SimulateTabKey();
+                            count += 1;
+                            await Task.Delay(flexiproImportSpeed);
+                        
+                        }
+                    }
+                }
+                catch (Exception ex)
+                    {
+                        // Handle the exception (e.g., log it, show a message box, etc.)
+                        await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
+                        System.Windows.MessageBox.Show($"Error during FlexiPro import: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         break;
                     }
-                    else if (serial.Serial == "")
-                    {
-                        Console.WriteLine("This doesnt count");
-                    }
-                    else
-                    {
-                        await SimulateTyping(serial.Serial);
-                        Serials.Remove(serial);
-                        await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
-                        SimulateTabKey();
-                        count += 1;
-                        await Task.Delay(flexiproImportSpeed);
-                        
-                    }
+                try
+                {
+                    serialsUpdatedCallback?.Invoke(); // Notify UI to update
                 }
-
-                serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                catch
+                {
+                    await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
+                    System.Windows.MessageBox.Show("Error updating UI", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+                }
             }
             if (pushFlexiProData)
             {

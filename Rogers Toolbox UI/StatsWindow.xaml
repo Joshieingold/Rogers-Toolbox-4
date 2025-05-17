@@ -153,7 +153,7 @@
                     <Border Width="200" CornerRadius="2" BorderThickness="2" Background="{DynamicResource ContentBrush}" BorderBrush="{DynamicResource BorderBrush}" Margin="584,10,10,33">
                         <StackPanel Orientation="Vertical">
                             <Label Content="Person Totals:" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" HorizontalContentAlignment="Center" FontSize="16" Height="28" Width="196" HorizontalAlignment="Center" FontFamily="Arial Narrow"/>
-                            <TextBlock x:Name="personTotalLabel" TextAlignment="Center" Foreground="{DynamicResource TextBrush}" FontWeight="Bold" Height="284" Width="66" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="personTotalLabel" TextAlignment="Center" Foreground="{DynamicResource TextBrush}" FontWeight="Bold" Height="284" Width="145" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                     <!-- Data Grid -->
