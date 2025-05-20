@@ -211,20 +211,23 @@ namespace RogersToolbox
                     {
                         await Task.Delay(flexiproImportSpeed);
                         isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                        Console.WriteLine("Pixel Failed, awaiting retry");
                     }
                     if (isPixelGood == true)
                     {
                         if (copySerial.Serial == "*")
                         {
                             Serials.Remove(copySerial);
+                            Console.WriteLine("Serial validated as a break. Ending Import");
                             break;
                         }
                         else if (copySerial.Serial == "")
                         {
-                            Console.WriteLine("This doesnt count");
+                            Console.WriteLine("Serial is null and is being passed.");
                         }
                         else
                         {
+                            Console.WriteLine("Serial is validated and being imported.");
                             await SimulateTyping(copySerial.Serial);
                             Serials.Remove(copySerial);
                             await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
