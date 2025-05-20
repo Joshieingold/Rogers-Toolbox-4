@@ -229,7 +229,9 @@ namespace RogersToolbox
                         {
                             Console.WriteLine("Serial is validated and being imported.");
                             await SimulateTyping(copySerial.Serial);
-                            Serials.Remove(copySerial);
+                            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => {
+                                Serials.Remove(copySerial);
+                            });
                             await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
                             SimulateTabKey();
                             count += 1;
@@ -247,7 +249,10 @@ namespace RogersToolbox
                     }
                 try
                 {
-                    serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                    await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        serialsUpdatedCallback?.Invoke(); // Notify UI to update
+                    });
                 }
                 catch
                 {
