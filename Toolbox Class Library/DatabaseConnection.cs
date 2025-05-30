@@ -1,5 +1,7 @@
 ﻿
 
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1;
 using System;
@@ -22,7 +24,7 @@ namespace Toolbox_Class_Library
         }
 
         // Helper Functions:
-        
+
         private int DetermineMonth(string monthString)
         {
             int month = 0;
@@ -94,7 +96,7 @@ namespace Toolbox_Class_Library
 
             try
             {
-               await docRef.SetAsync(data);
+                await docRef.SetAsync(data);
             }
             catch (Exception ex)
             {
@@ -108,7 +110,7 @@ namespace Toolbox_Class_Library
             int monthInt = DetermineMonth(monthString);
             int year = DateTime.Now.Year;
             int month = DetermineMonth(monthString);
-            if (DetermineMonth(monthString) == 12) 
+            if (DetermineMonth(monthString) == 12)
             {
                 year = 2024;
             }
@@ -116,8 +118,8 @@ namespace Toolbox_Class_Library
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
             DateTime startDateUtc = startDate.ToUniversalTime();
             DateTime endDateUtc = endDate.ToUniversalTime();
-            
-            Query query = _db.Collection("bom-wip")
+
+            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip")
                     .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
                     .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
 
@@ -185,7 +187,7 @@ namespace Toolbox_Class_Library
             DateTime startDateUtc = StartDate.ToUniversalTime();
             DateTime endDateUtc = EndDate.ToUniversalTime();
 
-            Query query = _db.Collection("bom-wip")
+            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip")
                 .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
                 .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
 
@@ -303,12 +305,103 @@ namespace Toolbox_Class_Library
                 return false;
             }
         }
-    }
-    public class DataRecord
-    {
-        public string Device { get; set; }     // Name of the device
-        public string Name { get; set; }       // Name of the user
-        public int Quantity { get; set; }      // Quantity completed
-        public DateTime Date { get; set; }     // Date of completion
+
+        public async Task<List<SerialRecord>> PullSerialDataByDate(DateTime startDate, DateTime endDate)
+        {
+            DateTime startDateUtc = startDate.ToUniversalTime();
+            DateTime endDateUtc = endDate.ToUniversalTime();
+            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip")
+                .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
+                .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+            TimeZoneInfo astTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+
+            List<SerialRecord> records = new List<SerialRecord>();
+
+            foreach (var document in snapshot.Documents)
+            {
+                var data = document.ToDictionary();
+                DateTime dateValue = DateTime.MinValue;
+                if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                {
+                    dateValue = timestamp.ToDateTime();
+                    dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, astTimeZone);
+                }
+                if (data.ContainsKey("Serials"))
+                {
+                    var serials = data["Serials"] as List<object>;
+                    if (serials != null)
+                    {
+                        foreach (var serial in serials)
+                        {
+                            if (serial is string serialString)
+                            {
+                                var record = new SerialRecord
+                                {
+                                    Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
+                                    SerialNumber = serialString,
+                                    User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
+                                    Date = dateValue
+                                };
+                                records.Add(record);
+                            }
+                        }
+                    }
+                }
+            }
+            return records;
+        }
+        public async Task<List<SerialRecord>> PullSerialDataByList(string[] serialNumbers)
+        {
+            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip");
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+            List<SerialRecord> records = new List<SerialRecord>();
+            foreach (var document in snapshot.Documents)
+            {
+                var data = document.ToDictionary();
+                if (data.ContainsKey("Serials"))
+                {
+                    var serials = data["Serials"] as List<object>;
+                    if (serials != null)
+                    {
+                        foreach (var serial in serials)
+                        {
+                            if (serial is string serialString && serialNumbers.Contains(serialString))
+                            {
+                                DateTime dateValue = DateTime.MinValue;
+                                if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                                {
+                                    dateValue = timestamp.ToDateTime();
+                                    dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time"));
+                                }
+                                var record = new SerialRecord
+                                {
+                                    Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
+                                    SerialNumber = serialString,
+                                    User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
+                                    Date = dateValue
+                                };
+                                records.Add(record);
+                            }
+                        }
+                    }
+                }
+            }
+            return records;
+        }
+        public class DataRecord
+        {
+            public string Device { get; set; }     // Name of the device
+            public string Name { get; set; }       // Name of the user
+            public int Quantity { get; set; }      // Quantity completed
+            public DateTime Date { get; set; }     // Date of completion
+        }
+        public class SerialRecord
+        {
+            public string Device { get; set; }     // Name of the device
+            public string SerialNumber { get; set; } // Serial number of the device
+            public string User { get; set; }       // Name of the user
+            public DateTime Date { get; set; }     // Date of completion
+        }
     }
 }
