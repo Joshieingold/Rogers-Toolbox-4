@@ -182,6 +182,16 @@
                         <Button x:Name="searchSerialsButton" Height="22" Width="96" Margin="10,5,0,0" Content="Search by Serials"/>
                         <Button x:Name="exportSerialsButton" Height="22" Width="96" Margin="10,5,0,0" Content="Export to Excel"/>
                     </StackPanel>
+                    <DataGrid x:Name="serialsDataGrid" AutoGenerateColumns="False" Margin="10,40,10,0" Height="300" 
+                              Background="{DynamicResource ContentBrush}" Foreground="{DynamicResource TextBrush}" 
+                              HeadersVisibility="Column" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" />
+                            <DataGridTextColumn Header="Device" Binding="{Binding Device}" />
+                            <DataGridTextColumn Header="Serial Number" Binding="{Binding SerialNumber}" />
+                            <DataGridTextColumn Header="User" Binding="{Binding Status}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
 
