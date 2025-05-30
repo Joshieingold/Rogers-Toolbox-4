@@ -267,6 +267,12 @@ namespace RogersToolbox
                 Console.WriteLine($"Date: {utcDateTime}\nDevice: {device}\nCount: {shadowSerials.Count()}\nUser: {user}");
                 await FlexiProConnection.PushDeviceData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
             }
+            else
+            {
+                Console.WriteLine("Push FlexiPro Data is disabled, Data will be directed to serials Database.");
+                Console.WriteLine($"Date: {utcDateTime}\nDevice: {device}\nCount: {shadowSerials.Count()}\nUser: {user}");
+                await FlexiProConnection.PushSerialsData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
+            }
 
         }
         public string OpenExcel()

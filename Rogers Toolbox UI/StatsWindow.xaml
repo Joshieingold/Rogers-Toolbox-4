@@ -190,6 +190,7 @@
                             <DataGridTextColumn Header="Device" Binding="{Binding Device}" />
                             <DataGridTextColumn Header="Serial Number" Binding="{Binding SerialNumber}" />
                             <DataGridTextColumn Header="User" Binding="{Binding User}" />
+                            <DataGridTextColumn Header="Type" Binding="{Binding Type}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

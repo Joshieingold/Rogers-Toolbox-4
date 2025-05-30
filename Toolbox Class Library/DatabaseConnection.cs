@@ -234,7 +234,29 @@ namespace Toolbox_Class_Library
             return (records, deviceTotals, userTotals);
         }
 
-
+        public async Task PushSerialsData(string deviceName, int quantity, DateTime TimeOfTransaction, string user, List<string> serialList)
+        {
+            // ensure time is in UTC
+            DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
+            DocumentReference docRef = _db.Collection("SerialDatabase").Document();
+            var data = new
+            {
+                Device = deviceName,
+                Name = user,
+                Quantity = quantity,
+                Date = Timestamp.FromDateTime(utcDateTime), // Convert DateTime to Firestore Timestamp
+                Serials = serialList
+            };
+            try
+            {
+                await docRef.SetAsync(data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error pushing data to Firestore: {ex.Message}");
+                throw;
+            }
+        }
 
 
         // Pushes device data to Firestore (to be implemented)
@@ -310,85 +332,128 @@ namespace Toolbox_Class_Library
         {
             DateTime startDateUtc = startDate.ToUniversalTime();
             DateTime endDateUtc = endDate.ToUniversalTime();
-            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip")
-                .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
-                .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
-            QuerySnapshot snapshot = await query.GetSnapshotAsync();
             TimeZoneInfo astTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
 
-            List<SerialRecord> records = new List<SerialRecord>();
+            var records = new List<SerialRecord>();
 
-            foreach (var document in snapshot.Documents)
+            // Local helper method with type override
+            async Task<List<SerialRecord>> QueryCollection(string collectionName, string type)
             {
-                var data = document.ToDictionary();
-                DateTime dateValue = DateTime.MinValue;
-                if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                var query = _db.Collection(collectionName)
+                    .WhereGreaterThanOrEqualTo("Date", Timestamp.FromDateTime(startDateUtc))
+                    .WhereLessThanOrEqualTo("Date", Timestamp.FromDateTime(endDateUtc));
+
+                var snapshot = await query.GetSnapshotAsync();
+                var list = new List<SerialRecord>();
+
+                foreach (var document in snapshot.Documents)
                 {
-                    dateValue = timestamp.ToDateTime();
-                    dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, astTimeZone);
-                }
-                if (data.ContainsKey("Serials"))
-                {
-                    var serials = data["Serials"] as List<object>;
-                    if (serials != null)
+                    var data = document.ToDictionary();
+                    DateTime dateValue = DateTime.MinValue;
+
+                    if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
                     {
-                        foreach (var serial in serials)
+                        dateValue = timestamp.ToDateTime();
+                        dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, astTimeZone);
+                    }
+
+                    if (data.ContainsKey("Serials"))
+                    {
+                        var serials = data["Serials"] as List<object>;
+                        if (serials != null)
                         {
-                            if (serial is string serialString)
+                            foreach (var serial in serials)
                             {
-                                var record = new SerialRecord
+                                if (serial is string serialString)
                                 {
-                                    Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
-                                    SerialNumber = serialString,
-                                    User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
-                                    Date = dateValue
-                                };
-                                records.Add(record);
+                                    list.Add(new SerialRecord
+                                    {
+                                        Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
+                                        SerialNumber = serialString,
+                                        User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
+                                        Date = dateValue,
+                                        Type = type // <-- Set type dynamically
+                                    });
+                                }
                             }
                         }
                     }
                 }
+
+                return list;
             }
+
+            // Query each collection with appropriate type
+            var bomWipRecords = await QueryCollection("bom-wip", "Production");
+            var serialDatabaseRecords = await QueryCollection("SerialDatabase", "General Import");
+
+            // Merge and return
+            records.AddRange(bomWipRecords);
+            records.AddRange(serialDatabaseRecords);
+
             return records;
         }
+
         public async Task<List<SerialRecord>> PullSerialDataByList(string[] serialNumbers)
         {
-            Google.Cloud.Firestore.Query query = _db.Collection("bom-wip");
-            QuerySnapshot snapshot = await query.GetSnapshotAsync();
-            List<SerialRecord> records = new List<SerialRecord>();
-            foreach (var document in snapshot.Documents)
+            TimeZoneInfo astTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+            var records = new List<SerialRecord>();
+
+            // Local reusable function for querying a collection and assigning the type
+            async Task<List<SerialRecord>> QueryCollection(string collectionName, string type)
             {
-                var data = document.ToDictionary();
-                if (data.ContainsKey("Serials"))
+                var query = _db.Collection(collectionName);
+                var snapshot = await query.GetSnapshotAsync();
+                var list = new List<SerialRecord>();
+
+                foreach (var document in snapshot.Documents)
                 {
-                    var serials = data["Serials"] as List<object>;
-                    if (serials != null)
+                    var data = document.ToDictionary();
+
+                    if (data.ContainsKey("Serials"))
                     {
-                        foreach (var serial in serials)
+                        var serials = data["Serials"] as List<object>;
+                        if (serials != null)
                         {
-                            if (serial is string serialString && serialNumbers.Contains(serialString))
+                            foreach (var serial in serials)
                             {
-                                DateTime dateValue = DateTime.MinValue;
-                                if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                                if (serial is string serialString && serialNumbers.Contains(serialString))
                                 {
-                                    dateValue = timestamp.ToDateTime();
-                                    dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time"));
+                                    DateTime dateValue = DateTime.MinValue;
+                                    if (data.TryGetValue("Date", out object dateObj) && dateObj is Timestamp timestamp)
+                                    {
+                                        dateValue = timestamp.ToDateTime();
+                                        dateValue = TimeZoneInfo.ConvertTimeFromUtc(dateValue, astTimeZone);
+                                    }
+
+                                    list.Add(new SerialRecord
+                                    {
+                                        Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
+                                        SerialNumber = serialString,
+                                        User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
+                                        Date = dateValue,
+                                        Type = type // <- Set correct type
+                                    });
                                 }
-                                var record = new SerialRecord
-                                {
-                                    Device = data.ContainsKey("Device") ? data["Device"]?.ToString() ?? "Unknown" : "Unknown",
-                                    SerialNumber = serialString,
-                                    User = data.ContainsKey("Name") ? data["Name"]?.ToString() ?? "Unknown" : "Unknown",
-                                    Date = dateValue
-                                };
-                                records.Add(record);
                             }
                         }
                     }
                 }
+
+                return list;
             }
+
+            // Query both collections with appropriate type
+            var bomWipRecords = await QueryCollection("bom-wip", "Production");
+            var serialDbRecords = await QueryCollection("SerialDatabase", "General Import");
+
+            // Merge and return
+            records.AddRange(bomWipRecords);
+            records.AddRange(serialDbRecords);
+
             return records;
         }
+
         public class DataRecord
         {
             public string Device { get; set; }     // Name of the device
@@ -402,6 +467,7 @@ namespace Toolbox_Class_Library
             public string SerialNumber { get; set; } // Serial number of the device
             public string User { get; set; }       // Name of the user
             public DateTime Date { get; set; }     // Date of completion
+            public string Type { get; set; }       // The database it came from
         }
     }
 }
