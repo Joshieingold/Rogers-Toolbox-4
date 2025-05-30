@@ -172,17 +172,17 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Serials" Margin="36,0,-52,0" Height="15" VerticalAlignment="Center">
-                <Grid Background="Beige" Height="368">
-                    <StackPanel Margin="10,0,10,321" Orientation="Horizontal">
-                        <Button Height="22" Width="96" Click="FetchSerialDataByDate_Click">Search by Date</Button>
-                        <DatePicker x:Name="serialStartDatePicker" Margin="0,5,0,0" Width="149" Height="34" />
-                        <DatePicker x:Name="serialEndDatePicker" Margin="0,5,0,0" Width="149" Height="34" />
-                        <TextBox x:Name="serialListTextBox" Margin="10,5,0,0" Width="178" Height="24" />
-                        <Button x:Name="searchSerialsButton" Click="FetchSerialDataByList" Height="22" Width="96" Margin="10,5,0,0" Content="Search by Serials"/>
-                        <Button x:Name="exportSerialsButton" Click="SerialDataToExcel_Click"  Height="22" Width="96" Margin="10,5,0,0" Content="Export to Excel"/>
+            <TabItem Header="Serials" Margin="36,0,-52,0" Height="18" VerticalAlignment="Center">
+                <Grid Background="{DynamicResource WindowBackgroundBrush}" Height="368">
+                    <StackPanel Margin="10,0,10,321" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Height="24" Margin="0,0,10,0" Width="96" Click="FetchSerialDataByDate_Click" Content="Search by Date" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource WindowHeaderBrush}" />
+                        <DatePicker x:Name="serialStartDatePicker" Margin="0,5,0,0" Width="149" Height="37" />
+                        <DatePicker x:Name="serialEndDatePicker" Margin="0,5,0,0" Width="149" Height="37" />
+                        <TextBox x:Name="serialListTextBox" Margin="10,5,0,0" Width="178" Height="24" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" />
+                        <Button x:Name="searchSerialsButton" Click="FetchSerialDataByList" Height="22" Width="96" Margin="10,5,0,0" Content="Search by Serials" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource WindowHeaderBrush}"/>
+                        <Button x:Name="exportSerialsButton" Click="SerialDataToExcel_Click"  Height="22" Width="96" Margin="10,5,0,0" Content="Export to Excel" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource WindowHeaderBrush}"/>
                     </StackPanel>
-                    <DataGrid x:Name="serialDataGrid" AutoGenerateColumns="False" Margin="10,40,10,0" Height="300" 
+                    <DataGrid x:Name="serialDataGrid" AutoGenerateColumns="False" Margin="10,54,10,21" 
                               Background="{DynamicResource ContentBrush}" Foreground="{DynamicResource TextBrush}" 
                               HeadersVisibility="Column" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
                         <DataGrid.Columns>
