@@ -427,7 +427,8 @@ namespace Rogers_Toolbox_UI
                     worksheet.Cell(1, 1).Value = "Device";
                     worksheet.Cell(1, 2).Value = "Serial Number";
                     worksheet.Cell(1, 3).Value = "User";
-                    worksheet.Cell(1, 4).Value = "Date";
+                    worksheet.Cell(1, 4).Value = "Type";
+                    worksheet.Cell(1, 5).Value = "Date";
 
                     // Write data
                     for (int i = 0; i < records.Count; i++)
@@ -436,7 +437,8 @@ namespace Rogers_Toolbox_UI
                         worksheet.Cell(row, 1).Value = records[i].Device;
                         worksheet.Cell(row, 2).Value = records[i].SerialNumber;
                         worksheet.Cell(row, 3).Value = records[i].User;
-                        worksheet.Cell(row, 4).Value = records[i].Date.ToString("yyyy-MM-dd HH:mm:ss");
+                        worksheet.Cell(row, 4).Value = records[i].Type;
+                        worksheet.Cell(row, 5).Value = records[i].Date.ToString("yyyy-MM-dd HH:mm:ss");
                     }
 
                     // Auto-size columns
@@ -446,7 +448,6 @@ namespace Rogers_Toolbox_UI
                     workbook.SaveAs(saveFileDialog.FileName);
                 }
 
-                MessageBox.Show("Data exported successfully!", "Export Complete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
