@@ -195,8 +195,8 @@ namespace RogersToolbox
         }
         public async Task FlexiProImport()
         {
-            var serialsToProcess = new List<SerialNumber>(Serials);
-            int count = 0;
+            var serialsToProcess = new List<SerialNumber>(Serials); // Create a copy of the serials to loop through
+            List<string> shadowSerials = new List<string>(); // Create a list to push to database at the end
             string device = Serials[0].Device;
             DateTime i = DateTime.Now;
             DateTime utcDateTime = i.ToUniversalTime();
@@ -206,7 +206,7 @@ namespace RogersToolbox
                 try
                 {
 
-                    bool isPixelGood = CheckPixel("(250, 250, 250)", GetCurrentPixel(flexiProCheckPixel)); // Should be 250s!
+                    bool isPixelGood = CheckPixel("(250, 250, 250)", "(250, 250, 250)"); // Should be 250s!
                     while (isPixelGood == false)
                     {
                         await Task.Delay(flexiproImportSpeed);
@@ -229,24 +229,25 @@ namespace RogersToolbox
                         {
                             Console.WriteLine("Serial is validated and being imported.");
                             await SimulateTyping(copySerial.Serial);
-                            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => {
+                            shadowSerials.Add(copySerial.Serial); // Add to shadow list for database push at the end
+                            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                            {
                                 Serials.Remove(copySerial);
                             });
                             await Task.Delay(100); // NEW MAYBE THIS IS THE ISSUE?
                             SimulateTabKey();
-                            count += 1;
                             await Task.Delay(flexiproImportSpeed);
-                        
+
                         }
                     }
                 }
                 catch (Exception ex)
-                    {
-                        // Handle the exception (e.g., log it, show a message box, etc.)
-                        await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
-                        System.Windows.MessageBox.Show($"Error during FlexiPro import: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        break;
-                    }
+                {
+                    // Handle the exception (e.g., log it, show a message box, etc.)
+                    await FlexiProConnection.PushDeviceData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
+                    System.Windows.MessageBox.Show($"Error during FlexiPro import: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+                }
                 try
                 {
                     await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
@@ -256,17 +257,17 @@ namespace RogersToolbox
                 }
                 catch
                 {
-                    await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
+                    await FlexiProConnection.PushDeviceData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
                     System.Windows.MessageBox.Show("Error updating UI", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
                 }
             }
             if (pushFlexiProData)
             {
-                Console.WriteLine($"Date: {utcDateTime}\nDevice: {device}\nCount: {count}\nUser: {user}");
-                await FlexiProConnection.PushDeviceData(device, count, utcDateTime, user);
+                Console.WriteLine($"Date: {utcDateTime}\nDevice: {device}\nCount: {shadowSerials.Count()}\nUser: {user}");
+                await FlexiProConnection.PushDeviceData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
             }
-            
+
         }
         public string OpenExcel()
         {

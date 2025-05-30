@@ -236,7 +236,7 @@ namespace Toolbox_Class_Library
 
 
         // Pushes device data to Firestore (to be implemented)
-        public async Task PushDeviceData(string deviceName, int quantity, DateTime TimeOfTransaction, string user)
+        public async Task PushDeviceData(string deviceName, int quantity, DateTime TimeOfTransaction, string user, List<string> serialList)
         {
             // ensure time is in UTC
             DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
@@ -246,7 +246,8 @@ namespace Toolbox_Class_Library
                 Device = deviceName,
                 Name = user,
                 Quantity = quantity,
-                Date = Timestamp.FromDateTime(utcDateTime) // Convert DateTime to Firestore Timestamp
+                Date = Timestamp.FromDateTime(utcDateTime), // Convert DateTime to Firestore Timestamp
+                Serials = serialList
             };
             try
             {
