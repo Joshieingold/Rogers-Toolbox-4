@@ -337,4 +337,27 @@ namespace Rogers_Toolbox_UI
 
 
     }
+    private async void FetchSerialData_Click(object sender, RoutedEventArgs e)
+        {
+            if (serialStartDatePicker == null || serialEndDatePicker == null)
+            {
+                MessageBox.Show("Please select both start and end dates.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            DateTime startDate = serialStartDatePicker.SelectedDate.Value;
+            DateTime endDate = serialEndDatePicker.SelectedDate.Value;
+            try
+            {
+                var (records) = await db.PullSerialData(startDate, endDate);
+                serialDataGrid.ItemsSource = records;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching serial data: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            {
+                
+            }
+        }
 }
