@@ -16,6 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Toolbox_Class_Library;
 using DocumentFormat.OpenXml.Bibliography;
+using Microsoft.Win32;
+
+using ClosedXML.Excel;
 
 namespace Rogers_Toolbox_UI
 {
@@ -272,7 +275,7 @@ namespace Rogers_Toolbox_UI
             RequiredPerDayLabel.Content = $"Daily Required: {RequiredPerDay}";
             DailyAverageLabel.Content = $"Average Daily Completed: {DailyAverage}";
         }
- 
+
         static int GetWeekdaysInMonth(int year, int month)
         {
             int weekdays = 0;
@@ -336,5 +339,120 @@ namespace Rogers_Toolbox_UI
         }
 
 
+        private async void FetchSerialDataByDate_Click(object sender, RoutedEventArgs e)
+        {
+            if (serialStartDatePicker == null || serialEndDatePicker == null)
+            {
+                MessageBox.Show("Please select both start and end dates.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            DateTime startDate = serialStartDatePicker.SelectedDate.Value;
+            DateTime endDate = serialEndDatePicker.SelectedDate.Value;
+            try
+            {
+                var records = await db.PullSerialDataByDate(startDate, endDate);
+                serialDataGrid.ItemsSource = records;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching serial data: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            {
+
+            }
+        }
+        private async void FetchSerialDataByList(object sender, RoutedEventArgs e)
+        {
+            if (serialListTextBox.Text == "")
+            {
+                MessageBox.Show("Please enter a list of serial numbers.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string[] serialNumbers = serialListTextBox.Text.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+            try
+            {
+                var records = await db.PullSerialDataByList(serialNumbers);
+                serialDataGrid.ItemsSource = records;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching serial data: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SerialDataToExcel_Click(object sender, RoutedEventArgs e)
+        {
+            if (serialDataGrid.ItemsSource == null)
+            {
+                MessageBox.Show("No data to export.", "Export Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                ExportSerialDataToExcel(serialDataGrid.ItemsSource);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting data: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void ExportSerialDataToExcel(System.Collections.IEnumerable itemsSource)
+        {
+            // Convert itemsSource to a list of SerialRecord
+            var records = itemsSource.Cast<DatabaseConnection.SerialRecord>().ToList();
+            if (records.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Prompt user for file location
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx",
+                FileName = "SerialDataExport.xlsx"
+            };
+
+            if (saveFileDialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("Serial Data");
+
+                    // Write headers
+                    worksheet.Cell(1, 1).Value = "Device";
+                    worksheet.Cell(1, 2).Value = "Serial Number";
+                    worksheet.Cell(1, 3).Value = "User";
+                    worksheet.Cell(1, 4).Value = "Type";
+                    worksheet.Cell(1, 5).Value = "Date";
+
+                    // Write data
+                    for (int i = 0; i < records.Count; i++)
+                    {
+                        var row = i + 2;
+                        worksheet.Cell(row, 1).Value = records[i].Device;
+                        worksheet.Cell(row, 2).Value = records[i].SerialNumber;
+                        worksheet.Cell(row, 3).Value = records[i].User;
+                        worksheet.Cell(row, 4).Value = records[i].Type;
+                        worksheet.Cell(row, 5).Value = records[i].Date.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+
+                    // Auto-size columns
+                    worksheet.Columns().AdjustToContents();
+
+                    // Save file
+                    workbook.SaveAs(saveFileDialog.FileName);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to export data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
