@@ -18,9 +18,6 @@ namespace Rogers_Toolbox_UI
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
 
-
-
-
         public MainWindow()
         {
             InitializeComponent(); // Initialize Data
@@ -30,8 +27,8 @@ namespace Rogers_Toolbox_UI
             DataContext = this;
             
             // Refresh to default settings.
-            Toolbox_Class_Library.Properties.Settings.Default.Reset();
-            //Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
+            // Toolbox_Class_Library.Properties.Settings.Default.Reset();
+            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
 
         }
 
@@ -349,7 +346,3 @@ namespace Rogers_Toolbox_UI
 
     }
 }
-
-// To Do:
-
-// 2. I want there to be an easy way for users to send each other serials across toolboxs.
