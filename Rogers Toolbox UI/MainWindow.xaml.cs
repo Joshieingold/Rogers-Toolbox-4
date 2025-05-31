@@ -30,8 +30,8 @@ namespace Rogers_Toolbox_UI
             DataContext = this;
             
             // Refresh to default settings.
-            // Toolbox_Class_Library.Properties.Settings.Default.Reset();
-            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
+            Toolbox_Class_Library.Properties.Settings.Default.Reset();
+            //Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
 
         }
 

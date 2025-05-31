@@ -36,8 +36,6 @@ namespace Toolbox_Class_Library.CtrUpdate
 
                 if (matchingCategory != null)
                 {
-                    
-
                     CTR newCtr = new CTR(ctrString, matchingCategory.Devices, string.Join(", ", Settings.Default.GroupedDevices));
                     AllCtrs.Add(newCtr);
                 }
@@ -225,7 +223,7 @@ namespace Toolbox_Class_Library.CtrUpdate
 
         public void InitializeData()
         {
-            // Should how an Empty set of CTRS
+            // Should now an Empty set of CTRS
             //Test();
             // Gets the user to combine x excels and creates a single file.
             CombineExcels();
