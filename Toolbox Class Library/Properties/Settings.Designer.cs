@@ -238,5 +238,65 @@ namespace Toolbox_Class_Library.Properties {
                 this["CTRImportSpeed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TechIds {
+            get {
+                return ((string)(this["TechIds"]));
+            }
+            set {
+                this["TechIds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TechDevices {
+            get {
+                return ((string)(this["TechDevices"]));
+            }
+            set {
+                this["TechDevices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RunTechAutomation {
+            get {
+                return ((bool)(this["RunTechAutomation"]));
+            }
+            set {
+                this["RunTechAutomation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TechHeaderText {
+            get {
+                return ((string)(this["TechHeaderText"]));
+            }
+            set {
+                this["TechHeaderText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int TechNumDown {
+            get {
+                return ((int)(this["TechNumDown"]));
+            }
+            set {
+                this["TechNumDown"] = value;
+            }
+        }
     }
 }
