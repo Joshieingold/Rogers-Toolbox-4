@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,41 +44,67 @@ namespace Toolbox_Class_Library.TechUpdate
         }
         public void TechAutomation()
         {
-
+            string excelPath = OpenExcel();  
+            if (excelPath != "")
+            {
+                UpdateTechs(excelPath);
+                PrintTechs();
+            }
+            else
+            {
+                Console.WriteLine("Error");
+            }
         }
-        public void UpdateTechs(IXLWorksheet sheet)
+        public void UpdateTechs(string ExcelPath)
         {
+            using var workbookInstance = new XLWorkbook(ExcelPath);
+            var sheet = workbookInstance.Worksheet(1); // Process the first sheet
+            
             string[] UpdateList = Settings.Default.TechIds.Split(", ");
             foreach (var row in sheet.RowsUsed())
             {
-                var RowTechID = row.Cell(7).GetValue<string>();
-                var RowInventoryType = row.Cell(10).GetValue<string>();
-                var RowWarehouseCtrID = row.Cell(2).GetValue<string>();
+                var RowTechID = (row.Cell(8).GetValue<string>());
+                
 
-                if (UpdateList.Contains(RowCtrID) || UpdateList.Contains(RowWarehouseCtrID))
+                if (UpdateList.Contains(RowTechID)) 
                 {
-                    var matchedCtr = this.Techs.FirstOrDefault(ctr => ctr.Name == RowCtrID || ctr.Name == RowWarehouseCtrID);
-                    if (matchedCtr != null)
+                    var matchedTech = Techs.FirstOrDefault(ctr => (ctr.Name) == RowTechID);
+                    if (matchedTech != null)
                     {
-                        if (RowInventoryType.StartsWith("CTR.Subready."))
-                        {
+
                             var RowDeviceCode = row.Cell(6).GetValue<string>();
-                            matchedCtr.DevicePlusCounter(RowDeviceCode);
-                        }
-                        if (UpdateList.Contains(RowWarehouseCtrID))
-                        {
-                            var RowDeviceCode = row.Cell(6).GetValue<string>();
-                            matchedCtr.DevicePlusCounter(RowDeviceCode);
-                        }
+                            matchedTech.DevicePlusCounter(RowDeviceCode);
 
                     }
                 }
 
             }
         }
-        public void OpenExcel()
+        public string OpenExcel()
         {
+            {
+                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    Title = "Select Excel File for CTR Update",
+                    Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
+                };
 
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    return openFileDialog.FileName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+        public void PrintTechs()
+        {
+            foreach (Tech tech in Techs)
+            {
+                Console.WriteLine(tech.ToString());
+            }
         }
 
 

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Toolbox_Class_Library.CtrUpdate;
 using Toolbox_Class_Library;
 using System.Windows.Input;
+using Toolbox_Class_Library.TechUpdate;
 
 namespace Rogers_Toolbox_UI
 {
@@ -17,7 +18,7 @@ namespace Rogers_Toolbox_UI
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.3 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
-        private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
+        private bool ctrUpdateEnabled = false; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
 
 
 
@@ -31,7 +32,7 @@ namespace Rogers_Toolbox_UI
             DataContext = this;
             
             // Refresh to default settings.
-            Toolbox_Class_Library.Properties.Settings.Default.Reset();
+            // Toolbox_Class_Library.Properties.Settings.Default.Reset();
             //Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
 
         }
@@ -279,8 +280,10 @@ namespace Rogers_Toolbox_UI
                         }
                         else // Its a tech update.
                         {
-                        break;
-                        }
+                            TechUpdate techUpdate = new TechUpdate();
+                            techUpdate.TechAutomation();
+                            break;
+                        }                        
                     case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
                             string serialsText = TextBox.Text;
                             FormatWindow formatWindow = new FormatWindow(serialsText);

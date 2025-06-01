@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Toolbox_Class_Library.Tech;
 using Toolbox_Class_Library.CtrUpdate;
 using Toolbox_Class_Library.Properties;
 using Settings = Toolbox_Class_Library.Properties.Settings;
@@ -18,7 +17,7 @@ namespace Toolbox_Class_Library
         public List<Device> Devices { get; set; }
         public Tech(string name)
         {
-            string Name = name;
+            Name = name;
             Devices = GetTechDevices();
             
         }
@@ -72,7 +71,8 @@ namespace Toolbox_Class_Library
         }
         public override string ToString()
         {
-            return (string.Join("\n", this.Devices.Select(d => d.Counter)));
+
+            return  (this.Name + "\n" + string.Join("\n", this.Devices.Select(d => d.Counter)));
         }
     } 
 }

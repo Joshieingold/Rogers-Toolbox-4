@@ -241,7 +241,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"B176, B315, NB00, NB02, NB03, NB04, NB05, NB06, NB07, NB08, NB09, NE15, NE23, NE26, NE74, NF03, NF04, NF21, NF23, NF24, NF26, NF27, NF34, NF35, NF36, NF38, NF41, NF44, NF45, NF56, NF69, Nm43, NN17, NN19, NN24, NN46, NN51, NN53, NN54, NN57, NN58, NN60, NN61, NN62, NN63, NN64, NN66, NN67, NN68, NN71, NN72, NN73, NN75, NN79, NN80, NS07, NS09, NS15, NS17, NS22, NS23, NS32, NS34, NS36, NS41, NS53, NS55, NS57, NS68, ns71, NS73, Ns77, NS83, NS84, NS85, NS86, NS90, NS91, NS92, NS93, NS94, NS98")]
         public string TechIds {
             get {
                 return ((string)(this["TechIds"]));
@@ -253,7 +253,8 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CGM4981COM, CGM4331COM, IPTVARXI6HD, SCXI11BEI, XE2SGROG1, XS010XB, SCHB1AEW, SCH" +
+            "C2AEW, SCHC3AE0, SCXI11BEI-ENTOS, WNXB11ABR, WNXL11BWL, NOVA2002")]
         public string TechDevices {
             get {
                 return ((string)(this["TechDevices"]));
@@ -277,7 +278,7 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hello :)")]
         public string TechHeaderText {
             get {
                 return ((string)(this["TechHeaderText"]));
