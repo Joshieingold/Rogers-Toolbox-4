@@ -18,7 +18,7 @@ namespace Rogers_Toolbox_UI
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.3 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
-        private bool ctrUpdateEnabled = false; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
+        private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
 
 
 
@@ -152,6 +152,36 @@ namespace Rogers_Toolbox_UI
             btn.ContextMenu = menu;
             menu.IsOpen = true;
         }// Open menu on right-click (or long-press for touchscreen)
+        private void ShowTechAndCtrMenu(object sender, MouseButtonEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContextMenu menu = new ContextMenu();
+
+            string[] choices = { "CTR Update", "Tech Update" };
+
+            foreach (string choice in choices)
+            {
+                MenuItem item = new MenuItem { Header = choice };
+                item.Click += (s, args) =>
+                {
+                    if (choice == "CTR Update")
+                    {
+                        ctrUpdateEnabled = true;
+                        CTRButton.Tag = "pack://application:,,,/Icons/CTRIcon.png";
+                    }
+                    else if (choice == "Tech Update")
+                    {
+                        ctrUpdateEnabled = false;
+                        CTRButton.Tag = "pack://application:,,,/Icons/TechIcon.png";
+                    }
+                };
+                menu.Items.Add(item);
+            }
+
+            btn.ContextMenu = menu;
+            menu.IsOpen = true;
+        }
+
         private void SetPrinter(string printer)
         {
             lastSelectedPrinter = printer;

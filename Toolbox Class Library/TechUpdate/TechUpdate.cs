@@ -14,17 +14,6 @@ using WindowsInput;
 namespace Toolbox_Class_Library.TechUpdate
 {
 
-
-    // Needs
-    // 1.
-    // List of all Techs generated from the settings as a class.
-    // To know if it should run the automation or not, and to grab ctr import speed.
-    // The number to go down. and an option to have a custom header if not it will default to Qty - Date.
-    // 2.
-    // allow user to select an excel file to process.
-    // 3.
-    // Process the file and update the Techs.
-    // 4.
     // Run the automation if it is true and push to database.
     public class TechUpdate
     {
@@ -85,7 +74,7 @@ namespace Toolbox_Class_Library.TechUpdate
             {
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
                 {
-                    Title = "Select Excel File for CTR Update",
+                    Title = "Select Excel File for Tech Update",
                     Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
                 };
 
