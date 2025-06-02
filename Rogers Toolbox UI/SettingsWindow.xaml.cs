@@ -13,6 +13,8 @@ namespace Rogers_Toolbox_UI
     {
         private MainWindow mainWindow;
         private List<ContractorCategory> contractorCategories = new();
+        private List<string> techDevices = new();
+        private List<string> techIds = new();
 
         public SettingsWindow(MainWindow main)
         {
@@ -22,6 +24,79 @@ namespace Rogers_Toolbox_UI
             LoadContractorData();
             InitializeThemeComboBox();
             InitializeWmsFailSettingComboBox();
+            LoadTechDevices();
+            LoadTechIds();
+        }
+        private void LoadTechIds()
+        {
+            string raw = Settings.Default.TechIds;
+            techIds = string.IsNullOrWhiteSpace(raw)
+                ? new List<string>()
+                : raw.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            TechIDsListBox.ItemsSource = techIds;
+        }
+        private void SaveTechIds()
+        {
+            Settings.Default.TechIds = string.Join(", ", techIds);
+            Settings.Default.Save();
+        }
+        private void AddTechID_Click(object sender, RoutedEventArgs e)
+        {
+            string newId = TechIDTextBox.Text.Trim();
+            if (!string.IsNullOrEmpty(newId) && !techIds.Contains(newId))
+            {
+                techIds.Add(newId);
+                TechIDsListBox.ItemsSource = null;
+                TechIDsListBox.ItemsSource = techIds;
+                SaveTechIds();
+            }
+        }
+        private void RemoveTechID_Click(object sender, RoutedEventArgs e)
+        {
+            if (TechIDsListBox.SelectedItem is string selectedId)
+            {
+                techIds.Remove(selectedId);
+                TechIDsListBox.ItemsSource = null;
+                TechIDsListBox.ItemsSource = techIds;
+                SaveTechIds();
+            }
+        }
+
+        private void LoadTechDevices()
+        {
+            string raw = Settings.Default.TechDevices;
+            techDevices = string.IsNullOrWhiteSpace(raw)
+                ? new List<string>()
+                : raw.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            TechDevicesListBox.ItemsSource = techDevices;
+        }
+        private void SaveTechDevices()
+        {
+            Settings.Default.TechDevices = string.Join(", ", techDevices);
+            Settings.Default.Save();
+        }
+        private void AddTechDevice_Click(object sender, RoutedEventArgs e)
+        {
+            string newDevice = TechDeviceNameTextBox.Text.Trim();
+            if (!string.IsNullOrEmpty(newDevice) && !techDevices.Contains(newDevice))
+            {
+                techDevices.Add(newDevice);
+                TechDevicesListBox.ItemsSource = null;
+                TechDevicesListBox.ItemsSource = techDevices;
+                SaveTechDevices();
+            }
+        }
+        private void RemoveTechDevice_Click(object sender, RoutedEventArgs e)
+        {
+            if (TechDevicesListBox.SelectedItem is string selectedDevice)
+            {
+                techDevices.Remove(selectedDevice);
+                TechDevicesListBox.ItemsSource = null;
+                TechDevicesListBox.ItemsSource = techDevices;
+                SaveTechDevices();
+            }
         }
 
         private void InitializeThemeComboBox()
@@ -125,6 +200,10 @@ namespace Rogers_Toolbox_UI
                 }
             }
         }
+        private void TechRemoveDevice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void AddCtrID_Click(object sender, RoutedEventArgs e)
         {
@@ -182,6 +261,11 @@ namespace Rogers_Toolbox_UI
                 CtrIDListBox.ItemsSource = selectedCategory.CtrIDs;  // Update UI
                 SaveContractorData(contractorCategories);  // Save changes
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

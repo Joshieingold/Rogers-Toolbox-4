@@ -30,18 +30,53 @@ namespace Toolbox_Class_Library.TechUpdate
             {
                 Techs.Add(new Tech(tech));
             }
+            if (DateText == "")
+            {
+                SetDateText();
+            }
         }
-        public void TechAutomation()
+        public void InitializeData()
         {
-            string excelPath = OpenExcel();  
+            string excelPath = OpenExcel();
             if (excelPath != "")
             {
                 UpdateTechs(excelPath);
-                PrintTechs();
             }
             else
             {
                 Console.WriteLine("Error");
+            }
+
+        }
+        private void SetDateText()
+        {
+            DateText = $"Qty - {DateTime.Now:MMMM d}";
+        }
+        public async Task TechAutomation(string ThisTech)
+        {
+
+            var tech = Techs.FirstOrDefault(c => c.Name == ThisTech);
+            if (tech != null)
+            {
+                Console.WriteLine($"\nProcessing {ThisTech}");
+                if (RunTechAutomation)
+                {
+                    System.Windows.Clipboard.SetText(DateText);
+                    var sim = new InputSimulator();
+                    sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_V);
+                    await Task.Delay(250);
+                    sim.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.DOWN);
+                    await Task.Delay(500);
+                    System.Windows.Clipboard.SetText(tech.ToString());
+                    sim.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_V);
+                    for (int i = 0; i < NumDown; i++)
+                    {
+                        await Task.Delay(250);
+                        sim.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.DOWN);
+                    }
+                }
+                DatabaseConnection db_Tech = new DatabaseConnection();
+                await db_Tech.PushTechData(tech.Name, tech.Devices);
             }
         }
         public void UpdateTechs(string ExcelPath)
@@ -57,7 +92,10 @@ namespace Toolbox_Class_Library.TechUpdate
 
                 if (UpdateList.Contains(RowTechID)) 
                 {
-                    var matchedTech = Techs.FirstOrDefault(ctr => (ctr.Name) == RowTechID);
+                    var matchedTech = Techs.FirstOrDefault(tech =>
+                        tech.Name == RowTechID ||
+                        string.Equals(tech.Name, RowTechID, StringComparison.OrdinalIgnoreCase)
+                    );
                     if (matchedTech != null)
                     {
 

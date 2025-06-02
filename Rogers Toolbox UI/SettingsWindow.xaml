@@ -169,6 +169,50 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
+            <TabItem Header="Technician" Margin="42,0,-62,0" >
+                <Grid Background="{DynamicResource ContentBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <Grid HorizontalAlignment="Left" Width="197" Height="30">
+                                <Label Content="Enable Tech Automation:" Margin="0" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150,0,0,8">
+                                    <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding RunTechAutomation}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                                <Label Content="Custom Header:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                                <TextBox Text="{Binding TechHeaderText}" Width="150" Margin="118,4,119,4" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
+                                <Label Content="Down Presses:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                                <TextBox Text="{Binding TechNumDown}" Width="150" Margin="118,4,119,4" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                            </Grid>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="{DynamicResource TextBrush}" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Associated Devices"/></TextBlock>
+                                <ListBox x:Name="TechDevicesListBox" Width="250" Height="100" DisplayMemberPath="" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="{DynamicResource TextBrush}" Width="127" VerticalAlignment="Center"><Run Language="en-ca" Text="Add / Remove Device"/></TextBlock>
+                                <TextBox x:Name="TechDeviceNameTextBox" Width="150" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddTechDevice_Click" Margin="0,0,10,0" Width="36" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Button Content="Remove Device" Click="RemoveTechDevice_Click" Foreground="{DynamicResource AltTextColor}" Background="{DynamicResource WindowHeaderBrush}" BorderBrush="{DynamicResource BorderBrush}" Width="90"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="{DynamicResource TextBrush}" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Associated Techs"/></TextBlock>
+                                <ListBox x:Name="TechIDsListBox" Width="250" Height="100" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                                <TextBlock Foreground="{DynamicResource TextBrush}" Width="120" VerticalAlignment="Center"><Run Language="en-ca" Text="Add / Remove Tech"/></TextBlock>
+                                <TextBox x:Name="TechIDTextBox" Width="150" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddTechID_Click" Margin="0,0,10,0" Width="36" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Button Content="Remove Tech" Click="RemoveTechID_Click" Foreground="{DynamicResource AltTextColor}" Background="{DynamicResource WindowHeaderBrush}" BorderBrush="{DynamicResource BorderBrush}" Width="81"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
 
 
 

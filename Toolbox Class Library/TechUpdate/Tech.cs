@@ -72,7 +72,7 @@ namespace Toolbox_Class_Library
         public override string ToString()
         {
 
-            return  (this.Name + "\n" + string.Join("\n", this.Devices.Select(d => d.Counter)));
+            return  (string.Join("\n", this.Devices.Select(d => d.Counter)));
         }
     } 
 }

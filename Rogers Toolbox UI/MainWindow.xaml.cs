@@ -33,7 +33,7 @@ namespace Rogers_Toolbox_UI
             
             // Refresh to default settings.
             // Toolbox_Class_Library.Properties.Settings.Default.Reset();
-            //Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
+            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
 
         }
 
@@ -297,6 +297,7 @@ namespace Rogers_Toolbox_UI
                         if (ctrUpdateEnabled) // Its a CTR update.
                         {
                             ctrUpdate.InitializeData(); // Ensure this is awaited
+                            UpdateMessage("Staring CTR Update, please click target location.");
                             await Task.Delay(7000); // Initial delay if needed
                             string[] ctrList = (Toolbox_Class_Library.Properties.Settings.Default.CtrOrder).Split(", ");
                     
@@ -311,7 +312,18 @@ namespace Rogers_Toolbox_UI
                         else // Its a tech update.
                         {
                             TechUpdate techUpdate = new TechUpdate();
-                            techUpdate.TechAutomation();
+                            string[] TechList = (Toolbox_Class_Library.Properties.Settings.Default.TechIds).Split(", ");
+                            techUpdate.InitializeData();
+                            int count = 1;
+                            UpdateMessage("Staring Tech Update, please click target location.");
+                            await Task.Delay(5000);
+                            foreach (string Tech in TechList )
+                            {
+                                UpdateMessage($"Processing Tech: {Tech} - ({count}/{TechList.Length})");
+                                await techUpdate.TechAutomation(Tech);
+                                count += 1;
+                            }
+                            UpdateMessage("Tech Update Completed!");
                             break;
                         }                        
                     case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
