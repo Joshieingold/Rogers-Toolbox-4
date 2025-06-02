@@ -6,62 +6,63 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Toolbox_Class_Library.CtrUpdate;
+using Toolbox_Class_Library.Properties;
+using Settings = Toolbox_Class_Library.Properties.Settings;
 
-namespace Toolbox_Class_Library.CtrUpdate
+namespace Toolbox_Class_Library
 {
-    public class CTR
+    public class Tech
     {
         public string Name { get; set; }
-        public List<Device> DeviceList { get; set; }
-
-        public CTR(string name, List<string> devices, string AltNames)
+        public List<Device> Devices { get; set; }
+        public Tech(string name)
         {
             Name = name;
-            DeviceList = GenerateDeviceList(devices, AltNames);
+            Devices = GetTechDevices();
+            
         }
-        public List<Device> GenerateDeviceList(List<string> devices, string AltNames)
+        List<Device> GetTechDevices()
         {
-            List<Device> ReturnList = new();
-            string[] joinedDevices = AltNames.Split(", ");
-            List<string[]> AssociatedDevices = [];
-
-            // Parse associated devices
-            foreach (string AssociatedDevice in joinedDevices)
+            List<Device> returnList = new();
+            string devicesString = Settings.Default.TechDevices;
+            string altNamesString = Settings.Default.GroupedDevices;
+            string[] deviceList = devicesString.Split(", ");
+            string[] altNameList = altNamesString.Split(", ");
+            List<string[]> associatedDevices = new();
+            foreach (string associatedDevice in altNameList)
             {
-                string[] temp = AssociatedDevice.Split("+");
-                AssociatedDevices.Add(temp);
+                string[] temp = associatedDevice.Split("+");
+                associatedDevices.Add(temp);
             }
-
             HashSet<string> processedModels = new(); // Track processed models
 
-            foreach (string model in devices)
+            foreach (string model in deviceList)
             {
                 // Check if the model is part of an associated device group
-                string[]? matchingGroup = AssociatedDevices.FirstOrDefault(group => group.Contains(model));
+                string[]? matchingGroup = associatedDevices.FirstOrDefault(group => group.Contains(model));
 
                 if (matchingGroup != null)
                 {
                     // If none of the group has been processed, add it as a new Device
                     if (!processedModels.Overlaps(matchingGroup))
                     {
-                        ReturnList.Add(new Device(matchingGroup[0], matchingGroup.ToList(), 0)); // 0 as a placeholder for counter
+                        returnList.Add(new Device(matchingGroup[0], matchingGroup.ToList(), 0)); // 0 as a placeholder for counter
                         processedModels.UnionWith(matchingGroup); // Mark all in the group as processed
                     }
                 }
                 else if (!processedModels.Contains(model))
                 {
                     // If the model isn't in an associated group, add it individually with only itself as an alternative name
-                    ReturnList.Add(new Device(model, new List<string> { model }, 0)); // 0 as a placeholder for counter
+                    returnList.Add(new Device(model, new List<string> { model }, 0)); // 0 as a placeholder for counter
                     processedModels.Add(model);
                 }
             }
-
-            return ReturnList;
+            return returnList;
         }
         public void DevicePlusCounter(string DeviceName)
         {
             // Find the device in the list if its there.
-            Device? device = DeviceList.FirstOrDefault(d => d.Name == DeviceName || d.AlternativeName.Contains(DeviceName));
+            Device? device = Devices.FirstOrDefault(d => d.Name == DeviceName || d.AlternativeName.Contains(DeviceName));
 
             if (device != null)
             {
@@ -70,7 +71,8 @@ namespace Toolbox_Class_Library.CtrUpdate
         }
         public override string ToString()
         {
-            return (string.Join("\n", this.DeviceList.Select(d => d.Counter)));
+
+            return  (string.Join("\n", this.Devices.Select(d => d.Counter)));
         }
-    }
+    } 
 }

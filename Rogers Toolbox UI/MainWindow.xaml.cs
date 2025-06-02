@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Toolbox_Class_Library.CtrUpdate;
 using Toolbox_Class_Library;
 using System.Windows.Input;
+using Toolbox_Class_Library.TechUpdate;
 
 namespace Rogers_Toolbox_UI
 {
@@ -17,6 +18,7 @@ namespace Rogers_Toolbox_UI
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.3 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
+        private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
 
         public MainWindow()
         {
@@ -147,6 +149,36 @@ namespace Rogers_Toolbox_UI
             btn.ContextMenu = menu;
             menu.IsOpen = true;
         }// Open menu on right-click (or long-press for touchscreen)
+        private void ShowTechAndCtrMenu(object sender, MouseButtonEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContextMenu menu = new ContextMenu();
+
+            string[] choices = { "CTR Update", "Tech Update" };
+
+            foreach (string choice in choices)
+            {
+                MenuItem item = new MenuItem { Header = choice };
+                item.Click += (s, args) =>
+                {
+                    if (choice == "CTR Update")
+                    {
+                        ctrUpdateEnabled = true;
+                        CTRButton.Tag = "pack://application:,,,/Icons/CTRIcon.png";
+                    }
+                    else if (choice == "Tech Update")
+                    {
+                        ctrUpdateEnabled = false;
+                        CTRButton.Tag = "pack://application:,,,/Icons/TechIcon.png";
+                    }
+                };
+                menu.Items.Add(item);
+            }
+
+            btn.ContextMenu = menu;
+            menu.IsOpen = true;
+        }
+
         private void SetPrinter(string printer)
         {
             lastSelectedPrinter = printer;
@@ -258,90 +290,108 @@ namespace Rogers_Toolbox_UI
                         settingsWindow.ShowDialog();
                         break; // Done!
                     case "CTRButton": // Creates a new instance of CtrUpdate and runs it.
-
                         CtrUpdate ctrUpdate = new CtrUpdate();                     
-                        ctrUpdate.InitializeData(); // Ensure this is awaited
-                        await Task.Delay(7000); // Initial delay if needed
-                        string[] ctrList = (Toolbox_Class_Library.Properties.Settings.Default.CtrOrder).Split(", ");
-                        
-                        foreach (string ctr in ctrList)
+                        if (ctrUpdateEnabled) // Its a CTR update.
                         {
-                        UpdateMessage($"Updating CTR {ctr}");
-                        await ctrUpdate.RunAutomation(ctr);
-                        
-
-                    }
-                        UpdateMessage("CTR Update Completed!");
-                        break;
-                    case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
-                        string serialsText = TextBox.Text;
-                        FormatWindow formatWindow = new FormatWindow(serialsText);
-                        formatWindow.Owner = this; // Set MainWindow as the owner
-                        formatWindow.ShowDialog(); // Show as a modal dialog
-
-                        // After closing, update TextBox if FormattedSerials is set
-                        if (!string.IsNullOrEmpty(formatWindow.FormattedSerials))
-                        {
-                            TextBox.Text = formatWindow.FormattedSerials;
-                        }
-
-                        break;
-                    case "PrintButton": // Opens the Print Menu
-                            PrinterConnection printer = new PrinterConnection(CurrentSerials);
-                        if (lastSelectedPrinter == "Purolator")
-                        {
-                            printer.DefaultPrintPurolator();
-                        }
-                        else if (lastSelectedPrinter == "Barcodes")
-                            printer.PrintBarcodes();
-                        else if (lastSelectedPrinter == "Lot Sheets")
-                        {
-                            printer.PrintLotSheets();
-                        }
-                        else if (lastSelectedPrinter == "Custom Purolator")
-                        {
-                            CustomPrintWindow window = new CustomPrintWindow();
-                            bool? result = window.ShowDialog();
-
-                            if (result == true)
+                            ctrUpdate.InitializeData(); // Ensure this is awaited
+                            UpdateMessage("Staring CTR Update, please click target location.");
+                            await Task.Delay(7000); // Initial delay if needed
+                            string[] ctrList = (Toolbox_Class_Library.Properties.Settings.Default.CtrOrder).Split(", ");
+                    
+                            foreach (string ctr in ctrList)
                             {
-                                int formatBy = window.FormatBy;
-                                string selectedDevice = window.SelectedDevice;
+                                UpdateMessage($"Updating CTR {ctr}");
+                                await ctrUpdate.RunAutomation(ctr);
+                            }
+                            UpdateMessage("CTR Update Completed!");
+                            break;
+                        }
+                        else // Its a tech update.
+                        {
+                            TechUpdate techUpdate = new TechUpdate();
+                            string[] TechList = (Toolbox_Class_Library.Properties.Settings.Default.TechIds).Split(", ");
+                            techUpdate.InitializeData();
+                            int count = 1;
+                            UpdateMessage("Staring Tech Update, please click target location.");
+                            await Task.Delay(5000);
+                            foreach (string Tech in TechList )
+                            {
+                                UpdateMessage($"Processing Tech: {Tech} - ({count}/{TechList.Length})");
+                                await techUpdate.TechAutomation(Tech);
+                                count += 1;
+                            }
+                            UpdateMessage("Tech Update Completed!");
+                            break;
+                        }                        
+                    case "FormatSerialsButton": // Opens the Format Serials window and uses the serials in the textbox to be used.
+                            string serialsText = TextBox.Text;
+                            FormatWindow formatWindow = new FormatWindow(serialsText);
+                            formatWindow.Owner = this; // Set MainWindow as the owner
+                            formatWindow.ShowDialog(); // Show as a modal dialog
 
-                                // Create a new PrinterConnection instance with the selected settings
-                                PrinterConnection printerConnection = new PrinterConnection(CurrentSerials);
+                            // After closing, update TextBox if FormattedSerials is set
+                            if (!string.IsNullOrEmpty(formatWindow.FormattedSerials))
+                            {
+                                TextBox.Text = formatWindow.FormattedSerials;
+                            }
 
-                                // Set target device using reflection to access private field
-                                typeof(PrinterConnection)
-                                    .GetField("targetDevice", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                                    ?.SetValue(printerConnection, selectedDevice);
+                            break;
+                        case "PrintButton": // Opens the Print Menu
+                            PrinterConnection printer = new PrinterConnection(CurrentSerials);
+                            if (lastSelectedPrinter == "Purolator")
+                            {
+                                printer.DefaultPrintPurolator();
+                            }
+                            else if (lastSelectedPrinter == "Barcodes")
+                                printer.PrintBarcodes();
+                            else if (lastSelectedPrinter == "Lot Sheets")
+                            {
+                                printer.PrintLotSheets();
+                            }
+                            else if (lastSelectedPrinter == "Custom Purolator")
+                            {
+                                CustomPrintWindow window = new CustomPrintWindow();
+                                bool? result = window.ShowDialog();
 
-                                try
+                                if (result == true)
                                 {
-                                    printerConnection.CustomPrintPurolator(formatBy, selectedDevice); // Run the print job
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show($"Error during printing: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    int formatBy = window.FormatBy;
+                                    string selectedDevice = window.SelectedDevice;
+
+                                    // Create a new PrinterConnection instance with the selected settings
+                                    PrinterConnection printerConnection = new PrinterConnection(CurrentSerials);
+
+                                    // Set target device using reflection to access private field
+                                    typeof(PrinterConnection)
+                                        .GetField("targetDevice", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                                        ?.SetValue(printerConnection, selectedDevice);
+
+                                    try
+                                    {
+                                        printerConnection.CustomPrintPurolator(formatBy, selectedDevice); // Run the print job
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show($"Error during printing: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    }
                                 }
                             }
-                        }
-                        break;
-                    case "GraphButton":
-                        // Opens the Stats Window
-                        DatabaseConnection databaseConnection = new DatabaseConnection();
-                        StatsWindow statsWindow = new StatsWindow();
-                        statsWindow.Show();
-                        break;
-                    case "CompareListButton":
-                        CompareLists compareLists = new CompareLists();
-                        compareLists.Show();
-                        break;
-                default: // Just in case :)
-                        UpdateMessage("Didn't read anything :(");
-                        break;
+                            break;
+                        case "GraphButton":
+                            // Opens the Stats Window
+                            DatabaseConnection databaseConnection = new DatabaseConnection();
+                            StatsWindow statsWindow = new StatsWindow();
+                            statsWindow.Show();
+                            break;
+                        case "CompareListButton":
+                            CompareLists compareLists = new CompareLists();
+                            compareLists.Show();
+                            break;
+                        default: // Just in case :)
+                            UpdateMessage("Didn't read anything :(");
+                            break;
 
-                }
+                        }
         } // Handles what happens when a button is clicked
 
     }

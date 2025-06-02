@@ -358,9 +358,6 @@ namespace Rogers_Toolbox_UI
             {
                 MessageBox.Show($"Error fetching serial data: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            {
-
-            }
         }
         private async void FetchSerialDataByList(object sender, RoutedEventArgs e)
         {

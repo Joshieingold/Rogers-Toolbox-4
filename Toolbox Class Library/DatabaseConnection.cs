@@ -104,6 +104,37 @@ namespace Toolbox_Class_Library
                 throw;
             }
         }
+        public async Task PushTechData(string techName, List<Device> DeviceList)
+        {
+            DateTime TimeOfTransaction = DateTime.Now;
+            DateTime utcDateTime = TimeOfTransaction.ToUniversalTime();
+            string docTitle = $"{techName} - {utcDateTime:yyyy-MM-dd}";
+            DocumentReference docRef = _db.Collection("Tech-Reports").Document(docTitle);
+
+            // Create a dictionary to map device names to their counts
+            var deviceCounts = DeviceList.ToDictionary(device => device.Name, device => device.Counter);
+
+            // Create a list of devices with counts set to 0
+            var deviceOrders = DeviceList.ToDictionary(device => device.Name, device => 0);
+
+            var data = new
+            {
+                TechID = techName,
+                dateSubmitted = Timestamp.FromDateTime(utcDateTime),
+                deviceCounts = deviceCounts,
+                deviceOrders = deviceOrders
+            };
+
+            try
+            {
+                await docRef.SetAsync(data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error pushing data to Firestore: {ex.Message}");
+                throw;
+            }
+        }
 
         public async Task<Dictionary<string, int>> PullDeviceData(string monthString)
         {
