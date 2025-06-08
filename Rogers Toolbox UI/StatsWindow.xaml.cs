@@ -149,12 +149,7 @@ namespace Rogers_Toolbox_UI
             Actuals = await db.PullDeviceData(month);
             Goals = await db.PullGoalsData(month);
             (_, var totalDeviceData, _) = await db.PullDatabaseData(DateTime.Today, DateTime.Today.AddDays(1));
-            Console.WriteLine(totalDeviceData);
-            Console.WriteLine(todaysTotal);
-            foreach (var kvp in totalDeviceData)
-            {
-                Console.WriteLine($"Device: {kvp.Key}, Quantity: {kvp.Value}");
-            }
+
             todaysTotal = totalDeviceData.Values.Sum();
         }
 
