@@ -56,6 +56,9 @@
                                 <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="2" CornerRadius="8" Margin="4" Background="{DynamicResource ContentBrush}">
                                     <Label x:Name="DailyAverageLabel" FontSize="16" Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
                                 </Border>
+                                <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="2" CornerRadius="8" Margin="4" Background="{DynamicResource ContentBrush}">
+                                    <Label x:Name="CompletedTodayLabel" FontSize="16" Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
+                                </Border>
                             </StackPanel>
                             <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="2" CornerRadius="8" Background="{DynamicResource ContentBrush}" Height="187" Width="217">
                                 <StackPanel Background="Transparent" Margin="0,0,-2,0">

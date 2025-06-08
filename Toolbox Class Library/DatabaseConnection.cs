@@ -229,7 +229,7 @@ namespace Toolbox_Class_Library
             Dictionary<string, int> deviceTotals = new Dictionary<string, int>();
             Dictionary<string, int> userTotals = new Dictionary<string, int>();
 
-            foreach (var document in snapshot.Documents)
+            foreach (var document in snapshot.Documents) 
             {
                 var data = document.ToDictionary();
 

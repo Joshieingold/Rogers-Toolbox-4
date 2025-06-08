@@ -30,6 +30,7 @@ namespace Rogers_Toolbox_UI
         DatabaseConnection db = new DatabaseConnection();
         Dictionary<string, int> Actuals { get; set; }
         Dictionary<string, int> Goals { get; set; }
+        int todaysTotal { get; set; }
         int ActualTotal { get; set; }
         int XB8Required { get; set; }
         int XB8Actual { get; set; }
@@ -133,6 +134,7 @@ namespace Rogers_Toolbox_UI
                 getTotals();
                 InitializeCharts();
                 UpdateRequiredPerDay(GetIntFromMonth(month));
+                
 
             }
             catch (Exception ex)
@@ -143,8 +145,17 @@ namespace Rogers_Toolbox_UI
 
         private async Task SetData(string month)
         {
+            
             Actuals = await db.PullDeviceData(month);
             Goals = await db.PullGoalsData(month);
+            (_, var totalDeviceData, _) = await db.PullDatabaseData(DateTime.Today, DateTime.Today.AddDays(1));
+            Console.WriteLine(totalDeviceData);
+            Console.WriteLine(todaysTotal);
+            foreach (var kvp in totalDeviceData)
+            {
+                Console.WriteLine($"Device: {kvp.Key}, Quantity: {kvp.Value}");
+            }
+            todaysTotal = totalDeviceData.Values.Sum();
         }
 
         private void getTotals()
@@ -272,6 +283,7 @@ namespace Rogers_Toolbox_UI
             }
 
             // Update UI labels if necessary
+            CompletedTodayLabel.Content = $"Completed Today: {todaysTotal}";
             RequiredPerDayLabel.Content = $"Daily Required: {RequiredPerDay}";
             DailyAverageLabel.Content = $"Average Daily Completed: {DailyAverage}";
         }

@@ -244,7 +244,6 @@ namespace RogersToolbox
                 catch (Exception ex)
                 {
                     // Handle the exception (e.g., log it, show a message box, etc.)
-                    await FlexiProConnection.PushDeviceData(device, shadowSerials.Count(), utcDateTime, user, shadowSerials);
                     System.Windows.MessageBox.Show($"Error during FlexiPro import: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
                 }
