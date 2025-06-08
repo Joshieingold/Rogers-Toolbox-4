@@ -98,10 +98,11 @@ namespace Toolbox_Class_Library.TechUpdate
                     );
                     if (matchedTech != null)
                     {
-
+                        if (row.Cell(10).GetValue<string>().Contains("Subready"))
+                        {
                             var RowDeviceCode = row.Cell(6).GetValue<string>();
                             matchedTech.DevicePlusCounter(RowDeviceCode);
-
+                        }
                     }
                 }
 
