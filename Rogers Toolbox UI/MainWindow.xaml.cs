@@ -15,10 +15,11 @@ namespace Rogers_Toolbox_UI
     {
         private ActiveSerials CurrentSerials; // Initialize our current serials class 
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
-        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.3 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
+        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.4 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Custom Purolator"; // Default printer
         private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
+        private bool initialRun { get; set; }
 
         public MainWindow()
         {
@@ -35,6 +36,22 @@ namespace Rogers_Toolbox_UI
         }
 
         // Initialization Helper Functions
+        private void CheckAndSetFirstRun()
+        {
+            string updateText = 
+                "Rogers Toolbox 4.4 Updates:\n" +
+                "- Added Update text on initial run of application. \n" +
+                "- Added Completed today to the stats section. \n" +
+                "- Tech update now accurately filters devices that are not in the Subready inventory. \n" +
+                "- Fixed issue where upon crash two sets of data are sent to the database.\n" +
+                "- Fixed start-up text for tech update and ctr update to not include grammar mistakes.";
+            if (Toolbox_Class_Library.Properties.Settings.Default.isFirstRun)
+            {
+                TextBox.Text = updateText;
+                Toolbox_Class_Library.Properties.Settings.Default.isFirstRun = false;
+                Toolbox_Class_Library.Properties.Settings.Default.Save();
+            }
+        }
         private async void InitializeDataAsync() // Initialize Async Data
         {
             try
@@ -50,6 +67,7 @@ namespace Rogers_Toolbox_UI
                 else
                 {
                     Console.WriteLine($"Rogers Toolbox is Online! Welcome {Toolbox_Class_Library.Properties.Settings.Default.Username}!");
+                    CheckAndSetFirstRun();
                 }
             }
             catch (Exception ex)
@@ -294,7 +312,7 @@ namespace Rogers_Toolbox_UI
                         if (ctrUpdateEnabled) // Its a CTR update.
                         {
                             ctrUpdate.InitializeData(); // Ensure this is awaited
-                            UpdateMessage("Staring CTR Update, please click target location.");
+                            UpdateMessage("Starting CTR Update, please click target location.");
                             await Task.Delay(7000); // Initial delay if needed
                             string[] ctrList = (Toolbox_Class_Library.Properties.Settings.Default.CtrOrder).Split(", ");
                     
@@ -312,7 +330,7 @@ namespace Rogers_Toolbox_UI
                             string[] TechList = (Toolbox_Class_Library.Properties.Settings.Default.TechIds).Split(", ");
                             techUpdate.InitializeData();
                             int count = 1;
-                            UpdateMessage("Staring Tech Update, please click target location.");
+                            UpdateMessage("Starting Tech Update, please click target location.");
                             await Task.Delay(5000);
                             foreach (string Tech in TechList )
                             {

@@ -291,13 +291,25 @@ namespace Toolbox_Class_Library.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("17")]
+        [global::System.Configuration.DefaultSettingValueAttribute("19")]
         public int TechNumDown {
             get {
                 return ((int)(this["TechNumDown"]));
             }
             set {
                 this["TechNumDown"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isFirstRun {
+            get {
+                return ((bool)(this["isFirstRun"]));
+            }
+            set {
+                this["isFirstRun"] = value;
             }
         }
     }

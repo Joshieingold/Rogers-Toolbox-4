@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>Rogers_Toolbox_UI</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <Title>Rogers Toolbox</Title>
-    <Version>4.0</Version>
+    <Version>4.4</Version>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Joshieingold/Rogers-Toolbox-4</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Joshieingold/Rogers-Toolbox-4</PackageProjectUrl>
