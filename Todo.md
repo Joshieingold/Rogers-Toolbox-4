@@ -1,0 +1,3 @@
+- make a sum of all devices when the user queries in the database section of statistics.
+- Make there be an option that the user can have algorithms do the purolator sheets.
+- make the default purolator print, print all the sheets with one batch file run.
