@@ -30,6 +30,16 @@
                 return "CODA5810";
             else if (Serial.StartsWith("ALC"))
                 return "XS010XQ";
+            else if (Serial.StartsWith("B1SC"))
+                return "";
+            else if (Serial.StartsWith("C3SC"))
+                return "";
+            else if (Serial.StartsWith("C22"))
+                return "";
+            else if (Serial.Contains("-"))
+                return "";
+            else if (Serial.StartsWith("D2LD"))
+                return "";
             else
                 return "TG4482A";
         }

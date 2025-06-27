@@ -40,7 +40,7 @@ namespace Rogers_Toolbox_UI
                 AddSerialEntry(i);
             }
         }
-
+            // LOOKS LIKE BLITZ IMPORT ACTUALLY DELETES SERIALS FROM THE LIST.
         private void AddSerialEntry(int index)
         {
             ActiveSerials serial = SerialsToImport[index];
