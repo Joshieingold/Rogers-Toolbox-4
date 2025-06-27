@@ -17,11 +17,14 @@ namespace Rogers_Toolbox_UI
         public OrderWindow(string inputSerials, int orderNumber)
         {
             InitializeComponent();
-
             OrderNumberText = $"Order Number {orderNumber}";
             OrderHeader.Content = OrderNumberText;
 
-            string[] raw_List = inputSerials.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+            // Normalize to \n for consistent splitting
+            string normalized = inputSerials.Replace("\r\n", "\n");
+
+            // Split by double newlines to get separate serial groups
+            string[] raw_List = normalized.Split(new[] { "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string serial_list in raw_List)
             {
@@ -57,9 +60,19 @@ namespace Rogers_Toolbox_UI
                 Margin = new Thickness(0, 0, 5, 0),
                 VerticalAlignment = VerticalAlignment.Center
             };
-            deviceButton.Click += (sender, args) =>
+            deviceButton.Click += async (sender, args) =>
             {
                 checkBox.IsChecked = true;
+
+                try
+                {
+                    await serial.BlitzImport();
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error during BlitzImport:\n{ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             };
 
             // Info Icon (ToolTip)
