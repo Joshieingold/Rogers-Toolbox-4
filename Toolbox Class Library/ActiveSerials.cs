@@ -172,6 +172,9 @@ namespace RogersToolbox
         // Button Click Functions
         public async Task BlitzImport()
         {
+            Console.WriteLine("Waiting 2 secs");
+            await Task.Delay(2000);
+            Console.WriteLine("Blitz Import Stating");
             var serialsToProcess = new List<SerialNumber>(Serials);
 
             foreach (SerialNumber serial in serialsToProcess)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Rogers_Toolbox_UI
 {
@@ -32,13 +31,20 @@ namespace Rogers_Toolbox_UI
                 {
                     ActiveSerials newSerial = new ActiveSerials(serial_list);
                     SerialsToImport.Add(newSerial);
-                    AddSerialEntry(newSerial);
                 }
+            }
+
+            // Render all serial entries now
+            for (int i = 0; i < SerialsToImport.Count; i++)
+            {
+                AddSerialEntry(i);
             }
         }
 
-        private void AddSerialEntry(ActiveSerials serial)
+        private void AddSerialEntry(int index)
         {
+            ActiveSerials serial = SerialsToImport[index];
+
             var stack = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -60,14 +66,14 @@ namespace Rogers_Toolbox_UI
                 Margin = new Thickness(0, 0, 5, 0),
                 VerticalAlignment = VerticalAlignment.Center
             };
+
+            // Capture index explicitly so it binds correctly
             deviceButton.Click += async (sender, args) =>
             {
                 checkBox.IsChecked = true;
-
                 try
                 {
-                    await serial.BlitzImport();
-                    
+                    await SerialsToImport[index].BlitzImport();
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +97,5 @@ namespace Rogers_Toolbox_UI
 
             SerialsStackPanel.Children.Add(stack);
         }
-     
     }
-
 }
