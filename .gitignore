@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Toolbox Class Library/Keys
 /Rogers Toolbox UI/Keys
+/Toolbox Class Library/Properties/Settings.settings
+/Toolbox Class Library/Properties/Settings.Designer.cs
