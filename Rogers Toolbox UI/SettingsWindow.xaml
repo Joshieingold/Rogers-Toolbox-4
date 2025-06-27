@@ -63,7 +63,7 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <StackPanel Background="{DynamicResource ContentBrush}" Height="250" Margin="10,10,10,10" >
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="387" Height="30">
-                            <Label Content="Send Flexipro Data:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                            <Label Content="Send To Production:" VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="118,0,0,8">
                                 <CheckBox Style="{StaticResource SwitchCheckBoxStyle}" IsChecked="{Binding PushFlexiProData}" Background="#FF383838" Foreground="White" BorderBrush="#FF0C0C0C" Width="50"/>
                             </StackPanel>
