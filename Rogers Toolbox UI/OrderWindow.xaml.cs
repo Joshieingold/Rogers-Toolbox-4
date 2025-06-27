@@ -97,5 +97,22 @@ namespace Rogers_Toolbox_UI
 
             SerialsStackPanel.Children.Add(stack);
         }
+        private async Task OrderImportAutomation()
+        {
+            // wait a little bit.
+            if (initialImport == true)
+            {
+                
+                // Type S.FLOOR.CRETAILR
+                //TAB
+            }
+            // Type the device name
+            // Tab
+            // Type the length of the imported serials List.
+            // Tab
+            // wait a little bit.
+            // Blitz Import.
+
+        }
     }
 }

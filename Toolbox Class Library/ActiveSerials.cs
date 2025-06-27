@@ -173,7 +173,7 @@ namespace RogersToolbox
         public async Task BlitzImport()
         {
             Console.WriteLine("Waiting 2 secs");
-            await Task.Delay(2000);
+            await Task.Delay(4500);
             Console.WriteLine("Blitz Import Stating");
             var serialsToProcess = new List<SerialNumber>(Serials);
 
