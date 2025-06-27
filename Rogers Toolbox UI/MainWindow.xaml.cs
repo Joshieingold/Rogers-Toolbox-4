@@ -39,9 +39,9 @@ namespace Rogers_Toolbox_UI
         // Initialization Helper Functions
         private void CheckAndSetFirstRun()
         {
-            string updateText = 
+            string updateText =
                 "Rogers Toolbox 4.5 Updates:\n" +
-                "- Orders Import Option added splitting devices by type and ease of import. \n" +
+                "- Orders Import Option added splitting devices by type and ease of import. \n";
             if (Toolbox_Class_Library.Properties.Settings.Default.isFirstRun)
             {
                 TextBox.Text = updateText;
@@ -275,6 +275,14 @@ namespace Rogers_Toolbox_UI
                         break; // Done !!
                     case "OrderButton":
                         UpdateMessage($"Creating window for order number: {OrderSessionID}");
+                        
+                        // Creates an Orders window with the full data from the textbox. The new window will do the processing.
+                        OrderWindow orderWindow = new OrderWindow(TextBox.Text, OrderSessionID);
+                        orderWindow.Show();
+                        OrderSessionID += 1;
+                    break;
+                    case "WMSButton":
+                        Stopwatch wmsStopwatch = new Stopwatch();
                         await Task.Delay(6000); // Gives user 6 seconds to select Import Location.
                         wmsStopwatch.Start();
                         // Create ActiveSerials instance with a callback for updates to the textbox.
