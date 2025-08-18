@@ -37,13 +37,16 @@ namespace Rogers_Toolbox_UI
         // Initialization Helper Functions
         private void CheckAndSetFirstRun()
         {
-            string updateText = 
+            string updateText =
                 "Autobox 4.5 Updates:\n" +
-                "- Added Update text on initial run of application. \n" +
-                "- Added Completed today to the stats section. \n" +
-                "- Tech update now accurately filters devices that are not in the Subready inventory. \n" +
-                "- Fixed issue where upon crash two sets of data are sent to the database.\n" +
-                "- Fixed start-up text for tech update and ctr update to not include grammar mistakes.";
+                "- Added Combo-Print option \n" +
+                "- Purolator-Print is now more efficient \n" +
+                "- Removed Neon Theme (its ugly and will always be ugly) \n" +
+                "- Added Easily viewable totals in the stats page\n" +
+                "- Pasting into the import box will not add white space at the bottom\n" +
+                "- Added Dragon Theme (try it!)\n" +
+                "- Rebranded Software Name\n" +
+                "- Changed Software Icon\n";
             if (Toolbox_Class_Library.Properties.Settings.Default.isFirstRun)
             {
                 TextBox.Text = updateText;
