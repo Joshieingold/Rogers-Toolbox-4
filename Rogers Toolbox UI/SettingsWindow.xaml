@@ -45,7 +45,7 @@
                             <ComboBoxItem Content="Purple" />
                             <ComboBoxItem Content="Coffee" />
                             <ComboBoxItem Content="Fade" />
-                            <ComboBoxItem Content="Neon" />
+                            <ComboBoxItem Content="Dragon"/>
                             <ComboBoxItem Content="Ice"/>
                         </ComboBox>
                     </Grid>

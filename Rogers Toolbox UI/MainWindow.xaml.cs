@@ -15,7 +15,7 @@ namespace Rogers_Toolbox_UI
     {
         private ActiveSerials CurrentSerials; // Initialize our current serials class 
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
-        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.4 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
+        public string StartupText { get; set; } = $"Welcome to Autobox 4.5 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
         private string lastSelectedPrinter = "Combo Print"; // Default printer
         private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
@@ -38,7 +38,7 @@ namespace Rogers_Toolbox_UI
         private void CheckAndSetFirstRun()
         {
             string updateText = 
-                "Rogers Toolbox 4.4 Updates:\n" +
+                "Autobox 4.5 Updates:\n" +
                 "- Added Update text on initial run of application. \n" +
                 "- Added Completed today to the stats section. \n" +
                 "- Tech update now accurately filters devices that are not in the Subready inventory. \n" +
@@ -94,11 +94,11 @@ namespace Rogers_Toolbox_UI
                 case "Fade":
                     ApplyTheme("Themes/FadeTheme.xaml");
                     break;
-                case "Neon":
-                    ApplyTheme("Themes/NeonTheme.xaml");
-                    break;
                 case "Ice":
                     ApplyTheme("Themes/IceTheme.xaml");
+                    break;
+                case "Dragon":
+                    ApplyTheme("Themes/DragonTheme.xaml");
                     break;
                 default:
                     ApplyTheme("Themes/DarkTheme.xaml"); 

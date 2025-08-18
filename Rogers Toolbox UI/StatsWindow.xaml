@@ -62,11 +62,13 @@
                             </StackPanel>
                             <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="2" CornerRadius="8" Background="{DynamicResource ContentBrush}" Height="187" Width="217">
                                 <StackPanel Background="Transparent" Margin="0,0,-2,0">
-
-                                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Foreground="{DynamicResource TextBrush}" FontSize="24">Totals</Label>
-                                    <lvc:PieChart x:Name="TotalPieChart" InnerRadius="40" Grid.ColumnSpan="2" Height="137" Width="150" />
-
+                                    <StackPanel>
+                                        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Foreground="{DynamicResource TextBrush}" FontSize="24">Totals</Label>
+                                        <Label x:Name="TotalLabel" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Foreground="{DynamicResource TextBrush}" FontSize="12"></Label>
+                                    </StackPanel>
+                                    <lvc:PieChart x:Name="TotalPieChart" InnerRadius="30" Grid.ColumnSpan="2" Height="120" Width="120" />
                                 </StackPanel>
+                                
                             </Border>
                         </UniformGrid>
                     </DockPanel>
