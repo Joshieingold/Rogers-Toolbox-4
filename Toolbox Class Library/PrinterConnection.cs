@@ -62,35 +62,7 @@ namespace Toolbox_Class_Library
         } // executes a cmd script given to it.
 
         // Purolator
-        private void PurolatorPrint(int formatBy)
-        {
-
-            string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray());
-            File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
-
-
-            string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
-                    ?
-                    // Use Xi6 if the device is a cablebox.
-                    @"@echo off
-               set ""target_printer=55EXP_Purolator""
-               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
-                    :
-                    // Use CODA file if the device is not a cablebox.  
-                    @"@echo off
-               set ""target_printer=55EXP_Purolator""
-               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\CODA.btw /p /x";
-            try
-            {
-                ExecuteBatchScript(batchFile);
-            }
-            catch
-            {
-                Console.Write("Print Failed");
-            }
-        }
+        
         public string FormatSheet(int numSplit, string[] serials)
         {
 
@@ -121,58 +93,81 @@ namespace Toolbox_Class_Library
 
 
         // Public Processes
+        private void PurolatorPrint(int formatBy)
+        {
 
+            string puroSheet = FormatSheet(formatBy, ConvertSerialsToArray());
+            File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
+
+
+            string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
+                    ?
+                    // Use Xi6 if the device is a cablebox.
+                    @"@echo off
+               set ""target_printer=55EXP_Purolator""
+               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
+                    :
+                    // Use CODA file if the device is not a cablebox.  
+                    @"@echo off
+               set ""target_printer=55EXP_Purolator""
+               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\CODA.btw /p /x";
+            try
+            {
+                ExecuteBatchScript(batchFile);
+            }
+            catch
+            {
+                Console.Write("Print Failed");
+            }
+        }
         public void DefaultPrintPurolator()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
+            string puroSheet = FormatSheet(formatNumber, ConvertSerialsToArray());
+            try
+            {
+                File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);
+            }
+            catch
+            {
+                Console.WriteLine("Could not add to file");
+            }
             if (serialsToPrint.Serials == null || serialsToPrint.Serials.Count <= 0)
             {
                 Console.WriteLine("\nNo Serials to print.");
                 return;
             }
 
-            // ✅ Choose correct Bartender file based on device
-            string bartenderFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
-                ? "XI6.btw"
-                : "CODA.btw";
-
+            string batchFile = targetDevice == "IPTVARXI6HD" || targetDevice == "IPTVTCXI6HD" || targetDevice == "SCXI11BEI"
+                     ?
+                     // Use Xi6 if the device is a cablebox.
+                     @"@echo off
+               set ""target_printer=55EXP_Purolator""
+               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\XI6.btw /p /x"
+                     :
+                     // Use CODA file if the device is not a cablebox.  
+                     @"@echo off
+               set ""target_printer=55EXP_Purolator""
+               powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
+               ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\CODA.btw /p /x";
             try
             {
-                string[] serials = ConvertSerialsToArray();
-                int totalChunks = (int)Math.Ceiling((double)serials.Length / formatNumber);
-
-                for (int i = 0; i < totalChunks; i++)
-                {
-                    var chunk = serials
-                        .Skip(i * formatNumber)
-                        .Take(formatNumber)
-                        .ToList();
-
-                    if (chunk.Count > 0)
-                    {
-                        StringBuilder formattedList = new StringBuilder();
-
-                        formattedList.AppendLine(targetDevice);
-                        formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
-
-                        File.WriteAllText(bartenderPath, formattedList.ToString() + Environment.NewLine);
-
-                        string batchFile = $@"@echo off
-                                                set ""target_printer=55EXP_Purolator""
-                                                powershell -Command ""Get-WmiObject -Query 'SELECT * FROM Win32_Printer WHERE ShareName=''%target_printer%'' ' | Invoke-WmiMethod -Name SetDefaultPrinter""
-                                                ""C:\Seagull\BarTender 7.10\Standard\bartend.exe"" /f=C:\BTAutomation\{bartenderFile} /p /x";
-
-                        ExecuteBatchScript(batchFile);
-
-                        Console.WriteLine($"Printed batch {i + 1}/{totalChunks}");
-                    }
-                }
+                Console.WriteLine("Sheet Will Print:");
+                Console.WriteLine(puroSheet);
+                ExecuteBatchScript(batchFile);
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine("\nThere was an unexpected error.");
-                Console.WriteLine($"\n{ex.Message}");
+                Console.Write("Print Failed");
             }
+        }
+        public void PrintAll()
+        {
+            DefaultPrintPurolator();
+            PrintBarcodes();
         }
 
 
