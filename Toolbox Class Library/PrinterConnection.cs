@@ -89,7 +89,32 @@ namespace Toolbox_Class_Library
 
             return formattedList.ToString();
         }
+        public string FormatSheetNoReverse(int numSplit, string[] serials)
+        {
 
+            if (serials == null || serials.Length == 0)
+            {
+                return "No serials available.";
+            }
+
+            int totalStrings = serials.Length;
+            StringBuilder formattedList = new StringBuilder();
+
+            for (int i = 0; i < totalStrings; i += numSplit)
+            {
+                formattedList.AppendLine(targetDevice);
+                // Split into chunks and reverse each chunk
+                List<string> chunk = serials.Skip(i).Take(numSplit).ToList();
+
+                // Example placeholder for device determination
+                
+
+                // Append the reversed chunk to the formatted list
+                formattedList.AppendLine(string.Join(Environment.NewLine, chunk));
+            }
+
+            return formattedList.ToString();
+        }
 
 
         // Public Processes
@@ -125,7 +150,7 @@ namespace Toolbox_Class_Library
         public void DefaultPrintPurolator()
         {
             int formatNumber = FindFormatByDevice(targetDevice);
-            string puroSheet = FormatSheet(formatNumber, ConvertSerialsToArray());
+            string puroSheet = FormatSheetNoReverse(formatNumber, ConvertSerialsToArray());
             try
             {
                 File.WriteAllText(bartenderPath, puroSheet + Environment.NewLine);

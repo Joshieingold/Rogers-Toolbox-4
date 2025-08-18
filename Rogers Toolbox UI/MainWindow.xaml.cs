@@ -17,7 +17,7 @@ namespace Rogers_Toolbox_UI
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
         public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.4 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
-        private string lastSelectedPrinter = "Custom Purolator"; // Default printer
+        private string lastSelectedPrinter = "Combo Print"; // Default printer
         private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
         private bool initialRun { get; set; }
 
@@ -154,7 +154,7 @@ namespace Rogers_Toolbox_UI
             Button btn = sender as Button;
             ContextMenu menu = new ContextMenu();
 
-            string[] printers = { "Purolator", "Barcodes", "Lot Sheets", "Custom Purolator" };
+            string[] printers = { "Combo Print", "Purolator", "Barcodes", "Lot Sheets", "Custom Purolator" };
 
             foreach (string printer in printers)
             {
@@ -202,6 +202,10 @@ namespace Rogers_Toolbox_UI
             if (printer == "Purolator")
             {
                 PrintButton.Tag = "pack://application:,,,/Icons/PurolatorIcon.png";
+            }
+            else if (printer == "Combo Print")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/ComboPrint.png";
             }
             else if (printer == "Barcodes")
             {
@@ -358,6 +362,10 @@ namespace Rogers_Toolbox_UI
                             if (lastSelectedPrinter == "Purolator")
                             {
                                 printer.DefaultPrintPurolator();
+                            }
+                            if (lastSelectedPrinter == "Combo Print")
+                            {
+                                printer.PrintAll();
                             }
                             else if (lastSelectedPrinter == "Barcodes")
                                 printer.PrintBarcodes();

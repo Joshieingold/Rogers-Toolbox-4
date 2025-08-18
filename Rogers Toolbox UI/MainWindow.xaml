@@ -33,7 +33,7 @@
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
+                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/ComboPrint.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
                     <Button.ToolTip>
                         <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
