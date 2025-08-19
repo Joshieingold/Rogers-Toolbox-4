@@ -20,6 +20,7 @@ namespace Rogers_Toolbox_UI
         private string lastSelectedPrinter = "Combo Print"; // Default printer
         private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
         private bool initialRun { get; set; }
+        private int orderCount = 0;
 
         public MainWindow()
         {
@@ -282,6 +283,12 @@ namespace Rogers_Toolbox_UI
                         UpdateMessage($"Import Completed in {FlexieElapsedTime}");
 
                         break; // Done !!
+                    case "OrderButton":
+                        orderCount += 1;
+                        UpdateMessage($"Opening order #{orderCount}");
+                        OrderWindow orderWindow = new OrderWindow(TextBox.Text, orderCount);
+                        orderWindow.Show();
+                        break;
                     case "WMSButton":
                         Stopwatch wmsStopwatch = new Stopwatch();
                         UpdateMessage("Starting WMS Import, Please click target Location");

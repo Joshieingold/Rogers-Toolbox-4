@@ -31,6 +31,7 @@
     <None Remove="Icons\GraphIcon.png" />
     <None Remove="Icons\LotSheetIcon.png" />
     <None Remove="Icons\OpenExcelIcon.png" />
+    <None Remove="Icons\OrdersIcon.png" />
     <None Remove="Icons\PrintIcon.png" />
     <None Remove="Icons\PurolatorIcon.png" />
     <None Remove="Icons\SettingsIcon.png" />
@@ -78,6 +79,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\OpenExcelIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\OrdersIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\PrintIcon.png">
