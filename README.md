@@ -1,7 +1,7 @@
 
-# Rogers Toolbox
+# Autobox
 
-Rogers Toolbox is a powerful software designed to enhance warehouse operations by automating and simplifying data management tasks. It efficiently gathers data from Excel files, performs complex calculations, and provides insightful information about contractor inventories. The tool can input information directly into various warehouse-related software, saving time and reducing errors.
+Autobox is a powerful software designed to enhance warehouse operations by automating and simplifying data management tasks. It efficiently gathers data from Excel files, performs complex calculations, and provides insightful information about contractor inventories. The tool can input information directly into various warehouse-related software, saving time and reducing errors.
 
 With intuitive data comparison capabilities, Rogers Toolbox allows users to identify differences between lists and format serial numbers or chunks of data for easy use. It also features seamless Excel file merging and smart sorting, organizing data according to on-screen information. The software tracks daily device processing and compares this data against preset goals to ensure operational efficiency.
 
