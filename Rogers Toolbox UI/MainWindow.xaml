@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Rogers_Toolbox_UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Rogers Toolbox 4.4" Height="450" Width="800">
+        Title="Autobox 4.5" Height="450" Width="800">
 
     <Grid Background="{DynamicResource WindowBackgroundBrush}">
         <!-- Navigation Bar -->
@@ -23,6 +23,11 @@
                         <ToolTip Content="FlexiPro Import" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
+                <Button x:Name="OrderButton" Tag="pack://application:,,,/Icons/OrdersIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
+                    <Button.ToolTip>
+                        <ToolTip Content="Order Import" Background="Black" Foreground="White" FontSize="12" />
+                    </Button.ToolTip>
+                </Button>
                 <Button x:Name="WMSButton" Tag="pack://application:,,,/Icons/WMSIcon.png"  Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48">
                     <Button.ToolTip>
                         <ToolTip Content="WMS Import" Background="Black" Foreground="White" FontSize="12" />
@@ -33,7 +38,7 @@
                         <ToolTip Content="Contractor Update" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>
                 </Button>
-                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/PrintIcon.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
+                <Button x:Name="PrintButton" Tag="pack://application:,,,/Icons/ComboPrint.png" Click="Button_Click" Style="{DynamicResource NavButtonStyle}" Width="48" Height="48" PreviewMouseRightButtonDown="ShowPrintMenu">
                     <Button.ToolTip>
                         <ToolTip Content="Printer Options" Background="Black" Foreground="White" FontSize="12" />
                     </Button.ToolTip>

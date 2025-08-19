@@ -1,0 +1,74 @@
+﻿<Window x:Class="Rogers_Toolbox_UI.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding ElementName=OrderHeader, Path=Content}" Height="350" Width="300"
+        Background="{DynamicResource WindowBackgroundBrush}">
+    <Window.Resources>
+        <Style x:Key="CustomCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2,4,2"/>
+        </Style>
+        <Style x:Key="CustomTextButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2,4,2"/>
+        </Style>
+        <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2,4,2"/>
+        </Style>
+        <Style x:Key="EditButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ContentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2,4,2"/>
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!-- Header -->
+        <Border Background="{DynamicResource WindowHeaderBrush}" Height="40" VerticalAlignment="Top">
+            <Label x:Name="OrderHeader"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Padding="10,0,0,0"
+                   FontSize="20"
+                   FontFamily="Arial Rounded MT Bold"
+                   Foreground="{DynamicResource AltTextColor}" />
+        </Border>
+        <Grid Margin="0,45,0,0" Height="42" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+            <Label Content="LPN:"  Foreground="{DynamicResource TextBrush}" VerticalAlignment="Top" Margin="0,8,0,0" Grid.RowSpan="2" Height="26"/>
+            <TextBox Text=""  x:Name="LpnBox" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Margin="64,10,25,10" Grid.RowSpan="2"/>
+        </Grid>
+        <Grid Margin="0,90,0,0" Height="42" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Inventory:" Foreground="{DynamicResource TextBrush}" VerticalAlignment="Top" Margin="0,8,0,0" Grid.RowSpan="2" Height="26"/>
+            <TextBox Text="" x:Name="InventoryBox" Background="{DynamicResource WindowHeaderBrush}" Foreground="{DynamicResource AltTextColor}" BorderBrush="{DynamicResource BorderBrush}" Margin="65,10,25,10" Grid.RowSpan="2"/>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,132,10,10">
+            <StackPanel x:Name="SerialsStackPanel" Orientation="Vertical" HorizontalAlignment="Center"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

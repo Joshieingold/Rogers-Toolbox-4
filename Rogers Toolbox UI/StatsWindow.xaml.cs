@@ -134,6 +134,7 @@ namespace Rogers_Toolbox_UI
                 getTotals();
                 InitializeCharts();
                 UpdateRequiredPerDay(GetIntFromMonth(month));
+                UpdateTotalsLabel();
                 
 
             }
@@ -228,6 +229,10 @@ namespace Rogers_Toolbox_UI
                     StrokeThickness = 1
                 }
             };
+        }
+        private void UpdateTotalsLabel()
+        {
+            TotalLabel.Content = $"{ActualTotal} / {RequiredTotal}";
         }
 
         private void UpdateRequiredPerDay(int selectedMonth) // Updates required per day data.

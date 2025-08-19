@@ -7,21 +7,22 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <Title>Rogers Toolbox</Title>
-    <Version>4.4</Version>
+    <Title>Autobox</Title>
+    <Version>4.5</Version>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Joshieingold/Rogers-Toolbox-4</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Joshieingold/Rogers-Toolbox-4</PackageProjectUrl>
     <Copyright>Joshua Lynch - 2025</Copyright>
     <Description>An all in one application designed to automate specific tasks for warehouse work.</Description>
-    <ApplicationIcon>rogers-logo (1) (1).ico</ApplicationIcon>
+    <ApplicationIcon>Toolbox-Logo.ico</ApplicationIcon>
     <PackageIcon>Rogers-Emblem.png</PackageIcon>
-    <AssemblyName>Rogers Toolbox</AssemblyName>
+    <AssemblyName>Autobox</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icons\BarcodeIcon.png" />
     <None Remove="Icons\BlitzIcon.png" />
+    <None Remove="Icons\ComboPrint.png" />
     <None Remove="Icons\CompareListIcon.png" />
     <None Remove="Icons\CTRIcon.png" />
     <None Remove="Icons\DatabaseIcon.png" />
@@ -30,6 +31,7 @@
     <None Remove="Icons\GraphIcon.png" />
     <None Remove="Icons\LotSheetIcon.png" />
     <None Remove="Icons\OpenExcelIcon.png" />
+    <None Remove="Icons\OrdersIcon.png" />
     <None Remove="Icons\PrintIcon.png" />
     <None Remove="Icons\PurolatorIcon.png" />
     <None Remove="Icons\SettingsIcon.png" />
@@ -39,7 +41,6 @@
     <Content Include="Keys\bomwipstore-firebase-adminsdk-jhqev-acb5705838.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="rogers-logo (1) (1).ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\BlitzIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\ComboPrint.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\CompareListIcon.png">
@@ -75,6 +79,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\OpenExcelIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\OrdersIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\PrintIcon.png">

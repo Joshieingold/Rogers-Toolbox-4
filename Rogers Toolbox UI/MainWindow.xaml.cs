@@ -15,11 +15,12 @@ namespace Rogers_Toolbox_UI
     {
         private ActiveSerials CurrentSerials; // Initialize our current serials class 
         private DatabaseConnection dbConnection; // Handles connections between the service and the database
-        public string StartupText { get; set; } = $"Welcome to the Rogers Toolbox 4.4 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
+        public string StartupText { get; set; } = $"Welcome to Autobox 4.5 {Toolbox_Class_Library.Properties.Settings.Default.Username}";
         private bool IsOnline = true; // Keeps track of if the service is online
-        private string lastSelectedPrinter = "Custom Purolator"; // Default printer
+        private string lastSelectedPrinter = "Combo Print"; // Default printer
         private bool ctrUpdateEnabled = true; // Keeps track of if the CTR Update is enabled or if Tech Update is, default is CTR Update.
         private bool initialRun { get; set; }
+        private int orderCount = 0;
 
         public MainWindow()
         {
@@ -28,23 +29,28 @@ namespace Rogers_Toolbox_UI
             InitializeDataAsync(); // Call the async methods.
             LoadTheme(); // Changes the application theme on start-up
             DataContext = this;
-            
+
             // Refresh to default settings.
             // Toolbox_Class_Library.Properties.Settings.Default.Reset();
-            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed
-
+            // Toolbox_Class_Library.Properties.Settings.Default.Save(); // Save changes if needed;
         }
 
         // Initialization Helper Functions
         private void CheckAndSetFirstRun()
         {
-            string updateText = 
-                "Rogers Toolbox 4.4 Updates:\n" +
-                "- Added Update text on initial run of application. \n" +
-                "- Added Completed today to the stats section. \n" +
-                "- Tech update now accurately filters devices that are not in the Subready inventory. \n" +
-                "- Fixed issue where upon crash two sets of data are sent to the database.\n" +
-                "- Fixed start-up text for tech update and ctr update to not include grammar mistakes.";
+            string updateText =
+                "Autobox 4.5 Updates:\n" +
+                "- Added Combo-Print option \n" +
+                "- Purolator-Print is now more efficient \n" +
+                "- Removed Neon Theme (its ugly and will always be ugly) \n" +
+                "- Added Easily viewable totals in the stats page\n" +
+                "- Pasting into the import box will not add white space at the bottom\n" +
+                "- Added Dragon Theme (try it!)\n" +
+                "- Rebranded Software Name\n" +
+                "- Changed Software Icon\n" +
+                "- Added more Device recognition\n" +
+                "- Added new order import Feature/Functionality\n" +
+                "- Updated Settings for newest Devices\n";
             if (Toolbox_Class_Library.Properties.Settings.Default.isFirstRun)
             {
                 TextBox.Text = updateText;
@@ -95,11 +101,11 @@ namespace Rogers_Toolbox_UI
                 case "Fade":
                     ApplyTheme("Themes/FadeTheme.xaml");
                     break;
-                case "Neon":
-                    ApplyTheme("Themes/NeonTheme.xaml");
-                    break;
                 case "Ice":
                     ApplyTheme("Themes/IceTheme.xaml");
+                    break;
+                case "Dragon":
+                    ApplyTheme("Themes/DragonTheme.xaml");
                     break;
                 default:
                     ApplyTheme("Themes/DarkTheme.xaml"); 
@@ -155,7 +161,7 @@ namespace Rogers_Toolbox_UI
             Button btn = sender as Button;
             ContextMenu menu = new ContextMenu();
 
-            string[] printers = { "Purolator", "Barcodes", "Lot Sheets", "Custom Purolator" };
+            string[] printers = { "Combo Print", "Purolator", "Barcodes", "Lot Sheets", "Custom Purolator" };
 
             foreach (string printer in printers)
             {
@@ -203,6 +209,10 @@ namespace Rogers_Toolbox_UI
             if (printer == "Purolator")
             {
                 PrintButton.Tag = "pack://application:,,,/Icons/PurolatorIcon.png";
+            }
+            else if (printer == "Combo Print")
+            {
+                PrintButton.Tag = "pack://application:,,,/Icons/ComboPrint.png";
             }
             else if (printer == "Barcodes")
             {
@@ -276,6 +286,12 @@ namespace Rogers_Toolbox_UI
                         UpdateMessage($"Import Completed in {FlexieElapsedTime}");
 
                         break; // Done !!
+                    case "OrderButton":
+                        orderCount += 1;
+                        UpdateMessage($"Opening order #{orderCount}");
+                        OrderWindow orderWindow = new OrderWindow(TextBox.Text, orderCount);
+                        orderWindow.Show();
+                        break;
                     case "WMSButton":
                         Stopwatch wmsStopwatch = new Stopwatch();
                         UpdateMessage("Starting WMS Import, Please click target Location");
@@ -359,6 +375,10 @@ namespace Rogers_Toolbox_UI
                             if (lastSelectedPrinter == "Purolator")
                             {
                                 printer.DefaultPrintPurolator();
+                            }
+                            if (lastSelectedPrinter == "Combo Print")
+                            {
+                                printer.PrintAll();
                             }
                             else if (lastSelectedPrinter == "Barcodes")
                                 printer.PrintBarcodes();
