@@ -28,6 +28,18 @@
                 return "XE2SGROG1";
             else if (Serial.StartsWith("B60"))
                 return "CODA5810";
+            else if (Serial.StartsWith("ALC"))
+                return "XS010XQ";
+            else if (Serial.StartsWith("B1SC"))
+                return "SCHB1AEW";
+            else if (Serial.StartsWith("C3SC"))
+                return "SCHC3AE0";
+            else if (Serial.StartsWith("C22"))
+                return "SCHC2AEW";
+            else if (Serial.Contains("-"))
+                return "MR36HW";
+            else if (Serial.StartsWith("D2LD"))
+                return "LDHD2AZW";
             else
                 return "TG4482A";
         }

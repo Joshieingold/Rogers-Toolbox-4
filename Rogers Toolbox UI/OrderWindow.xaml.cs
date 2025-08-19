@@ -20,7 +20,7 @@ namespace Rogers_Toolbox_UI
         public OrderWindow(string inputSerials, int orderNumber)
         {
             InitializeComponent();
-            OrderNumberText = $"Order Number {orderNumber}";
+            OrderNumberText = $"Order #{orderNumber}";
             OrderHeader.Content = OrderNumberText;
 
             // Normalize to \n for consistent splitting
@@ -84,8 +84,59 @@ namespace Rogers_Toolbox_UI
             {
                 Content = serial.Serials.Count >= 1 ? serial.Serials[0].Device : "[Unknown Device]",
                 Margin = new Thickness(0, 0, 5, 0),
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                Style = (Style)FindResource("CustomTextButtonStyle")
             };
+            // Add this code inside AddSerialEntry(int index) after creating UpdateButton
+
+            TextBox deviceEditBox = new TextBox
+            {
+                Visibility = Visibility.Collapsed,
+                Width = 120,
+                Margin = new Thickness(0, 0, 5, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Style = (Style)FindResource("CustomTextBoxStyle")
+            };
+            // Device Button
+            var UpdateButton = new Button
+            {
+                Content = "♺",
+                Margin = new Thickness(0, 0, 5, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Style = (Style)FindResource("EditButtonStyle")
+            };
+            // Show the TextBox when UpdateButton is clicked
+            UpdateButton.Click += (sender, args) =>
+            {
+                deviceEditBox.Text = serial.Serials.Count >= 1 ? serial.Serials[0].Device : "";
+                deviceEditBox.Visibility = Visibility.Visible;
+                deviceEditBox.Focus();
+            };
+
+            // When the user presses Enter in the TextBox, update the device name
+            deviceEditBox.KeyDown += (sender, args) =>
+            {
+                if (args.Key == System.Windows.Input.Key.Enter)
+                {
+                    string newDeviceName = deviceEditBox.Text.Trim();
+                    if (!string.IsNullOrEmpty(newDeviceName) && serial.Serials.Count >= 1)
+                    {
+                        // Update UI button
+                        deviceButton.Content = newDeviceName;
+                        // Update model
+                        SerialsToImport[index].Serials[0].Device = newDeviceName;
+                        // Hide the textbox
+                        deviceEditBox.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else if (args.Key == System.Windows.Input.Key.Escape)
+                {
+                    deviceEditBox.Visibility = Visibility.Collapsed;
+                }
+            };
+
+            // Add the TextBox to the stack panel after UpdateButton
+            stack.Children.Add(deviceEditBox);
 
             // Capture index explicitly so it binds correctly
             deviceButton.Click += async (sender, args) =>
@@ -121,7 +172,7 @@ namespace Rogers_Toolbox_UI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error during BlitzImport:\n{ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Serials already loaded. Please recreate window to import again", "Serials Depleted", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             };
 
@@ -137,6 +188,7 @@ namespace Rogers_Toolbox_UI
 
             stack.Children.Add(checkBox);
             stack.Children.Add(deviceButton);
+            stack.Children.Add(UpdateButton);
             stack.Children.Add(infoIcon);
 
             SerialsStackPanel.Children.Add(stack);
@@ -147,6 +199,8 @@ namespace Rogers_Toolbox_UI
         {
             // wait a little bit.
             await Task.Delay(3500);
+            CheckAnySerialsChecked();
+
             if (initialImport == true || InventoryBox.Text != "")
             {
                 await SimulateTyping(LpnBox.Text);
@@ -197,6 +251,26 @@ namespace Rogers_Toolbox_UI
                 }
             }
             return true;
+        }
+        private void CheckAnySerialsChecked()
+        {
+            foreach (var child in SerialsStackPanel.Children)
+            {
+                if (child is StackPanel stackPanel)
+                {
+                    foreach (var element in stackPanel.Children)
+                    {
+                        if (element is CheckBox checkBox)
+                        {
+                            if (checkBox.IsChecked == true)
+                            {
+                                initialImport = false;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

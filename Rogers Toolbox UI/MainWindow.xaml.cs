@@ -47,7 +47,10 @@ namespace Rogers_Toolbox_UI
                 "- Pasting into the import box will not add white space at the bottom\n" +
                 "- Added Dragon Theme (try it!)\n" +
                 "- Rebranded Software Name\n" +
-                "- Changed Software Icon\n";
+                "- Changed Software Icon\n" +
+                "- Added more Device recognition\n" +
+                "- Added new order import Feature/Functionality\n" +
+                "- Updated Settings for newest Devices\n";
             if (Toolbox_Class_Library.Properties.Settings.Default.isFirstRun)
             {
                 TextBox.Text = updateText;
